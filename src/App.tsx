@@ -1,8 +1,10 @@
 import s from "./App.module.scss";
 import { useState } from "react";
 import { IPacker } from "./interfaces/packer.interface";
-import { usePackers } from "./hooks/usePackers";
+import { usePackers } from "./hooks/useAllPackers";
 import { packerService } from "./services/packer.service";
+import { usePacker } from "./hooks/usePacker";
+import { useAddIntDoc } from "./hooks/useAddIntDoc";
 
 export const App: React.FC = () => {
   const { isLoading, data, refetch } = usePackers();
@@ -10,7 +12,13 @@ export const App: React.FC = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
-
+  const {
+    isLoading: isLoadingPacker,
+    data: dataPacker,
+    refetch: fetchPacker,
+    isFetching,
+  } = usePacker(selectedPackerId);
+  const { mutate } = useAddIntDoc(Number(selectedPackerId), intDocNumber);
   const getPackers = () => {
     if (!buttonClicked) {
       setButtonClicked(true);
@@ -22,18 +30,22 @@ export const App: React.FC = () => {
   const setPacker = (packer: IPacker) => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
+    if (selectedPackerId) {
+      fetchPacker();
+    }
   };
-  const handleSubmit = async (event: React.FormEvent) => {
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event: React.FormEvent
+  ) => {
     event.preventDefault();
-    if (selectedPackerId && intDocNumber) { 
-        try { 
-            await packerService.scanIntDoc(selectedPackerId, intDocNumber);
-            alert('запит успішний');
-            setIntDocNumber('')
-        }
-        catch(error) {
-            alert('помилка ')
-        }
+    if (selectedPackerId && intDocNumber) {
+      try {
+        await mutate();
+        setIntDocNumber("");
+      } catch (error) {
+        alert("помилка");
+      }
     }
   };
 
@@ -45,42 +57,94 @@ export const App: React.FC = () => {
         isLoading ? (
           <div>Loading...</div>
         ) : data?.length ? (
-          <div>
+          <div >
             {data.map((packer) => (
-              <div
+              <div 
                 key={packer.id}
                 onClick={() => setPacker(packer)}
-                style={{ margin: "10px", cursor: "pointer" }}
+                style={{
+                  margin: "10px",
+                  cursor: "pointer",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  boxShadow:
+                    packer.id === selectedPackerId
+                      ? "0 4px 8px rgba(0, 0, 0, 0.2)"
+                      : "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  backgroundColor:
+                    packer.id === selectedPackerId ? "#f0f8ff" : "transparent",
+                }}
               >
                 {packer.name}
               </div>
             ))}
             {showForm && (
-              <form onSubmit={handleSubmit}>
-                <input
-                  style={{
-                    padding: "5px",
-                    margin: "10px",
-                    fontSize: "16px",
-                    border: "1px solid #ccc",
-                  }}
-                  type="text"
-                  placeholder="Введіть номер ттн"
-                  value={intDocNumber}
-                  onChange={(e) => setIntDocNumber(e.target.value)}
-                />
-                <button
-                  style={{
-                    padding: "5px 10px",
-                    fontSize: "16px",
-                    backgroundColor: "blue",
-                    color: "white",
-                    border: "none",
-                  }}
-                >
-                  Сабміт
-                </button>
-              </form>
+              <div>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    style={{
+                      padding: "5px",
+                      margin: "10px",
+                      fontSize: "16px",
+                      border: "1px solid #ccc",
+                    }}
+                    type="text"
+                    placeholder="Введіть номер ттн"
+                    value={intDocNumber}
+                    onChange={(e) => setIntDocNumber(e.target.value)}
+                  />
+                  <button
+                    style={{
+                      padding: "5px 10px",
+                      fontSize: "16px",
+                      backgroundColor: "blue",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    СКАН
+                  </button>
+                </form>
+                {isFetching && selectedPackerId ? (
+                  <div>Loading packer details...</div>
+                ) : dataPacker !== null && dataPacker !== undefined ? (
+                  <div>
+                    <h2>ттн пакувальника</h2>
+                    <h3>Кількість: {dataPacker.length}</h3>
+                    {dataPacker
+                      .concat()
+                      .reverse()
+                      .map((intDoc) => (
+                        <div
+                          key={intDoc.id}
+                          style={{
+                            backgroundColor: "#f8f8f8",
+                            padding: "5px",
+                            marginBottom: "10px",
+                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                            transition: "box-shadow 0.3s ease",
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.boxShadow =
+                              "0 4px 8px rgba(0, 0, 0, 0.2)";
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.boxShadow =
+                              "0 2px 4px rgba(0, 0, 0, 0.1)";
+                          }}
+                        >
+                          <p style={{ fontSize: "16px", marginBottom: "5px" }}>
+                            Номер: {intDoc.IntDocNumber}
+                          </p>
+                          <p style={{ fontSize: "14px", color: "#555" }}>
+                            Час сканування:{" "}
+                            {new Date(intDoc.createdAt).toLocaleString()}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                ) : null}
+              </div>
             )}
           </div>
         ) : (

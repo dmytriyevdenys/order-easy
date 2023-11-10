@@ -12,7 +12,7 @@ import { ApiResponse } from "../interfaces/api-response.interface";
     }
 
     async getPackerById(id: number) { 
-        return await axios.get(`${this.baseUrl}/${id}?include=internet_document`);
+        return await axios.get<IPacker>(`${this.baseUrl}/${id}?include=internet_document`);
     }
 
     async scanIntDoc (id: number, intDocNumber: string) { 
