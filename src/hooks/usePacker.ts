@@ -17,6 +17,14 @@ export const usePacker = (id: number | null) => {
        queryKey: ['packer',id ],
        queryFn: () => packerService.getPackerById(Number(id)),
        enabled: !!id,
-       select: ({data}) => data.internet_document
+       select: (data) => ({
+        intDocs: data?.internet_document
+          ? data.internet_document.concat().reverse().map((intDoc) => ({
+              id: intDoc.id,
+              IntDocNumber: intDoc.IntDocNumber,
+              createdAt: new Date(intDoc.createdAt).toLocaleString()
+            }))
+          : [],
+      }),
     })
  }

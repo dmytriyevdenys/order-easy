@@ -2,9 +2,9 @@ import s from "./App.module.scss";
 import { useState } from "react";
 import { IPacker } from "./interfaces/packer.interface";
 import { usePackers } from "./hooks/useAllPackers";
-import { packerService } from "./services/packer.service";
 import { usePacker } from "./hooks/usePacker";
 import { useAddIntDoc } from "./hooks/useAddIntDoc";
+import ErrorToast from "./components/shared/ErrorToast";
 
 export const App: React.FC = () => {
   const { isLoading, data, refetch } = usePackers();
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
     refetch: fetchPacker,
     isFetching,
   } = usePacker(selectedPackerId);
-  const { mutate } = useAddIntDoc(Number(selectedPackerId), intDocNumber);
+  const { mutate, isError} = useAddIntDoc(Number(selectedPackerId), intDocNumber);
   const getPackers = () => {
     if (!buttonClicked) {
       setButtonClicked(true);
@@ -31,8 +31,8 @@ export const App: React.FC = () => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
     if (selectedPackerId) {
-      fetchPacker();
-    }
+        
+      }
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -49,6 +49,7 @@ export const App: React.FC = () => {
     }
   };
 
+
   return (
     <div className={s.container} style={{ padding: "20px" }}>
       <h1>Тестова сторінка покувальника</h1>
@@ -57,9 +58,9 @@ export const App: React.FC = () => {
         isLoading ? (
           <div>Loading...</div>
         ) : data?.length ? (
-          <div >
+          <div>
             {data.map((packer) => (
-              <div 
+              <div
                 key={packer.id}
                 onClick={() => setPacker(packer)}
                 style={{
@@ -110,38 +111,34 @@ export const App: React.FC = () => {
                 ) : dataPacker !== null && dataPacker !== undefined ? (
                   <div>
                     <h2>ттн пакувальника</h2>
-                    <h3>Кількість: {dataPacker.length}</h3>
-                    {dataPacker
-                      .concat()
-                      .reverse()
-                      .map((intDoc) => (
-                        <div
-                          key={intDoc.id}
-                          style={{
-                            backgroundColor: "#f8f8f8",
-                            padding: "5px",
-                            marginBottom: "10px",
-                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                            transition: "box-shadow 0.3s ease",
-                          }}
-                          onMouseOver={(e) => {
-                            e.currentTarget.style.boxShadow =
-                              "0 4px 8px rgba(0, 0, 0, 0.2)";
-                          }}
-                          onMouseOut={(e) => {
-                            e.currentTarget.style.boxShadow =
-                              "0 2px 4px rgba(0, 0, 0, 0.1)";
-                          }}
-                        >
-                          <p style={{ fontSize: "16px", marginBottom: "5px" }}>
-                            Номер: {intDoc.IntDocNumber}
-                          </p>
-                          <p style={{ fontSize: "14px", color: "#555" }}>
-                            Час сканування:{" "}
-                            {new Date(intDoc.createdAt).toLocaleString()}
-                          </p>
-                        </div>
-                      ))}
+                    <h3>Кількість: {dataPacker.intDocs.length}</h3>
+                    {dataPacker.intDocs.map((intDoc) => (
+                      <div
+                        key={intDoc.id}
+                        style={{
+                          backgroundColor: "#f8f8f8",
+                          padding: "5px",
+                          marginBottom: "10px",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                          transition: "box-shadow 0.3s ease",
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.boxShadow =
+                            "0 4px 8px rgba(0, 0, 0, 0.2)";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.boxShadow =
+                            "0 2px 4px rgba(0, 0, 0, 0.1)";
+                        }}
+                      >
+                        <p style={{ fontSize: "16px", marginBottom: "5px" }}>
+                          Номер: {intDoc.IntDocNumber}
+                        </p>
+                        <p style={{ fontSize: "14px", color: "#555" }}>
+                          Час сканування: {intDoc.createdAt}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 ) : null}
               </div>
@@ -151,6 +148,7 @@ export const App: React.FC = () => {
           <h2>Покувальників не знайдено</h2>
         )
       ) : null}
+      {isError && <ErrorToast message={'ШО ТИ ВВОДИШ, БАРАН?'}/>}
     </div>
   );
 };
