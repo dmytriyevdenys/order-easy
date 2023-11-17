@@ -12,7 +12,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({ onPasswordSubmit }) => {
     e.preventDefault();
     onPasswordSubmit(password);
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <label>

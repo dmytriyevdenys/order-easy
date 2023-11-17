@@ -1,24 +1,38 @@
 import s from "./App.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IPacker } from "./interfaces/packer.interface";
 import { usePackers } from "./hooks/useAllPackers";
 import { usePacker } from "./hooks/usePacker";
 import { useAddIntDoc } from "./hooks/useAddIntDoc";
 import ErrorToast from "./components/shared/ErrorToast";
+import useOnlineStatus from "./hooks/useOnlineStatus";
+import {  useOfflineAddIntDoc } from "./hooks/useOfflineAddIntDoc";
+import { useSyncWithServer } from "./hooks/useSyncWithServer";
 
 export const App: React.FC = () => {
+  const isOnline = useOnlineStatus();
+
   const { isLoading, data, refetch } = usePackers();
   const [selectedPackerId, setSelectedPackerId] = useState<number | null>(null);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
-  const {
-    isLoading: isLoadingPacker,
-    data: dataPacker,
-    refetch: fetchPacker,
-    isFetching,
-  } = usePacker(selectedPackerId);
-  const { mutate, isError} = useAddIntDoc(Number(selectedPackerId), intDocNumber);
+  const { data: dataPacker, isFetching } = usePacker(selectedPackerId);
+  const { mutate, isError, error } = useAddIntDoc(
+    Number(selectedPackerId),
+    intDocNumber
+  );
+  const {mutate: syncMutate, isLoading: isSyncLoading, isSuccess} = useSyncWithServer(isOnline, Number(selectedPackerId))
+  const offLineTest = useOfflineAddIntDoc(Number(selectedPackerId), intDocNumber);
+
+  useEffect(() => {
+    if (isOnline) {
+      syncMutate() 
+    }
+  }, [isOnline]);
+
+
+
   const getPackers = () => {
     if (!buttonClicked) {
       setButtonClicked(true);
@@ -30,16 +44,13 @@ export const App: React.FC = () => {
   const setPacker = (packer: IPacker) => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
-    if (selectedPackerId) {
-        
-      }
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent
   ) => {
     event.preventDefault();
-    if (selectedPackerId && intDocNumber) {
+    if (selectedPackerId && intDocNumber && isOnline) {
       try {
         await mutate();
         setIntDocNumber("");
@@ -47,12 +58,18 @@ export const App: React.FC = () => {
         alert("помилка");
       }
     }
-  };
-
+    if (selectedPackerId && intDocNumber && !isOnline) {
+      offLineTest();
+      setIntDocNumber("");
+        }
+  };  
 
   return (
     <div className={s.container} style={{ padding: "20px" }}>
-      <h1>Тестова сторінка покувальника</h1>
+      <div className={s.networkStatus} style={{ backgroundColor: isOnline ? 'green' : 'red' }}>
+        <p>{isOnline ? 'Мережа доступна' : 'Мережі немає. Виконується локальна обробка'}</p>
+      </div>
+      <h1>Тестова сторінка пакувальника</h1>
       <button onClick={() => getPackers()}>Завантажити пакувальників</button>
       {buttonClicked ? (
         isLoading ? (
@@ -80,7 +97,7 @@ export const App: React.FC = () => {
               </div>
             ))}
             {showForm && (
-              <div>
+              <div style={{ margin: "10px" }}>
                 <form onSubmit={handleSubmit}>
                   <input
                     style={{
@@ -94,33 +111,29 @@ export const App: React.FC = () => {
                     value={intDocNumber}
                     onChange={(e) => setIntDocNumber(e.target.value)}
                   />
-                  <button
-                    style={{
-                      padding: "5px 10px",
-                      fontSize: "16px",
-                      backgroundColor: "blue",
-                      color: "white",
-                      border: "none",
-                    }}
-                  >
-                    СКАН
-                  </button>
+                  <button className={s.primary_button}>СКАН</button>
                 </form>
                 {isFetching && selectedPackerId ? (
                   <div>Loading packer details...</div>
                 ) : dataPacker !== null && dataPacker !== undefined ? (
-                  <div>
-                    <h2>ттн пакувальника</h2>
-                    <h3>Кількість: {dataPacker.intDocs.length}</h3>
-                    {dataPacker.intDocs.map((intDoc) => (
+                  <div style={{ margin: "10px" }}>
+                    <h2 style={{ margin: "10px" }}>ттн пакувальника</h2>
+                    <h3 style={{ margin: "10px" }}>
+                      Кількість: {dataPacker.intDocs.length}
+                    </h3>
+                    { dataPacker.intDocs.map((intDoc) => (    
+                    
                       <div
                         key={intDoc.id}
                         style={{
-                          backgroundColor: "#f8f8f8",
+                          backgroundColor: !!intDoc.addedOffline
+                          ? "gray" 
+                          : "#f8f8f8", 
                           padding: "5px",
                           marginBottom: "10px",
                           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                           transition: "box-shadow 0.3s ease",
+                          borderRadius: '10px'
                         }}
                         onMouseOver={(e) => {
                           e.currentTarget.style.boxShadow =
@@ -145,10 +158,10 @@ export const App: React.FC = () => {
             )}
           </div>
         ) : (
-          <h2>Покувальників не знайдено</h2>
+          <h2>Пакувальників не знайдено</h2>
         )
       ) : null}
-      {isError && <ErrorToast message={'ШО ТИ ВВОДИШ, БАРАН?'}/>}
+      {isError && <ErrorToast message={`${error.response?.data.message}`} />}
     </div>
   );
 };

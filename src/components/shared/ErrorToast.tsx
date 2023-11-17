@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-interface Props {
+type Props = {
     message: string;
 }
 
-const ErrorToast: React.FC<Props> = ({ message }) => {
+const ErrorToast: React.FC<Props> = ({message}) => {
     const [show, setShow] = useState(true);
 
     useEffect(() => {
 
         const timer = setTimeout(() => {
             setShow(false);
-        }, 3000);
-
+        }, 3000);    
         return () => {
             clearTimeout(timer);
         };

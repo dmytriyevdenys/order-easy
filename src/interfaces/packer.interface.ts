@@ -1,4 +1,4 @@
-import { IntDoc } from "../hooks/usePacker";
+import { IntDoc } from "./int-doc.type";
 
 export type IPacker = {
     id: number;

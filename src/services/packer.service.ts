@@ -1,7 +1,7 @@
 import axios from "axios"
 import { IPacker } from "../interfaces/packer.interface";
 import { ApiResponse } from "../interfaces/api-response.interface";
-import { IntDoc } from "../hooks/usePacker";
+import { IntDoc } from "../interfaces/int-doc.type";
 
  class PackerService { 
   private  baseUrl = 'http://localhost:8000/packer';
