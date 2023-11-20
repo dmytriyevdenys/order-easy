@@ -1,0 +1,28 @@
+@import '../../../../styles/global.scss';
+
+.button { 
+    padding: 12 6 12 6px;
+    color: #FFFFFF;
+    font-family: $font-family;
+    font-size: 14px;
+    height: 32px;
+    width: auto;
+    border-radius: 5px;
+    border: none;
+
+    &:hover {
+        background-color: $button-hover-color;
+    }
+    &:active {
+        transform: scale(0.98);
+        background-color: $button-active-color;
+    }
+}
+
+.primary { 
+    background-color: $button-default-color;
+}
+
+.secondary { 
+    background-color: $button-secondary-color;
+}

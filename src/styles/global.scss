@@ -1,6 +1,5 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
+@import './fonts.scss';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -54,14 +53,26 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-// Основні шрифти
-$body-font-family: 'Open Sans', sans-serif;
 
+
+
+// Основні шрифти
+$font-family: 'compact-regular';
+$font-family-medium: 'compact-meidum';
+$font-family-bold: 'compact-bold';
+$font-family-heavy: 'compact-heavy';
+$font-family-ligth: 'compact-ligth';
+$font-family-semibold: 'compact-semibold';
 
 // Основні кольори 
 $primary-color: #0052CC;
+$secondary-color: #DE350B;
 
-
+// Кольори кнопки
+$button-default-color: #0052CC;
+$button-secondary-color: #DE350B;
+$button-hover-color: #0065FF;
+$button-active-color: #0747A6;
 
 
 

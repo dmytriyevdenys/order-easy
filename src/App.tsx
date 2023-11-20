@@ -8,6 +8,7 @@ import ErrorToast from "./components/shared/ErrorToast";
 import useOnlineStatus from "./hooks/useOnlineStatus";
 import {  useOfflineAddIntDoc } from "./hooks/useOfflineAddIntDoc";
 import { useSyncWithServer } from "./hooks/useSyncWithServer";
+import { Button } from "./components/shared/ui/Button/Button";
 
 export const App: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -37,13 +38,13 @@ export const App: React.FC = () => {
     if (!buttonClicked) {
       setButtonClicked(true);
       refetch();
-      setShowForm(true);
     }
   };
 
   const setPacker = (packer: IPacker) => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
+    setShowForm(true);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -70,7 +71,7 @@ export const App: React.FC = () => {
         <p>{isOnline ? 'Мережа доступна' : 'Мережі немає. Виконується локальна обробка'}</p>
       </div>
       <h1>Тестова сторінка пакувальника</h1>
-      <button onClick={() => getPackers()}>Завантажити пакувальників</button>
+      <Button color="primary" onClick={() => getPackers()}>Завантажити пакувальників</Button>
       {buttonClicked ? (
         isLoading ? (
           <div>Loading...</div>
@@ -111,7 +112,7 @@ export const App: React.FC = () => {
                     value={intDocNumber}
                     onChange={(e) => setIntDocNumber(e.target.value)}
                   />
-                  <button className={s.primary_button}>СКАН</button>
+                  <Button color="primary" type="submit" >Скан</Button>
                 </form>
                 {isFetching && selectedPackerId ? (
                   <div>Loading packer details...</div>
