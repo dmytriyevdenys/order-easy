@@ -1,0 +1,27 @@
+.table_container {
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 14px;
+    border-right: 2px solid  #DFE1E6 ;
+  }
+  
+  table {
+    width: 87%;
+
+  }
+  
+  td {
+    padding: 10px;
+    text-align: left;
+    width: 200px;
+    height: 40px;
+ 
+  }
+  
+  th {
+    border-bottom: 2px solid  #DFE1E6;
+    text-align: left;
+    width: 200px;
+     height: 30px;
+  }

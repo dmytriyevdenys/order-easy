@@ -15,7 +15,7 @@ export const useOfflineAddIntDoc = (packerId: number, intDocNumber: string) => {
     Ref: "",
     EstimatedDeliveryDate: "",
     CostOnSite: "",
-    addedOffline: true
+    status: 'offline'
   };
   
   const setDateForLocalstoradge = () => {

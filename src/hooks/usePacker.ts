@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { packerService } from "../services/packer.service"
 
 
+
 export const usePacker = (id: number | null) => { 
 
     return useQuery({
@@ -14,7 +15,8 @@ export const usePacker = (id: number | null) => {
               id: intDoc.id,
               IntDocNumber: intDoc.IntDocNumber,
               createdAt: new Date(intDoc.createdAt).toLocaleString(),
-              addedOffline:intDoc.addedOffline
+              status:intDoc.status,
+              order_id: intDoc.order_id
             }))
           : [],
       }),
