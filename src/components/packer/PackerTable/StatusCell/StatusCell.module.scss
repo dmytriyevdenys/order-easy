@@ -1,0 +1,23 @@
+.changed {
+    background-color: green;
+  }
+  
+  .notChanged {
+    background-color: blue;
+  }
+  
+  .double {
+    background-color: red;
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+  }
+  
+  .offline {
+    background-color: grey;
+  }
+  .default { 
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+  }

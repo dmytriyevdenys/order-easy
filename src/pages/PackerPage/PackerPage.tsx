@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import s from './PackerPage.module.scss'
-import useOnlineStatus from "../../hooks/useOnlineStatus";
-import { usePackers } from "../../hooks/useAllPackers";
-import { usePacker } from "../../hooks/usePacker";
-import { useAddIntDoc } from "../../hooks/useAddIntDoc";
-import { useOfflineAddIntDoc } from "../../hooks/useOfflineAddIntDoc";
-import { useSyncWithServer } from "../../hooks/useSyncWithServer";
+import useOnlineStatus from "../../hooks/Packer/useOnlineStatus";
+import { usePackers } from "../../hooks/Packer/useAllPackers";
+import { usePacker } from "../../hooks/Packer/usePacker";
+import { useAddIntDoc } from "../../hooks/Packer/useAddIntDoc";
+import { useOfflineAddIntDoc } from "../../hooks/Packer/useOfflineAddIntDoc";
+import { useSyncWithServer } from "../../hooks/Packer/useSyncWithServer";
 import { IPacker } from "../../interfaces/packer.interface";
 import { Button } from "../../components/shared/ui/Button/Button";
 import ErrorToast from "../../components/shared/ErrorToast";
@@ -19,8 +19,8 @@ export const PackerPage: React.FC = () => {
     const [selectedPackerId, setSelectedPackerId] = useState<number | null>(null);
     const [buttonClicked, setButtonClicked] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [intDocNumber, setIntDocNumber] = useState("");
-    const { data: dataPacker, isFetching } = usePacker(selectedPackerId);
+    const [intDocNumber, setIntDocNumber] = useState('');
+    const { data: intDocs, isFetching } = usePacker(selectedPackerId);
     const { mutate, isError, error, isSuccess: isSuccessScan } = useAddIntDoc(
       Number(selectedPackerId),
       intDocNumber
@@ -66,6 +66,8 @@ export const PackerPage: React.FC = () => {
         setIntDocNumber("");
           }
     };
+    console.log(intDocs);
+    
     return (
         <div className={s.container} style={{ padding: "20px" }}>
       <div className={s.networkStatus} style={{ backgroundColor: isOnline ? 'green' : 'red' }}>
@@ -117,11 +119,11 @@ export const PackerPage: React.FC = () => {
                 </form>
                 {isFetching && selectedPackerId ? (
                   <div>Loading packer details...</div>
-                ) : dataPacker !== null && dataPacker !== undefined ? (
+                ) : intDocs !== null && intDocs !== undefined ? (
                   <div style={{ margin: "10px" }}>
                     <h2 style={{ margin: "10px" }}>ттн пакувальника</h2>
                     <h3 style={{ margin: "10px" }}>
-                      Кількість: {dataPacker.intDocs.length}
+                     Загальна Кількість: {intDocs.total}
                     </h3>
                   </div>
                 ) : null}
@@ -133,7 +135,7 @@ export const PackerPage: React.FC = () => {
         )
       ) : null}
       {isError && <ErrorToast message={`${error.response?.data.message}`} />}
-    { (dataPacker || isSuccessScan) && <PackerTable data={dataPacker?.intDocs ? dataPacker.intDocs : []}/>}
+    { (intDocs  ) && <PackerTable data={intDocs?.data ? intDocs.data : []}/>}
     </div>
 
     )

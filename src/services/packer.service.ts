@@ -2,18 +2,20 @@ import axios from "axios"
 import { IPacker } from "../interfaces/packer.interface";
 import { ApiResponse } from "../interfaces/api-response.interface";
 import { IntDoc } from "../interfaces/int-doc.type";
+import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
 
  class PackerService { 
   private  baseUrl = 'http://localhost:8000/packer';
-
+  private baseUrlIntDoc = 'http://localhost:8000/internet-document?packerId='
 
     async getAllPackers () {
         const packers = await axios.get<ApiResponse<IPacker[]>>(this.baseUrl);  
         return  packers
     }
 
-    async getPackerById(id: number) {
-        const response = await axios.get<IPacker>(`${this.baseUrl}/${id}?include=internet_document`);
+    async getPackerById(id: number): Promise<ApiResponse<IntDoc[]>> {
+        const response = await axios.get<ApiResponse<IntDoc[]>>(`${this.baseUrlIntDoc}${id}`);
+        
         return response.data; 
     }
 
@@ -22,9 +24,9 @@ import { IntDoc } from "../interfaces/int-doc.type";
         return response.data
     }
  
-    async scanIntDoc (id: number, intDocNumber: string): Promise<IntDoc> {
-        const response  =  await axios.post<ApiResponse<IntDoc>>(`${this.baseUrl}/${id}/scan/${intDocNumber}`);
-        return response.data.data
+    async scanIntDoc (id: number, intDoc: TScanIntDoc): Promise<ApiResponse<IntDoc>> {
+        const response  =  await axios.post<ApiResponse<IntDoc>>(`${this.baseUrl}/${id}/scan/`, intDoc);  
+        return response.data
     }
 }
 

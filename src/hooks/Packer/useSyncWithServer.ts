@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LocalStorageManager } from "../local-storage";
-import { packerService } from "../services/packer.service";
-import { IntDoc } from "../interfaces/int-doc.type";
+import { LocalStorageManager } from "../../local-storage";
+import { packerService } from "../../services/packer.service";
+import { IntDoc } from "../../interfaces/int-doc.type";
 
 export const useSyncWithServer = (isOnline: boolean, packerId: number) => {
   const localStorage = new LocalStorageManager<IntDoc>(packerId.toString());
@@ -14,7 +14,7 @@ export const useSyncWithServer = (isOnline: boolean, packerId: number) => {
           storageData.map(async (intDoc) => {
             return await packerService.scanIntDoc(
               packerId,
-              intDoc.IntDocNumber
+              {IntDocNumber: intDoc.IntDocNumber, createdAt: intDoc.createdAt}
             );
           })
         );

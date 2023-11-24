@@ -4,15 +4,15 @@ import {
     getCoreRowModel,
     useReactTable,
   } from '@tanstack/react-table'
-import { useState } from 'react';
 import s from './PackerTable.module.scss'
+import { StatusSell } from './StatusCell/StatusCell';
 
 type IntDocTable = { 
   id: number ,
   IntDocNumber: string,
   createdAt: string,
   status: string,
-  order_id: number | undefined
+  order_id?: number | undefined
 }
 
   const columnHelper = createColumnHelper<IntDocTable>();
@@ -32,50 +32,50 @@ type IntDocTable = {
     }),
     columnHelper.accessor('status', {
       header: () => 'Статус',
-      cell: info => info.getValue()
+      cell: info => <StatusSell status={info.getValue()}></StatusSell>
     })
   ]
 
 export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
 
-    const table = useReactTable({
+    const table = useReactTable<IntDocTable>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
       });
       
     return (
-   <div className={s.table_container}>
-    <table>
-      <thead>
-        {table.getHeaderGroups().map(headerElem => {
-          return <tr key={headerElem.id}>
-            {headerElem.headers.map(columnElem => { 
-              return <th key={columnElem.id}>
-                {flexRender(
-                  columnElem.column.columnDef.header,
-                  columnElem.getContext()
-                )}
-              </th>
-            })}
-          </tr>
-        })}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(rowElem => {
-          return <tr key={rowElem.id}>
-            {rowElem.getVisibleCells().map(cellElem => {
-              return <td key={cellElem.id}>
-                {flexRender(
-                  cellElem.column.columnDef.cell,
-                  cellElem.getContext()
-                )}
-              </td>
-            })}
-          </tr>
-        })}
-      </tbody>
-    </table>
-   </div>
+      <div className={s.table_container}>
+      <table>
+        <thead>
+          {table.getHeaderGroups().map((headerElem) => (
+            <tr key={headerElem.id}>
+              {headerElem.headers.map((columnElem) => (
+                <th key={columnElem.id}>
+                  {flexRender(
+                    columnElem.column.columnDef.header,
+                    columnElem.getContext()
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((rowElem) => (
+            <tr key={rowElem.id} >
+              {rowElem.getVisibleCells().map((cellElem) => (
+                <td key={cellElem.id} className={s[cellElem.getValue.toString()]}>
+                  {flexRender(
+                    cellElem.column.columnDef.cell,
+                    cellElem.getContext()
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     )
 }
