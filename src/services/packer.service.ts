@@ -6,18 +6,19 @@ import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
 
  class PackerService { 
   private  baseUrl = 'http://localhost:8000/packer';
-  private baseUrlIntDoc = 'http://localhost:8000/internet-document?packerId='
+  private baseUrlIntDoc = 'http://localhost:8000/internet-document'
 
     async getAllPackers () {
         const packers = await axios.get<ApiResponse<IPacker[]>>(this.baseUrl);  
         return  packers
     }
 
-    async getPackerById(id: number): Promise<ApiResponse<IntDoc[]>> {
-        const response = await axios.get<ApiResponse<IntDoc[]>>(`${this.baseUrlIntDoc}${id}`);
-        
-        return response.data; 
-    }
+    async getIntDocs(packerId?: number): Promise<ApiResponse<IntDoc[]>> {
+        const url = packerId ? `${this.baseUrlIntDoc}?packerId=${packerId}` : this.baseUrlIntDoc;
+      
+          const response = await axios.get<ApiResponse<IntDoc[]>>(url);
+          return response.data;
+      }
 
     async checkPacker (id: number, password: {password: string}): Promise<IPacker> {
         const response = await axios.post<IPacker>(`${this.baseUrl}/${id}`, password);

@@ -12,11 +12,15 @@ type IntDocTable = {
   IntDocNumber: string,
   createdAt: string,
   status: string,
-  order_id?: number | undefined
+  order_id?: number | undefined,
+  packer?: {
+    name: string
+  }
 }
+const columnHelper = createColumnHelper<IntDocTable>();
 
-  const columnHelper = createColumnHelper<IntDocTable>();
-  const columns = [
+export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
+   const columns = [
     columnHelper.accessor('IntDocNumber' ,{
       header: () => '№ ТТН',
       cell: info => info.getValue(),
@@ -33,11 +37,14 @@ type IntDocTable = {
     columnHelper.accessor('status', {
       header: () => 'Статус',
       cell: info => <StatusSell status={info.getValue()}></StatusSell>
-    })
-  ]
-
-export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
-
+    }),
+    ...data.some((item) => item.packer?.name)
+    ? [columnHelper.accessor('packer.name', {
+        header: () => 'Пакувальник',
+        cell: (info) => info.row.original.packer?.name || 'N/A',
+      })]
+    : [],
+  ]  
     const table = useReactTable<IntDocTable>({
         data,
         columns,

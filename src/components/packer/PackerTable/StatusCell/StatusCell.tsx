@@ -1,12 +1,12 @@
 import s from './StatusCell.module.scss';
 
-type SellProp = {
+type СellProp = {
     status: string
 }
-export const StatusSell: React.FC<SellProp> = ({ status }) => {
+export const StatusSell: React.FC<СellProp> = ({ status }) => {
     let colorClass;
   
-    switch (status.toLowerCase()) {
+    switch (status) {
       case 'changed':
         colorClass = s.changed;
         break;
@@ -23,7 +23,7 @@ export const StatusSell: React.FC<SellProp> = ({ status }) => {
         colorClass = '';
     }
   
-    return   <div className={`${s.badge} ${colorClass}`} style={{ width: '100px', height: '20px', borderRadius: '5px' }}>
+    return   <div className={`${s.default} ${colorClass}`}  >
     {status}
   </div>
   };

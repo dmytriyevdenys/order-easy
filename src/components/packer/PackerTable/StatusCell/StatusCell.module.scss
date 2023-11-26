@@ -1,23 +1,29 @@
 .changed {
-    background-color: green;
+    background-color: #00875A;
   }
   
   .notChanged {
-    background-color: blue;
+    background: #FF8B00;
   }
   
   .double {
-    background-color: red;
-    width: 100px;
-    height: 20px;
-    border-radius: 5px;
+    background: #DE350B;
   }
   
   .offline {
     background-color: grey;
   }
   .default { 
-    width: 100px;
-    height: 20px;
-    border-radius: 5px;
+    margin: 0;
+    width: 70px;
+    min-height: 16px;
+    border-radius: 3px;
+    padding: 0px, 4px, 0px, 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffff;
+    font-size: 11px;
+    font-weight: 700;
   }
