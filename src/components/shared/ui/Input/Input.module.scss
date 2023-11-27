@@ -1,0 +1,106 @@
+@import '../../../../styles/global.scss';
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+.inputContainer {
+    position: relative;
+    font-family: $font-family-compact;
+    font-weight: 400px;
+    font-size: 14px;
+}
+
+.errorContainer {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    height: 32px;
+    width: 100%;
+    text-indent: 3%;
+    font-family: $font-family-pro;
+    font-size: 14px;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
+        linear-gradient(0deg, #EEEFF2, #EEEFF2);
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #EEEFF2;
+
+    &:hover {
+        border-bottom: 1px solid #42526E;
+
+        ~.iconContainer {
+            fill: #42526E;
+        }
+    }
+
+    &:focus {
+        border-bottom: 1px solid #4C9AFF;
+
+        ~.iconContainer {
+            fill: #42526E;
+        }
+    }
+
+    &.errorBorder {
+        border-bottom: 1px solid #DE350B;
+    }
+
+}
+
+.errorMessage {
+    font-family: $font-family-compact;
+    font-weight: 400;
+    font-size: 12px;
+    color: #DE350B;
+}
+
+.errorIcon {
+    fill: #DE350B;
+    width: 16px;
+    height: 16px;
+}
+
+.iconContainer {
+    position: absolute;
+    transform: translateY(-50%);
+    fill: #7A869A;
+
+
+    &.selectIcon {
+        width: 6.67px;
+        height: 4.17px;
+        top: 50%;
+        right: 8px;
+    }
+
+    &.globeIcon {
+        width: 10.5px;
+        height: 10.5px;
+        top: 50%;
+        right: 8px;
+    }
+
+    &.grivnjaIcon {
+        width: 8px;
+        height: 20px;
+        top: 65%;
+        right: 8px;
+    }
+
+    &.searchIcon {
+        width: 15.65px;
+        height: 15.77px;
+        top: 50%;
+        right: 8px;
+    }
+
+}

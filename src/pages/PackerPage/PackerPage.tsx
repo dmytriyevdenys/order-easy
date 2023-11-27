@@ -11,6 +11,7 @@ import ErrorToast from "../../components/shared/ErrorToast";
 import { PackerTable } from "../../components/packer/PackerTable/PackerTable";
 import { useIntDocs } from "../../hooks/Packer/useIntDocs";
 import { useSseIntDoc } from "../../hooks/Packer/useSseIntDoc";
+import { Input } from "../../components/shared/ui/Input/Input";
 
 export const PackerPage: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -20,7 +21,8 @@ export const PackerPage: React.FC = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
-  const {data: intDocs, isFetching: isFetchingIntDocs} = useIntDocs(selectedPackerId)
+  const { data: intDocs, isFetching: isFetchingIntDocs } =
+    useIntDocs(selectedPackerId);
   const { mutate, isError, error } = useAddIntDoc(
     Number(selectedPackerId),
     intDocNumber
@@ -69,8 +71,8 @@ export const PackerPage: React.FC = () => {
       offLineAddIntDoc();
       setIntDocNumber("");
     }
-  };    
-  
+  };
+
   return (
     <div className={s.container} style={{ padding: "20px" }}>
       <div
@@ -115,19 +117,12 @@ export const PackerPage: React.FC = () => {
             {showForm && (
               <div style={{ margin: "10px" }}>
                 <form onSubmit={handleSubmit}>
-                  <input
-                    style={{
-                      padding: "5px",
-                      margin: "10px",
-                      fontSize: "16px",
-                      border: "1px solid #ccc",
-                    }}
-                    type="text"
+                  <Input
+                    variant='default'
+                    type="number"
                     placeholder="Введіть номер ттн"
-                    value={intDocNumber}
-                    onChange={(e) => setIntDocNumber(e.target.value)}
-                  />
-                  <Button color="primary" type="submit">
+                  ></Input>
+                  <Button color='primary' type="submit">
                     Скан
                   </Button>
                 </form>
@@ -146,10 +141,13 @@ export const PackerPage: React.FC = () => {
         )
       ) : null}
       <h3 style={{ margin: "10px" }}>
-        Загальна Кількість: {!selectedPackerId ? intDocs?.total : intDocs?.total}
+        Загальна Кількість:{" "}
+        {!selectedPackerId ? intDocs?.total : intDocs?.total}
       </h3>
       {isError && <ErrorToast message={`${error.response?.data.message}`} />}
-      {(intDocs && !isFetchingIntDocs ) && <PackerTable data={intDocs.data ? intDocs.data: []}/>}
+      {intDocs && !isFetchingIntDocs && (
+        <PackerTable data={intDocs.data ? intDocs.data : []} />
+      )}
     </div>
   );
 };

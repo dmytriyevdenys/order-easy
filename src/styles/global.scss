@@ -57,12 +57,18 @@ table {
 
 
 // Основні шрифти
-$font-family: 'compact-regular';
-$font-family-medium: 'compact-meidum';
-$font-family-bold: 'compact-bold';
-$font-family-heavy: 'compact-heavy';
-$font-family-ligth: 'compact-ligth';
-$font-family-semibold: 'compact-semibold';
+$font-family-compact: 'compact-regular';
+$font-family-medium-compact: 'compact-meidum';
+$font-family-bold-compact: 'compact-bold';
+$font-family-heavy-compact: 'compact-heavy';
+$font-family-ligth-compact: 'compact-ligth';
+$font-family-semibold-compact: 'compact-semibold';
+$font-family-pro: 'pro-regular';
+$font-family-medium-pro: 'pro-meidum';
+$font-family-bold-pro: 'pro-bold';
+$font-family-heavy-pro: 'pro-heavy';
+$font-family-ligth-pro: 'pro-ligth';
+$font-family-semibold-pro: 'pro-semibold';
 
 // Основні кольори 
 $primary-color: #0052CC;
