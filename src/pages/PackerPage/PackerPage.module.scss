@@ -1,35 +1,88 @@
 @import '../../styles/global.scss';
 
-.container { 
+
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row-reverse;
+    justify-content:space-around;
     margin: 10px;
-    font-family: $font-family-pro;
-}
-
-.primary_button {
-    font-size: 16px;
-    color: white;
-    padding: 6px;
-    border-radius: 5px;
-    border: none;
-    background-color: $primary-color;
-
-        &:hover {
-            background-color: $primary-color;
-        }
-       &:active {
+    position: relative;
+  
+    .paginationContainer {
+      margin-top: 10px;
+    }
+  
+    .primary_button {
+      font-size: 16px;
+      color: white;
+      padding: 6px;
+      border-radius: 5px;
+      border: none;
+      background-color: $primary-color;
+  
+      &:hover {
+        background-color: $primary-color;
+      }
+  
+      &:active {
         transform: scale(0.98);
         background-color: #0747A6;
-          }
+      }
+    }
+  
+    .networkStatus {
+      position: absolute;
+      left: 20px;
+      padding: 10px;
+      color: white;
+    }
+  
+    .table_container{ 
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
 
+        .form_container { 
+            width: 100%;
+            display: flex;
+            justify-content:space-between;
+
+            .form_int_doc { 
+                display: flex;
+                gap: 20px;
+            }
+
+            .filter_container { 
+                display: flex;
+                gap: 20px;
+            }
+        }
+    
+        .form_int_doc { 
+            display: flex;
+            gap: 20px;
+        }
+
+        .paginationContainer { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
     }
 
-    .networkStatus {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 10px;
-        color: white;
-      }
+    .packer { 
+        min-width: 390px;
+        margin: 50px 0 0 ;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+
+  
+  }
+  

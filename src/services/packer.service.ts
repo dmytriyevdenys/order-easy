@@ -1,6 +1,6 @@
 import axios from "axios"
 import { IPacker } from "../interfaces/packer.interface";
-import { ApiResponse } from "../interfaces/api-response.interface";
+import { ApiResponse, ApiResponsePagination } from "../interfaces/api-response.interface";
 import { IntDoc } from "../interfaces/int-doc.type";
 import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
 
@@ -13,11 +13,22 @@ import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
         return  packers
     }
 
-    async getIntDocs(packerId?: number): Promise<ApiResponse<IntDoc[]>> {
-        const url = packerId ? `${this.baseUrlIntDoc}?packerId=${packerId}` : this.baseUrlIntDoc;
+    async getIntDocs({
+        packerId,
+        options = {},
+      }: {
+        packerId?: number;
+        options?: { limit?: number; page?: number };
+      } = {}): Promise<ApiResponsePagination<IntDoc[]>> {
+        const url = packerId
+          ? `${this.baseUrlIntDoc}?packerId=${packerId}`
+          : this.baseUrlIntDoc;
       
-          const response = await axios.get<ApiResponse<IntDoc[]>>(url);
-          return response.data;
+        const response = await axios.get<ApiResponsePagination<IntDoc[]>>(url, {
+          params: options,
+        });
+      
+        return response.data;
       }
 
     async checkPacker (id: number, password: {password: string}): Promise<IPacker> {

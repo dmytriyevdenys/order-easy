@@ -1,6 +1,10 @@
 export interface ApiResponse<T> {
-    success: boolean;
-    status_code: number;
+  success: boolean;
+  status_code: number
+  data: T;
+  } 
+
+  export type ApiResponsePagination<T> = ApiResponse<T> & {
     current_page: number,
     per_page: number,
     total_pages: number,
@@ -8,5 +12,5 @@ export interface ApiResponse<T> {
     first_page: string,
     next_page: string,
     last_page: string
-    data: T;
-  }
+    previous_page: string
+  } 

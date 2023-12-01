@@ -26,7 +26,8 @@ input[type="number"] {
     height: 32px;
     width: 100%;
     text-indent: 3%;
-    font-family: $font-family-pro;
+    font-family: $font-family-ligth-compact;
+    font-weight: 400px;
     font-size: 14px;
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
         linear-gradient(0deg, #EEEFF2, #EEEFF2);
@@ -78,7 +79,7 @@ input[type="number"] {
     &.selectIcon {
         width: 6.67px;
         height: 4.17px;
-        top: 50%;
+        top: 40%;
         right: 8px;
     }
 

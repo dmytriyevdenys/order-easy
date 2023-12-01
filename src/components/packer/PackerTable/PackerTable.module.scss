@@ -1,43 +1,55 @@
+@import "../../../styles/global.scss";
+
 .table_container {
-    margin-top: 20px;
-    width: 100%;
+  font-family: $font-family-pro;
+    width: 870px;
     overflow-x: auto;
     font-size: 14px;
-    border-right: 2px solid  #DFE1E6 ;
-  }
-  
-  table {
-    width: 87%;
+    max-height: 575px;
+    overflow-y: scroll;
+    border-bottom: 2px solid #DFE1E6 ;
 
+    thead.header {
+      border-bottom: 2px solid #DFE1E6;
+      color: #6B778C;
+    font-size: 12px;
+    font-weight: 600px;
+      text-align: left;
+      width: 200px;
+      height: 30px;
   }
-  
-  td {
-    padding: 10px;
-    text-align: left;
-    width: 200px;
-    height: 40px;
- 
-  }
-  
-  th {
-    border-bottom: 2px solid  #DFE1E6;
-    text-align: left;
-    width: 200px;
-     height: 30px;
-  }
+}
 
-  .changed {
-    background-color: green;
-  }
-  
-  .not-changed {
-    background-color: blue;
-  }
-  
-  .double {
-    background-color: red;
-  }
-  
-  .offline {
-    background-color: grey;
-  }
+.table_container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.table_container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+table {
+    
+    width: 100%;    
+    height: 100%;
+    border-bottom: 2px solid #DFE1E6;
+
+    td {
+        font-size: 14px;
+        padding-top: 10px;
+        width: 200px;
+        height: 40px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

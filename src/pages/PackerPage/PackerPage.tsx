@@ -12,6 +12,7 @@ import { PackerTable } from "../../components/packer/PackerTable/PackerTable";
 import { useIntDocs } from "../../hooks/Packer/useIntDocs";
 import { useSseIntDoc } from "../../hooks/Packer/useSseIntDoc";
 import { Input } from "../../components/shared/ui/Input/Input";
+import { Pagination } from "../../components/pagination/Pagination";
 
 export const PackerPage: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -21,8 +22,14 @@ export const PackerPage: React.FC = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
-  const { data: intDocs, isFetching: isFetchingIntDocs } =
-    useIntDocs(selectedPackerId);
+  const [currenetPage, setCurrentPage] = useState(1);
+  const { data: intDocs, isFetching: isFetchingIntDocs } = useIntDocs(
+    { page: currenetPage },
+    Number(selectedPackerId)
+  );
+
+  
+
   const { mutate, isError, error } = useAddIntDoc(
     Number(selectedPackerId),
     intDocNumber
@@ -35,7 +42,6 @@ export const PackerPage: React.FC = () => {
     Number(selectedPackerId),
     intDocNumber
   );
-
   useEffect(() => {
     if (isOnline) {
       syncMutate();
@@ -53,6 +59,10 @@ export const PackerPage: React.FC = () => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
     setShowForm(true);
+  };
+
+  const onPageChangeHanlde = (newPage: number) => {
+    setCurrentPage(newPage);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -74,7 +84,8 @@ export const PackerPage: React.FC = () => {
   };
 
   return (
-    <div className={s.container} style={{ padding: "20px" }}>
+    <div className={s.container} >
+      
       <div
         className={s.networkStatus}
         style={{ backgroundColor: isOnline ? "green" : "red" }}
@@ -85,8 +96,9 @@ export const PackerPage: React.FC = () => {
             : "Мережі немає. Виконується локальна обробка"}
         </p>
       </div>
-      <h1>Тестова сторінка пакувальника</h1>
-      <Button color="primary" onClick={() => getPackers()}>
+      <div>
+      <div className={s.packer} >
+      <Button color="primary" onClick={() => getPackers()} style={{maxWidth: "200px"}}>
         Завантажити пакувальників
       </Button>
       {buttonClicked ? (
@@ -114,27 +126,7 @@ export const PackerPage: React.FC = () => {
                 {packer.name}
               </div>
             ))}
-            {showForm && (
-              <div style={{ margin: "10px" }}>
-                <form onSubmit={handleSubmit}>
-                  <Input
-                    variant='default'
-                    type="number"
-                    placeholder="Введіть номер ттн"
-                  ></Input>
-                  <Button color='primary' type="submit">
-                    Скан
-                  </Button>
-                </form>
-                {isFetchingIntDocs && selectedPackerId ? (
-                  <div>Loading packer details...</div>
-                ) : intDocs !== null && intDocs !== undefined ? (
-                  <div style={{ margin: "10px" }}>
-                    <h2 style={{ margin: "10px" }}>ттн пакувальника</h2>
-                  </div>
-                ) : null}
-              </div>
-            )}
+          
           </div>
         ) : (
           <h2>Пакувальників не знайдено</h2>
@@ -144,10 +136,52 @@ export const PackerPage: React.FC = () => {
         Загальна Кількість:{" "}
         {!selectedPackerId ? intDocs?.total : intDocs?.total}
       </h3>
+      </div>
+      </div>
+      <div className={s.table_container}>
+        <div className={s.form_container}>
+                <form onSubmit={handleSubmit} className={s.form_int_doc} >
+                  <Input
+                    variant="default"
+                    type="number"
+                    placeholder="Введіть номер ттн"
+                    value={intDocNumber}
+                    onChange={(e) => setIntDocNumber(e.target.value)}
+                    disabled={!selectedPackerId}
+                  
+                  ></Input>
+                  <Button color="primary" type="submit" disabled={!selectedPackerId}>
+                    Скан
+                  </Button>
+                </form>
+                <div className={s.filter_container}>
+                <Input
+                  variant='search'
+                  type='text'
+                  placeholder='Пошук'
+                  />
+                  <Input variant='select' placeholder="№ замовлення"/>
+                </div>
+                </div>   
       {isError && <ErrorToast message={`${error.response?.data.message}`} />}
-      {intDocs && !isFetchingIntDocs && (
-        <PackerTable data={intDocs.data ? intDocs.data : []} />
+      <div>
+      { intDocs  && (
+        <PackerTable data={intDocs?.data ? intDocs.data : []} />
       )}
+      <div className={s.paginationContainer}>
+        {!isFetchingIntDocs && (
+          <Pagination
+            siblingCount={1}
+            total_pages={intDocs?.total_pages ? intDocs.total_pages : 1}
+            current_page={currenetPage}
+            next_page={intDocs?.next_page ? intDocs.next_page : ""}
+            previous_page={intDocs?.previous_page ? intDocs?.previous_page : ""}
+            onPageChange={(n) => onPageChangeHanlde(n)}
+          />
+        )}
+           </div>
+      </div>
+      </div>
     </div>
   );
 };

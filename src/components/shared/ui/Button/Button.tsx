@@ -6,7 +6,14 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 }
 
-export const Button: React.FC<ButtonProps> = ({color, children, ...props }) => { 
+export const Button: React.FC<ButtonProps> = ({color, disabled, children, ...props }) => { 
     const buttonClass = s[color];
-    return <button className={`${s.button} ${buttonClass}`}  {...props}>{children}</button>
+    const disabledClass = disabled ? s.disabled : ''; // Додаємо клас, якщо кнопка відключена
+
+    return <button 
+    className={disabled ? disabledClass:`${s.button} ${buttonClass}`}
+    disabled={disabled}
+    {...props}>
+        {children}
+        </button>
 }
