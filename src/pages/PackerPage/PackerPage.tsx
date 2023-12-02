@@ -20,7 +20,6 @@ export const PackerPage: React.FC = () => {
   const { isLoading, data, refetch } = usePackers();
   const [selectedPackerId, setSelectedPackerId] = useState<number | null>(null);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
   const [currenetPage, setCurrentPage] = useState(1);
   const { data: intDocs, isFetching: isFetchingIntDocs } = useIntDocs(
@@ -58,7 +57,6 @@ export const PackerPage: React.FC = () => {
   const setPacker = (packer: IPacker) => {
     alert(`Ви обрали пакувальника ${packer.name}`);
     setSelectedPackerId(packer.id);
-    setShowForm(true);
   };
 
   const onPageChangeHanlde = (newPage: number) => {
@@ -85,8 +83,8 @@ export const PackerPage: React.FC = () => {
 
   return (
     <div className={s.container} >
-      
-      <div
+        <div className={s.packer_container}>
+      <div 
         className={s.networkStatus}
         style={{ backgroundColor: isOnline ? "green" : "red" }}
       >
@@ -138,6 +136,7 @@ export const PackerPage: React.FC = () => {
       </h3>
       </div>
       </div>
+      </div>
       <div className={s.table_container}>
         <div className={s.form_container}>
                 <form onSubmit={handleSubmit} className={s.form_int_doc} >
@@ -148,7 +147,6 @@ export const PackerPage: React.FC = () => {
                     value={intDocNumber}
                     onChange={(e) => setIntDocNumber(e.target.value)}
                     disabled={!selectedPackerId}
-                  
                   ></Input>
                   <Button color="primary" type="submit" disabled={!selectedPackerId}>
                     Скан

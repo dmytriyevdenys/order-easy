@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import s from "./Pagination.module.scss"
+import { PaginationItem } from "./PaginationItem/PaginationItem";
 
 type PaginationProps = {
   current_page: number;
@@ -21,7 +22,6 @@ export const Pagination: React.FC<PaginationProps> = ({
   elems = 5,
   siblingCount = 1,
 }) => {
-  const [currentPage, setCurrentPage]= useState<number>(current_page);
 
   const range = (
     from: number,
@@ -68,36 +68,32 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const pages = useMemo(
     () => fetchPageNumbers(),
-    [total_pages, current_page, siblingCount]
+    [fetchPageNumbers]
   );
 
   return (
-    <div>
-      <button
+    <div className={s.container}>
+      <PaginationItem typeIcon='left'
         disabled={current_page <= 1}
         onClick={() => onPageChange(current_page - 1)}
-      >
-        {"<"}
-      </button>
-
-      {pages.map((pageNumber: number | string, index) => (
-        <span className={ (current_page === pageNumber) ? s.current : ''}
+      />
+        <div >
+        {pages.map((pageNumber: number | string, index) => (
+        <PaginationItem
+        pageNumber={pageNumber}
           key={index}
-          style={{ cursor: "pointer", margin: "0 5px" }}
           onClick={() =>
             typeof pageNumber === "number" && onPageChange(Number(pageNumber))
           }
         >
           {pageNumber}
-        </span>
+        </PaginationItem>
       ))}
-
-      <button
-        disabled={current_page >= total_pages}
+        </div>
+<PaginationItem typeIcon='rigth'
+        disabled={current_page <= 1}
         onClick={() => onPageChange(current_page + 1)}
-      >
-        {">"}
-      </button>
+      />
     </div>
   );
 };

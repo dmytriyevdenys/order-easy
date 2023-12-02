@@ -22,6 +22,17 @@ input[type="number"] {
     align-items: center;
 }
 
+.disabled { 
+    color: #DFE1E6;
+    background-color: #FFFFFF;
+    height: 32px;
+    width: 100%;
+    text-indent: 3%;
+    font-size: 14px;
+    border: none;
+    outline: none;
+}
+
 .input {
     height: 32px;
     width: 100%;
@@ -105,3 +116,4 @@ input[type="number"] {
     }
 
 }
+

@@ -72,7 +72,7 @@ export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
         {table.getRowModel().rows.map((rowElem) => (
           <tr key={rowElem.id}>
             {rowElem.getVisibleCells().map((cellElem) => (
-              <td key={cellElem.id} >
+              <td key={cellElem.id} className={s.td} >
                 {flexRender(
                   cellElem.column.columnDef.cell,
                   cellElem.getContext()

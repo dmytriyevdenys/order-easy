@@ -1,23 +1,18 @@
 @import "../../../styles/global.scss";
 
 .table_container {
-  font-family: $font-family-pro;
-    width: 870px;
+  font-family: $font-family-ligth-compact;
+  font-weight: 400;
+  line-height: 20px;
+  color: #172B4D;
+    width: 100%;
+    max-width: 870px;
     overflow-x: auto;
     font-size: 14px;
     max-height: 575px;
     overflow-y: scroll;
     border-bottom: 2px solid #DFE1E6 ;
 
-    thead.header {
-      border-bottom: 2px solid #DFE1E6;
-      color: #6B778C;
-    font-size: 12px;
-    font-weight: 600px;
-      text-align: left;
-      width: 200px;
-      height: 30px;
-  }
 }
 
 .table_container::-webkit-scrollbar {
@@ -30,14 +25,24 @@
 }
 
 table {
-    
     width: 100%;    
-    height: 100%;
     border-bottom: 2px solid #DFE1E6;
 
-    td {
+    thead.header {
+      border-bottom: 2px solid #DFE1E6;
+      width: 1000px;
+      font-family: $font-family-ligth-compact;
+      color: #6B778C;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+      width: 200px;
+      height: 30px;
+  }
+
+    td.td {
         font-size: 14px;
-        padding-top: 10px;
+        font-weight: 400;
         width: 200px;
         height: 40px;
     }
