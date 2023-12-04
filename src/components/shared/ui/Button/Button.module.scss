@@ -2,6 +2,9 @@
 
 .button { 
     padding: 12 6 12 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #FFFFFF;
     font-family: $font-family-pro;
     font-size: 14px;
@@ -28,6 +31,9 @@
 }
 
 .disabled  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 12 6 12 6px;
     color: #A5ADBA;
     font-family: $font-family-pro;

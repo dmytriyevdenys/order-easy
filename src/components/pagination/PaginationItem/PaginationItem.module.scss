@@ -1,5 +1,6 @@
-.icon { 
-    
+@import "../../../styles/global.scss";
+
+.icon {
     cursor: pointer;
     border: none;
     background-color: white;
@@ -7,36 +8,64 @@
     height: 24px;
     fill: #42526E;
 
-    &.left { 
-        transform: rotate(90deg); 
+    &.left {
+        transform: rotate(90deg);
     }
 
-    &.rigth { 
-        transform: rotate(180deg); 
+    &.right {
+        transform: rotate(-90deg);
 
     }
 
-    &:focus { 
-        fill:black;
+    &:focus {
+        fill: black;
     }
 }
 
-.disabled { 
-    transform: rotate(90deg); 
+.disabled {
+    transform: rotate(90deg);
     cursor: pointer;
     border: none;
     background-color: white;
     width: 24px;
     height: 24px;
     fill: #A5ADBA;
+
+    &.left {
+        transform: rotate(90deg);
+    }
+
+    &.right {
+        transform: rotate(-90deg);
+    }
 }
 
-.item { 
-    margin: 0 5px 0 5px;
+.item_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 3px;
+
+}
+
+.item {
+    font-family: $font-family-compact;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #42526E;
+    display: flex;
+    padding: 6px 12px 6px 12px;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     background: white;
-    border: none;
-    width: 12px;
-    height: 12px;
-    padding: 6px;
+    border: 1px solid transparent;
+
+    &.active {
+        color: #F4F5F7;
+        background: #253858;
+    }
+
 }

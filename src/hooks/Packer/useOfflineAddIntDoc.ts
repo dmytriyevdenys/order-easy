@@ -9,7 +9,7 @@ export const useOfflineAddIntDoc = (packerId: number, intDocNumber: string) => {
 
   const intDoc: IntDoc = {
     IntDocNumber: intDocNumber,
-    createdAt: new Date(),
+    createdAt: new Date().toString(),
     id: Number(intDocNumber),
     status: 'offline'
   };

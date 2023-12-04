@@ -1,12 +1,57 @@
-.container { 
+@import "../../styles/global.scss";
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.container_pagination { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+
+    .itmes_container {
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center;
+        width: auto;
+        height: 40px;
+    } 
+}
+
+.select_container { 
+    font-family: $font-family-compact;
+    color: #6B778C;
+    font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px
+
 }
 
+.select_container select {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+  
+    border: 1px solid #ddd; 
+    background-color: white;
+    padding: 8px; 
+    border-radius: 5px; 
+    text-align: center;
 
-
-.current { 
-    font-size: 20px;
-    color: blue;
-}
+ }
+  
+  .select_container select:hover {
+    border-color: #999; 
+  }
+  
+  .select_container select:focus {
+    outline: none; 
+    border-color: #666; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }

@@ -1,7 +1,7 @@
 export type IntDoc = { 
     id: number,
     order_id?: number,
-    createdAt: Date,
+    createdAt: string,
     IntDocNumber: string,
     status: string;
 }

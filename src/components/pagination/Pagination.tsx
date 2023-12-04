@@ -1,27 +1,23 @@
 import { useMemo } from "react";
 import s from "./Pagination.module.scss"
 import { PaginationItem } from "./PaginationItem/PaginationItem";
+import { TPaginationProps } from "../../interfaces/pagination.type";
 
-type PaginationProps = {
-  current_page: number;
-  total_pages: number;
-  next_page: string;
-  previous_page: string;
-  elems?: number;
-  onPageChange: (n: number) => void;
-  onNextPage?: (url: string) => void;
-  siblingCount?: number;
-};
 
-export const Pagination: React.FC<PaginationProps> = ({
+export const Pagination: React.FC<TPaginationProps> = ({
   current_page = 1,
   total_pages = 1,
   next_page,
   previous_page,
-  onPageChange,
+  per_page ,
   elems = 5,
   siblingCount = 1,
+  onPageChange,
+  onNextPage,
+  onPreviusPage,
+  onPerPageChange
 }) => {
+  
 
   const range = (
     from: number,
@@ -53,7 +49,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     let startPage = Math.max(2, currentPage - siblingCount);
     let endPage = Math.min(total_pages - 1, currentPage + siblingCount);
     
-    if (currentPage < elems - 1) {
+    if (currentPage < elems - 1 && total_pages >= elems) {
       startPage = 2;
       endPage = elems
       
@@ -61,7 +57,9 @@ export const Pagination: React.FC<PaginationProps> = ({
       startPage = Math.max(2, currentPage - siblingCount);
       endPage = Math.min(total_pages - 1, currentPage + siblingCount);
     }
- 
+      if (total_pages === 1) {
+        return [total_pages];
+      }
     let pages = range(startPage, endPage);
     return [1, ...pages, total_pages];
   };
@@ -70,17 +68,18 @@ export const Pagination: React.FC<PaginationProps> = ({
     () => fetchPageNumbers(),
     [fetchPageNumbers]
   );
-
   return (
     <div className={s.container}>
+    <div className={s.container_pagination}>
       <PaginationItem typeIcon='left'
         disabled={current_page <= 1}
         onClick={() => onPageChange(current_page - 1)}
       />
-        <div >
+        <div className={s.itmes_container} >
         {pages.map((pageNumber: number | string, index) => (
         <PaginationItem
         pageNumber={pageNumber}
+        current_page={current_page}
           key={index}
           onClick={() =>
             typeof pageNumber === "number" && onPageChange(Number(pageNumber))
@@ -90,10 +89,41 @@ export const Pagination: React.FC<PaginationProps> = ({
         </PaginationItem>
       ))}
         </div>
-<PaginationItem typeIcon='rigth'
-        disabled={current_page <= 1}
+<PaginationItem typeIcon='right'
+        disabled={current_page === total_pages}
         onClick={() => onPageChange(current_page + 1)}
       />
+
     </div>
+    <div className={s.select_container}>
+    <label>Елементів на сторінці:</label>
+      <select className={s.select}
+          onChange={e => {onPerPageChange(Number(e.target.value))}}
+          value={per_page}
+        ><div>
+          
+        </div>
+          {[10, 20, 60, 80, 100].map(pageSize => (
+            <option key={pageSize} value={pageSize} selected={per_page === pageSize} >
+               {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+          </div>
+
   );
 };
+{/* <div className={s.select_container}>
+      <label>Елементів на сторінці:</label>
+      <select
+          value={per_page}
+          onChange={e => {onPerPageChange(Number(e.target.value))}}
+        >
+          {[10, 20, 60, 80, 100].map(pageSize => (
+            <option key={pageSize} value={pageSize} selected={per_page === pageSize} >
+               {pageSize}
+            </option>
+          ))}
+        </select>
+      </div> */}
