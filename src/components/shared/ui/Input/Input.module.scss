@@ -68,6 +68,8 @@ input[type="number"] {
 
 }
 
+
+
 .errorMessage {
     font-family: $font-family-compact;
     font-weight: 400;
@@ -76,8 +78,9 @@ input[type="number"] {
 }
 
 .errorIcon {
+
     fill: #DE350B;
-    width: 16px;
+    min-width: 16px;
     height: 16px;
 }
 
@@ -115,5 +118,13 @@ input[type="number"] {
         right: 8px;
     }
 
+    &.passwordIcon {
+        width: 16.67px;
+        height: 13.33px;
+        top: 50%;
+        right: 8px;
+    }
+
 }
+
 

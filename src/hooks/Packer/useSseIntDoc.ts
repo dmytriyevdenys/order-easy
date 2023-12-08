@@ -3,16 +3,15 @@ import { IntDoc } from "../../interfaces/int-doc.type";
 import { ApiResponse } from "../../interfaces/api-response.interface";
 import { useCallback, useEffect } from "react";
 
-export const useSseIntDoc = () => {
+export const useSseIntDoc = (options: { limit?: number; page?: number }) => {
   const client = useQueryClient();
 
   const handleSeeEvent = useCallback(
     (data: any) => {
       const parseData = JSON.parse(data.data);
-
       client.setQueryData<ApiResponse<IntDoc[]>>(
-        ["packer", "allIntDocs"],
-        (oldData) => {
+        ["packer", "allIntDocs", options],
+        (oldData) => {          
           if (oldData) {
             return {
               ...oldData,

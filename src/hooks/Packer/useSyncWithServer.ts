@@ -14,7 +14,7 @@ export const useSyncWithServer = (isOnline: boolean, packerId: number) => {
           storageData.map(async (intDoc) => {
             return await packerService.scanIntDoc(
               packerId,
-              {IntDocNumber: intDoc.IntDocNumber, createdAt: intDoc.createdAt}
+              {IntDocNumber: intDoc.IntDocNumber, createdAt: new Date (intDoc.createdAt)}
             );
           })
         );

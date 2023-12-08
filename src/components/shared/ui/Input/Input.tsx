@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import s from "./Input.module.scss";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { ReactComponent as ErrorIcon } from "../../../../assets/icons/error.svg";
@@ -6,9 +6,10 @@ import { ReactComponent as GlobeIcon } from "../../../../assets/icons/inputIcons
 import { ReactComponent as GrivnjaIcon } from "../../../../assets/icons/inputIcons/grivnya-icon.svg";
 import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
 import { ReactComponent as SearchIcon } from "../../../../assets/icons/inputIcons/search-icon.svg";
+import { ReactComponent as ShowPasswordIcon } from "../../../../assets/icons/inputIcons/shop-password-icon.svg"
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  variant: "default" | "select" | "globe" | "grivnja" | "search";
+  variant: "default" | "select" | "globe" | "grivnja" | "search" | "password";
   error?: string | null;
   register?: UseFormRegisterReturn;
 };
@@ -25,6 +26,8 @@ const getIconForVariant = (variant: InputProps["variant"]): IconInfo => {
       return { icon: <GrivnjaIcon />, iconClass: s.grivnjaIcon };
     case "search":
       return { icon: <SearchIcon />, iconClass: s.searchIcon };
+    case "password": 
+      return {icon : <ShowPasswordIcon />, iconClass: s.passwordIcon} 
     default:
       return null;
   }
@@ -37,6 +40,7 @@ export const Input: React.FC<InputProps> = ({
   disabled,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const inputClass = s[variant];
   const hasError = Boolean(error);
   const iconInfo = getIconForVariant(variant);
@@ -47,6 +51,7 @@ export const Input: React.FC<InputProps> = ({
     <div className={ `${s.inputContainer} ${hasError ? s.error : ""}`}>
       <input
         className={disabled ? disabledClass :`${s.input} ${inputClass} ${hasError ? s.errorBorder : ""}`}
+        type={variant.includes("password") && showPassword ? "text" : "password"}
         disabled={disabled}
         {...register}
         {...props}
@@ -57,7 +62,8 @@ export const Input: React.FC<InputProps> = ({
           className={
             `${s.iconContainer} ${iconInfo.iconClass}`
           }
-        >
+          onClick={() => variant.includes('password') && setShowPassword(prev => !prev)}
+          >
           {iconInfo.icon}
         </div>
       )}

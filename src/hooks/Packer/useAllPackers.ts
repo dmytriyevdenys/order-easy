@@ -5,7 +5,7 @@ export const usePackers = () => {
    return useQuery({
     queryKey: ['packers'],
     queryFn: () => packerService.getAllPackers(),
-    select: ({data}) => data.data,
+    select: ({data}) => data,
     enabled: false
    })
 }

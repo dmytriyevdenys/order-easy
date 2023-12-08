@@ -11,7 +11,7 @@ export const useAddIntDoc = (packerId: number, intDocNumber: string) => {
   const client = useQueryClient();
   
   return useMutation({
-    mutationFn: async () => packerService.scanIntDoc(packerId, { IntDocNumber: intDocNumber }),
+    mutationFn:  () =>  packerService.scanIntDoc(packerId, { IntDocNumber: intDocNumber }),
     onSuccess: (newIntDoc) => {
       client.setQueriesData<ApiResponse<IntDoc[]>>(["packer", packerId], (oldPacker) => {
         if (oldPacker) {          

@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
 import s from "./DropDown.module.scss"
+import { HTMLAttributes, ReactNode,} from "react";
 
-type DropDownProps = {
-    children: React.ReactNode
-    active: boolean;
-    onToggle: () => void;
+type DropDownProps = HTMLAttributes<HTMLDivElement> & {
+    children: ReactNode;
+    active?: boolean;
+    onToggle?: () => void;
 }
-export const DropDown: React.FC<DropDownProps> = ({ children, active, onToggle }) => {
-    const [isDropDownOpen, setIsDropDownOpen] = useState(active);
-  
-    const toggleDropDown = () => {
-        setIsDropDownOpen(!isDropDownOpen);
-        if (onToggle) {
-          onToggle(); // викликаємо зовнішній обробник при відкритті/закритті
-        }
-      };
-    
-  
-    useEffect(() => {
-      document.addEventListener("click", toggleDropDown);
-  
-      return () => {
-        document.removeEventListener("click", toggleDropDown);
-      };
-    }, [isDropDownOpen]); 
+
+export const DropDown: React.FC<DropDownProps> = ({ children }) => {
     return (
-      <div className={s.container} >
-        <ul style={{ display: isDropDownOpen ? "block" : "none" }} className={s.items}>
-          {children}
-        </ul>
-      </div>
+        <div className={s.container} >
+            <ul className={s.list}>
+                {children}
+            </ul>
+        </div>
     );
-  };
+};

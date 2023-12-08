@@ -51,37 +51,6 @@
     margin-top: 20px;
   }
 
-  .primary_button {
-    font-size: 16px;
-    color: white;
-    padding: 6px;
-    border-radius: 5px;
-    border: none;
-    background-color: $primary-color;
-
-    &:hover {
-      background-color: $primary-color;
-    }
-
-    &:active {
-      transform: scale(0.98);
-      background-color: #0747A6;
-    }
-  }
-
-  .networkStatus {
-    margin-left: 100px;
-    font-family: $font-family-ligth-compact;
-    font-weight: 100;
-    font-size: 11px;
-    display: flex;
-    width: max-content;
-    padding: 3px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    color: white;
-  }
   .packer_container {
     margin: 0;
     display: flex;
@@ -95,6 +64,7 @@
       .primaryButtonContainer {
         display: flex;
         justify-content: flex-end;
+        position: relative;
       }
     }
   }

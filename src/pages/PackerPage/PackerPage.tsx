@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import s from "./PackerPage.module.scss";
 import useOnlineStatus from "../../hooks/Packer/useOnlineStatus";
 import { usePackers } from "../../hooks/Packer/useAllPackers";
@@ -13,20 +13,22 @@ import { useIntDocs } from "../../hooks/Packer/useIntDocs";
 import { useSseIntDoc } from "../../hooks/Packer/useSseIntDoc";
 import { Input } from "../../components/shared/ui/Input/Input";
 import { Pagination } from "../../components/pagination/Pagination";
-import { DropDown } from "../../components/shared/ui/DropDown/DropDown";
-import { DropDownItem } from "../../components/shared/ui/DropDown/DropDownItem/DropDownItem";
+import { useOnClickOutside } from "../../hooks/useClickOutside";
+import { NetworkStatus } from "../../components/networkStatus/networkStatus";
+import { DropDownPacker } from "../../components/packer/DropDownPacker/DropDownPacker";
+import { SearchPackerForm } from "../../components/packer/SearchPackerForm/SearchPackerForm";
 
 export const PackerPage: React.FC = () => {
   const isOnline = useOnlineStatus();
-  useSseIntDoc();
-  const { isLoading, data: packersData, refetch } = usePackers();
+  const refDropDown = useRef(null);
+  const { isLoading: isLoadingPacker, isSuccess: isSuccesPacker, data: packersData, refetch } = usePackers();
   const [selectedPacker, setSelectedPacker] = useState<IPacker>();
   const [buttonClicked, setButtonClicked] = useState(false);
   const [intDocNumber, setIntDocNumber] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   
-  const { data: intDocs, isFetching: isFetchingIntDocs } = useIntDocs({page: currentPage, limit: perPage },
+  const { data: intDocs, isFetching: isFetchingIntDocs, isSuccess: isSuccessIntDocs } = useIntDocs({page: currentPage, limit: perPage },
     Number(selectedPacker?.id)
   );
   const {current_page = 1, total_pages = 1,  } = intDocs ? intDocs : {} ;
@@ -34,14 +36,10 @@ export const PackerPage: React.FC = () => {
     Number(selectedPacker?.id),
     intDocNumber
   );
-  const { mutate: syncMutate } = useSyncWithServer(
-    isOnline,
-    Number(selectedPacker?.id)
+  const { mutate: syncMutate } = useSyncWithServer(isOnline,Number(selectedPacker?.id)
   );
-  const offLineAddIntDoc = useOfflineAddIntDoc(
-    Number(selectedPacker?.id),
-    intDocNumber
-  );
+  const offLineAddIntDoc = useOfflineAddIntDoc( Number(selectedPacker?.id),intDocNumber);
+  
   useEffect(() => {
     if (isOnline) {
       syncMutate();
@@ -49,20 +47,21 @@ export const PackerPage: React.FC = () => {
   }, [isOnline, syncMutate]);
 
   const getPackers = () => {
-      setButtonClicked(!buttonClicked);
-      refetch();
+    setButtonClicked((prev) => !prev)
+
+    !buttonClicked &&  refetch();
   };
 
   const setPacker = (packer: IPacker) => {
     setSelectedPacker(packer);
-    setButtonClicked(prev => !!prev);
+    setButtonClicked(false);
   };
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent
   ) => {
     event.preventDefault();
     if (selectedPacker?.id && intDocNumber && isOnline) {
-         mutate();
+        await mutate();
         setIntDocNumber("");   
     }
     if (selectedPacker?.id && intDocNumber && !isOnline) {
@@ -70,56 +69,47 @@ export const PackerPage: React.FC = () => {
       setIntDocNumber("");
     }
   };
+  useOnClickOutside({ref: refDropDown, handler: () => setButtonClicked(false)});
+  useSseIntDoc({page: currentPage, limit: perPage});
+
   return (
     <div className={s.container}>
       <div className={s.packer_container}>
-        <div
-          className={s.networkStatus}
-          style={{ backgroundColor: isOnline ? "green" : "red" }}
-        >
-          <p>
-            {isOnline
-              ? "Мережа доступна"
-              : "Мережі немає. Виконується локальна обробка"}
-          </p>
-        </div>
-        <div className={s.packer}>
+        <NetworkStatus isOnline={isOnline} />
+        <div className={s.packer} ref={refDropDown}>
           <div className={s.primaryButtonContainer}>
-          <Button color='primary' onClick={() => getPackers()}>{selectedPacker?.name || 'Додати пакувальника'}</Button>
+          <Button variant='addLarge' color='primary' leftElement rightElement onClick={() => getPackers()}>{selectedPacker?.name || 'Обрати'}</Button>
           </div>
-        <DropDown active={buttonClicked} onToggle={() => setButtonClicked(!buttonClicked)}>
-          {packersData?.map(packer => (
-            <DropDownItem key={packer.id} data={packer.name} onClick={() => setPacker(packer)}/>
-          ))}
-          <Button color='primary' style={{width: "100%"}}>Додати пакувальника</Button>
-        </DropDown>
+        {(buttonClicked && isSuccesPacker) && <div><DropDownPacker packersData={packersData} setPacker={setPacker}/>
+        </div> 
+        }
         </div>
         </div>
+        {isSuccessIntDocs && 
       <div className={s.table_container}>
         <div className={s.form_container}>
           <form onSubmit={handleSubmit} className={s.form_int_doc}>
             <Input
               variant="default"
-              type="number"
               placeholder="Введіть номер ттн"
               value={intDocNumber}
+              type='number'
               onChange={(e) => setIntDocNumber(e.target.value)}
               disabled={!selectedPacker?.id}
             ></Input>
-            <Button color="primary" type="submit" disabled={!selectedPacker?.id}>
+            <Button variant='default' color='primary' type="submit" disabled={!selectedPacker?.id}>
               Скан
             </Button>
           </form>
           <div className={s.filter_container}>
-            <Input variant="search" type="text" placeholder="Пошук" />
-            <Input variant="select" placeholder="№ замовлення" />
+          <SearchPackerForm/>
           </div>
         </div>
         {isError && <ErrorToast message={`${error.response?.data.message}`} />}
         <div>
-          {intDocs && <PackerTable data={intDocs?.data ? intDocs.data : []} />}
+          {(intDocs && isSuccessIntDocs )&& <PackerTable data={intDocs?.data ? intDocs.data : []} />}
           <div className={s.paginationContainer}>
-            {!isFetchingIntDocs && (
+            {intDocs.data.length > 1 &&(
               <Pagination
                 siblingCount={1}
                 total_pages={total_pages}
@@ -131,7 +121,8 @@ export const PackerPage: React.FC = () => {
             )}
           </div>
         </div>
-      </div>
+      
+      </div>}
     </div>
   );
 };

@@ -1,17 +1,38 @@
 @import '../../../../styles/global.scss';
 
+
 .button { 
-    padding: 12 6 12 6px;
+    font-family: $font-family-compact;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+}
+
+.default { 
+    padding: 12px 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
-    font-family: $font-family-pro;
-    font-size: 14px;
     height: 32px;
-    width: auto;
-    border-radius: 5px;
-    border: none;
+}
+
+.addLarge { 
+    padding: 4px 12px 4px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    height: 48px;
+    min-width: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.primary { 
+    background-color: $button-default-color;
 
     &:hover {
         background-color: $button-hover-color;
@@ -21,14 +42,37 @@
         background-color: $button-active-color;
     }
 }
+.addSmall {
+    padding: 4px 12px;
+    width: 100%;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 400;
+    color: #0052CC;
+    line-height: 17.4px;
 
-.primary { 
-    background-color: $button-default-color;
+    &:hover {
+        background-color: #DEEBFF;
+    }
+    .icon_left {
+        stroke: #0052CC;
+    }
+
 }
-
 .secondary { 
     background-color: $button-secondary-color;
+    color: #42526E;
+
+    &:hover { 
+        border: 0.8px solid #0052CC;
+        color: #0052CC;
+    }
 }
+
 
 .disabled  {
     display: flex;
@@ -36,11 +80,27 @@
     align-items: center;
     padding: 12 6 12 6px;
     color: #A5ADBA;
-    font-family: $font-family-pro;
     font-size: 14px;
     height: 32px;
     width: auto;
     border-radius: 5px;
     border: none;
+}
 
+.icon_right { 
+    margin-left: auto;
+    width: 8px;
+    height: 5px;
+    fill: #FFFFFF;
+}
+
+.icon_left {
+    width: 13px;
+    height: 13px;
+    stroke: white;
+    stroke-width: 1.67px;
+}
+
+.with_full { 
+    width: 100%;
 }

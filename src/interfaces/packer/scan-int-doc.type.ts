@@ -1,4 +1,4 @@
 export type TScanIntDoc = {
     IntDocNumber: string
-    createdAt?: string
+    createdAt?: Date
   }
