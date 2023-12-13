@@ -22,7 +22,7 @@ class PackerService {
     pageUrl,
   }: {
     packerId?: number;
-    options?: { limit?: number; page?: number };
+    options?: { limit?: number; page?: number; filter?: string; search?: string };
     pageUrl?: string;
   } = {}): Promise<ApiResponsePagination<IntDoc[]>> {
     let url;
@@ -58,9 +58,9 @@ class PackerService {
   async scanIntDoc(
     id: number,
     intDoc: TScanIntDoc
-  ): Promise<ApiResponse<IntDoc>> {
+  ): Promise<ApiResponsePagination<IntDoc>> {
     
-    const response = await axios.post<ApiResponse<IntDoc>>(
+    const response = await axios.post<ApiResponsePagination<IntDoc>>(
       `${this.baseUrl}/${id}/scan/`,
       intDoc
     );

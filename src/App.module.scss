@@ -1,33 +1,12 @@
-@import './styles/global.scss';
-
-.container {
-    width: auto; 
+.container { 
+    height: 100vh;
     display: flex;
-    font-family:$font-family-pro;
-}
+    gap: 50px;
 
-.primary_button {
-    font-size: 16px;
-    color: white;
-    padding: 6px;
-    border-radius: 5px;
-    border: none;
-    background-color: $primary-color;
-
-        &:hover {
-            background-color: $primary-color;
-        }
-       &:active {
-        transform: scale(0.98);
-        background-color: #0747A6;
-          }
-
+    .content_container {
+        margin-top: 20px;
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
     }
-
-    .networkStatus {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 10px;
-        color: white;
-      }
+}

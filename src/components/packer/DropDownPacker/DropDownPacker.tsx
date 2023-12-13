@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { IPacker } from "../../../interfaces/packer.interface";
 import { Button } from "../../shared/ui/Button/Button";
-import { DropDown } from "../../shared/ui/DropDown/DropDown";
 import { DropDownItem } from "../../shared/ui/DropDown/DropDownItem/DropDownItem";
 import s from "./DropDownPacker.module.scss";
 import { PackerForm } from "../PackerForm/PackerForm";
+import { DropDown } from "../../shared/ui/DropDown/DropDown";
 
 type DropDownPackerProps = {
-  packersData: IPacker[];
   setPacker: (n: IPacker) => void;
+  packersData: IPacker[];
+  getPacker: () => void;
+  buttonValue: string
 };
 export const DropDownPacker: React.FC<DropDownPackerProps> = ({
-  packersData,
   setPacker,
+  getPacker,
+  packersData,
+  buttonValue
 }) => {
-  const [showFrom, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [showSmallForm, setShowSmallForm] = useState(false);
-  const [packerId, setPackerId] = useState<number>();
+  const [packerId, setPackerId] = useState<number>(); 
+  const [buttonClicked, setButtonClicked] = useState(false);
+ 
   const setPackerHandle = (packer?: IPacker) => {
     setShowForm(true);
     setShowSmallForm(true);
@@ -27,37 +33,59 @@ export const DropDownPacker: React.FC<DropDownPackerProps> = ({
     setShowSmallForm(false);
     setPackerId(undefined);
   };
-
+  const closeDropDown = () => {
+    setButtonClicked(false);
+    closeForm();
+  };
+  const onButtonClickHandle = () => {
+    !buttonClicked && getPacker();
+    setButtonClicked(prev => !prev);
+    (buttonClicked && showForm) && closeForm();
+  }  
+  
   return (
-    <>
-      <DropDown >
-        {showFrom ? (
-          <PackerForm
-            small={showSmallForm}
-            id={Number(packerId)}
-            setPacker={setPacker}
-            closeForm={closeForm}
-          />
-        ) : (
-          <div>
-            {packersData?.map((packer) => (
-              <DropDownItem
-                key={packer.id}
-                data={packer.name}
-                onClick={() => setPackerHandle(packer)}
-              />
-            ))}
-            <Button
-              variant="addSmall"
-              color="primary"
-              leftElement
-              onClick={() => setShowForm(true)}
-            >
-              Додати пакувальника
-            </Button>
-          </div>
-        )}
+    <div className={s.container}>
+      <DropDown 
+      closeDropDown={closeDropDown}
+        onButtonClick={() => onButtonClickHandle()}
+        showElement="button"
+        showLeftIconButton
+        showRightIconButton
+        value={buttonValue || 'Обрати'}
+        show={buttonClicked}
+      >
+        <div className={s.drop_down_packer_container}>
+          {(showForm) && (
+            <PackerForm
+              small={showSmallForm}
+              id={packerId}
+              setPacker={setPacker}
+              closeForm={closeForm}
+              closeDropDown={closeDropDown}
+            />
+          )}
+          {(!showForm && packersData) && (
+            <div className={s.packer_list}>
+              {packersData.map((packerItem) => (
+                <DropDownItem
+                  key={packerItem.id}
+                  data={packerItem.name}
+                  onClick={() => setPackerHandle(packerItem)}
+                />
+              ))}
+              <Button
+                variant="addSmall"
+                color="primary"
+                leftElement
+                onClick={() => {
+                  setShowForm(true)}}
+              >
+                Додати пакувальника
+              </Button>
+            </div>
+          )}
+        </div>
       </DropDown>
-    </>
+    </div>
   );
 };

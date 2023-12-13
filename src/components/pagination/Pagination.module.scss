@@ -17,41 +17,19 @@
         display: flex;
         justify-content: flex-start; 
         align-items: center;
+        gap: 3px;
         width: auto;
         height: 40px;
+
     } 
 }
-
-.select_container { 
-    font-family: $font-family-compact;
-    color: #6B778C;
-    font-size: 12px;
+.drop_down_container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 10px
-
+    gap: 10px;
+    .label_per_page {
+        font-family: $font-family-compact;
+        font-size: 12px;
+        color: #6B778C;
+      }
 }
-
-.select_container select {
-    appearance: none; 
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-  
-    border: 1px solid #ddd; 
-    background-color: white;
-    padding: 8px; 
-    border-radius: 5px; 
-    text-align: center;
-
- }
-  
-  .select_container select:hover {
-    border-color: #999; 
-  }
-  
-  .select_container select:focus {
-    outline: none; 
-    border-color: #666; 
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  }

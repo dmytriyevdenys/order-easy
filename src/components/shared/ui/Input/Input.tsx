@@ -6,7 +6,7 @@ import { ReactComponent as GlobeIcon } from "../../../../assets/icons/inputIcons
 import { ReactComponent as GrivnjaIcon } from "../../../../assets/icons/inputIcons/grivnya-icon.svg";
 import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
 import { ReactComponent as SearchIcon } from "../../../../assets/icons/inputIcons/search-icon.svg";
-import { ReactComponent as ShowPasswordIcon } from "../../../../assets/icons/inputIcons/shop-password-icon.svg"
+import { ReactComponent as ShowPasswordIcon } from "../../../../assets/icons/inputIcons/shop-password-icon.svg";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   variant: "default" | "select" | "globe" | "grivnja" | "search" | "password";
@@ -26,8 +26,8 @@ const getIconForVariant = (variant: InputProps["variant"]): IconInfo => {
       return { icon: <GrivnjaIcon />, iconClass: s.grivnjaIcon };
     case "search":
       return { icon: <SearchIcon />, iconClass: s.searchIcon };
-    case "password": 
-      return {icon : <ShowPasswordIcon />, iconClass: s.passwordIcon} 
+    case "password":
+      return { icon: <ShowPasswordIcon />, iconClass: s.passwordIcon };
     default:
       return null;
   }
@@ -38,6 +38,8 @@ export const Input: React.FC<InputProps> = ({
   error,
   register,
   disabled,
+  onClick,
+  readOnly,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,28 +47,45 @@ export const Input: React.FC<InputProps> = ({
   const hasError = Boolean(error);
   const iconInfo = getIconForVariant(variant);
   const disabledClass = disabled ? s.disabled : "";
-  
+  const selectReadOnlyClass =
+    variant === "select" && readOnly ? s.select_read_only : "";
 
   return (
-    <div className={ `${s.inputContainer} ${hasError ? s.error : ""}`}>
-      <input
-        className={disabled ? disabledClass :`${s.input} ${inputClass} ${hasError ? s.errorBorder : ""}`}
-        type={variant.includes("password") && showPassword ? "text" : "password"}
-        disabled={disabled}
-        {...register}
-        {...props}
-       
-      />
-      {iconInfo && (
-        <div
-          className={
-            `${s.iconContainer} ${iconInfo.iconClass}`
+    <div
+      className={`${s.container} ${
+        hasError ? s.errorContainer : ""
+      } ${selectReadOnlyClass}`}
+      onClick={onClick}
+    >
+      <div className={ disabled ? disabledClass :`${s.inputContainer} ${hasError ? s.errorBorder : ""}`}>
+        <input
+          className={`${
+            disabled ? disabledClass : `${s.input} ${inputClass}`
+          } ${selectReadOnlyClass}`}
+          type={
+            variant === "password" && !showPassword
+              ? "password"
+              : variant === "search"
+              ? "search"
+              : "text"
           }
-          onClick={() => variant.includes('password') && setShowPassword(prev => !prev)}
+          disabled={disabled}
+          {...register}
+          {...props}
+        />
+        {iconInfo && (
+          <div
+            className={`${s.iconContainer} ${iconInfo.iconClass} ${
+              variant === "search" ? s.searchIcon : ""
+            }`}
+            onClick={() =>
+              variant.includes("password") && setShowPassword((prev) => !prev)
+            }
           >
-          {iconInfo.icon}
-        </div>
-      )}
+            {iconInfo.icon}
+          </div>
+        )}
+      </div>
       {error && (
         <div className={s.errorContainer}>
           <ErrorIcon className={s.errorIcon} />

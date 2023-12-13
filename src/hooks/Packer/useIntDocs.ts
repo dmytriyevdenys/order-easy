@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { packerService } from "../../services/packer.service";
 
 export const useIntDocs = (
-  options: { limit?: number; page?: number;  } = {},
+  options: { limit?: number; page?: number; filter?: string; search?: string } = {},
   packerId?: number,
   pageUrl?: string
 ) => {
   const queryKey = packerId
     ? ["packer", packerId, options]
-    : ["packer", "allIntDocs", options];
+    : ["allIntDocs", options];
   return useQuery({
     queryKey,
     queryFn: () =>

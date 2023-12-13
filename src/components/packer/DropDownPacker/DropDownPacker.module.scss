@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+justify-content: flex-end;
+}
+
+.drop_down_packer_container{
+  width: 210px;
+}
+
+.packer_list > :nth-last-child(2):not(:last-child) {
+    border-bottom: 1px solid #0052CC;
+  }

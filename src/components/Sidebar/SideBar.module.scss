@@ -1,0 +1,20 @@
+.container { 
+    background-color: #0747A6;
+    height: 100%;
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 3px;
+
+    .logo_container{ 
+        margin-top: 20px;
+    }
+    .logo{ 
+        width: 23px;
+        height: 32px;
+        fill: #FFFF;
+        cursor: pointer;
+    }
+}

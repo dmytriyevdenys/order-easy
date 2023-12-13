@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect } from 'react';
 
 type OnClickOutsideProps = {
-  ref: MutableRefObject<HTMLElement | null>,
+  ref: MutableRefObject<HTMLDivElement | null>,
   handler: () => void
 };
 

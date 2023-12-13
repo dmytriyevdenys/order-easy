@@ -10,16 +10,41 @@ input[type="number"] {
     appearance: textfield;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
 .inputContainer {
-    position: relative;
+    height: 32px;
+    width: 100%;
     font-family: $font-family-compact;
     font-weight: 400px;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #EEEFF2;
+
+    &:hover {
+        border-bottom: 1px solid #42526E;
+    }
+
+    &:focus-within {
+        border-bottom: 1px solid #4C9AFF;
+
+    }
+
+    &.errorBorder {
+        border-bottom: 1px solid #DE350B;
+    }
+
 }
 
 .errorContainer {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .disabled { 
@@ -34,9 +59,9 @@ input[type="number"] {
 }
 
 .input {
-    height: 32px;
-    width: 100%;
     text-indent: 3%;
+    width: 100%;
+    height: auto;
     font-family: $font-family-ligth-compact;
     font-weight: 400px;
     font-size: 14px;
@@ -44,87 +69,57 @@ input[type="number"] {
         linear-gradient(0deg, #EEEFF2, #EEEFF2);
     border: none;
     outline: none;
-    border-bottom: 1px solid #EEEFF2;
-
-    &:hover {
-        border-bottom: 1px solid #42526E;
-
-        ~.iconContainer {
-            fill: #42526E;
-        }
-    }
-
-    &:focus {
-        border-bottom: 1px solid #4C9AFF;
-
-        ~.iconContainer {
-            fill: #42526E;
-        }
-    }
-
-    &.errorBorder {
-        border-bottom: 1px solid #DE350B;
-    }
 
 }
-
-
-
 .errorMessage {
     font-family: $font-family-compact;
+    margin-top: 5px;
     font-weight: 400;
     font-size: 12px;
     color: #DE350B;
 }
 
 .errorIcon {
-
     fill: #DE350B;
     min-width: 16px;
     height: 16px;
 }
 
 .iconContainer {
-    position: absolute;
-    transform: translateY(-50%);
-    fill: #7A869A;
-
-
+    fill: #7A869A;   
+    
     &.selectIcon {
-        width: 6.67px;
-        height: 4.17px;
-        top: 40%;
-        right: 8px;
+        margin-top: 5px;
+        width: 10px;
+        height: 10px;
     }
-
     &.globeIcon {
         width: 10.5px;
         height: 10.5px;
-        top: 50%;
-        right: 8px;
     }
-
     &.grivnjaIcon {
+        margin-top: 10px;
         width: 8px;
         height: 20px;
-        top: 65%;
-        right: 8px;
     }
 
     &.searchIcon {
         width: 15.65px;
         height: 15.77px;
-        top: 50%;
-        right: 8px;
     }
 
     &.passwordIcon {
         width: 16.67px;
         height: 13.33px;
-        top: 50%;
-        right: 8px;
     }
-
 }
 
+.searchIcon {
+    width: 15.65px;
+    order: -1;
+}
 
+.select_read_only {
+    cursor: pointer;
+    caret-color: transparent; 
+}

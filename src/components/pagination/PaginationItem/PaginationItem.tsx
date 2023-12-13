@@ -33,12 +33,16 @@ export const PaginationItem: React.FC<ItemProps> = ({
     );
   return (
     <div
-      className={`${s.item_container} ${
-        current_page === pageNumber && s.active
-      }`}
+      className={
+         pageNumber === "..."
+          ? s.no_hover
+          : `${s.item_container} ${current_page === pageNumber && s.active}`
+      }
     >
       <button
-        className={`${s.item} ${current_page === pageNumber && s.active}`}
+        className={ pageNumber === "..."
+        ? s.no_hover
+        :`${s.item} ${current_page === pageNumber && s.active}`}
         {...props}
       >
         {pageNumber}

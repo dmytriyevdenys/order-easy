@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import s from "./Pagination.module.scss"
 import { PaginationItem } from "./PaginationItem/PaginationItem";
 import { TPaginationProps } from "../../interfaces/pagination.type";
-import { DropDown } from "../shared/ui/DropDown/DropDown";
-import { DropDownItem } from "../shared/ui/DropDown/DropDownItem/DropDownItem";
+import { DropDownPerPage } from "./DropDownPerPage/DropDownPerPage";
 
 
 export const Pagination: React.FC<TPaginationProps> = ({
@@ -11,7 +10,7 @@ export const Pagination: React.FC<TPaginationProps> = ({
   total_pages = 1,
   next_page,
   previous_page,
-  per_page ,
+  per_page = 20 ,
   elems = 5,
   siblingCount = 1,
   onPageChange,
@@ -95,35 +94,12 @@ export const Pagination: React.FC<TPaginationProps> = ({
         disabled={current_page === total_pages}
         onClick={() => onPageChange(current_page + 1)}
       />
-
+    </div >
+    <div className={s.drop_down_container}>
+    <label className={s.label_per_page}>на сторінці</label> 
+    <DropDownPerPage per_page={Number(per_page)} onPerPageChange={onPerPageChange}/>
     </div>
-    {/* <label>Елементів на сторінці</label>
-    <DropDown >
-      { [20, 50, 100,].map((pageSize, index) => (
-        <DropDownItem 
-        key={index} 
-        data={pageSize}
-        onClick={() => onPerPageChange(pageSize)}
-         />
-      ))}
-    </DropDown> */}
-    <div className={s.select_container}>
-    <label>Елементів на сторінці:</label>
-      <select className={s.select}
-          onChange={e => {onPerPageChange(Number(e.target.value))}}
-          value={per_page}
-          defaultValue={per_page}
-        ><div>
-          
-        </div>
-          {[20, 50, 100].map(pageSize => (
-            <option key={pageSize} value={pageSize} selected={per_page === pageSize} >
-               {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-          </div>
+   </div>
 
   );
 };

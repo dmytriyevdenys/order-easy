@@ -6,6 +6,14 @@ import {
 } from '@tanstack/react-table'
 import s from './PackerTable.module.scss'
 import { StatusSell } from './StatusCell/StatusCell';
+import { Cell } from './Cell/Cell';
+
+const SkeletonRow: React.FC = () => (
+  <tr>
+    <td className={s.td}>Loading...</td>
+    {/* Додайте інші клітинки, якщо потрібно */}
+  </tr>
+);
 
 type IntDocTable = { 
 id: number ,
@@ -23,7 +31,7 @@ export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
  const columns = [
   columnHelper.accessor('IntDocNumber' ,{
     header: () => '№ ТТН',
-    cell: info => info.getValue(),
+    cell: info => <Cell content ={info.getValue()}/>,
   }),
  
   columnHelper.accessor('createdAt', { 
@@ -49,8 +57,7 @@ export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
       data,
       columns,
       getCoreRowModel: getCoreRowModel(),
-    });
-    
+    }); 
   return (
     <div className={s.table_container}>
     <table className={s.table}>
@@ -69,18 +76,19 @@ export const PackerTable: React.FC<{data: IntDocTable[]}> = ({data}) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((rowElem) => (
-          <tr key={rowElem.id}>
-            {rowElem.getVisibleCells().map((cellElem) => (
-              <td key={cellElem.id} className={s.td} >
-                {flexRender(
-                  cellElem.column.columnDef.cell,
-                  cellElem.getContext()
-                )}
-              </td>
-            ))}
-          </tr>
-        ))}
+      {!data.length ? (
+            <h1 >Нічого не знайдено</h1>
+          ) : (
+            table.getRowModel().rows.map((rowElem) => (
+              <tr key={rowElem.id}>
+                {rowElem.getVisibleCells().map((cellElem) => (
+                  <td key={cellElem.id} className={s.td}>
+                    {flexRender(cellElem.column.columnDef.cell, cellElem.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
       </tbody>
     </table>
   </div>

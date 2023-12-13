@@ -8,8 +8,13 @@
     height: 24px;
     fill: #42526E;
 
+    &:hover {
+        outline: 1px solid #253858; 
+    }
+
     &.left {
         transform: rotate(90deg);
+       
     }
 
     &.right {
@@ -46,7 +51,6 @@
     align-items: center;
     overflow: hidden;
     border-radius: 3px;
-
 }
 
 .item {
@@ -67,5 +71,14 @@
         color: #F4F5F7;
         background: #253858;
     }
+    &:hover {
+        border: 1px solid #253858;
 
+    }
 }
+.no_hover { 
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+

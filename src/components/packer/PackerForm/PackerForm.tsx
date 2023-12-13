@@ -3,7 +3,7 @@ import { Button } from "../../shared/ui/Button/Button";
 import { Input } from "../../shared/ui/Input/Input";
 import s from "./PackerFrom.module.scss";
 import { useCheckPacker } from "../../../hooks/Packer/useCheсkPacker";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IPacker } from "../../../interfaces/packer.interface";
 import { useAddPacker } from "../../../hooks/Packer/useAddPacker";
 
@@ -16,14 +16,15 @@ type PackerFormProps = {
   id?: number;
   setPacker: (p: IPacker) => void;
   closeForm : () => void;
+  closeDropDown: () => void;
 };
-export const PackerForm: React.FC<PackerFormProps> = ({ small, id, setPacker, closeForm}) => {
+export const PackerForm: React.FC<PackerFormProps> = ({ small, id, setPacker, closeForm, closeDropDown}) => {
   const { register, handleSubmit, reset,formState: { errors }
 } = useForm<InputProps>();
   const [dataForm, setDataForm] = useState<{ name?: string ,password: string }>({  
     password: "",
   });
-  const {data: dataPacker, isSuccess ,mutate, error } = useCheckPacker(Number(id), {
+  const {data: dataPacker, isSuccess: isSuccessCheckPacker ,mutate, error } = useCheckPacker(Number(id), {
     password: dataForm?.password,
   });
 
@@ -35,8 +36,12 @@ const { mutate: addPacker, isSuccess: isSuccessAddPacker} = useAddPacker({name: 
     !id && addPacker();
     reset();
   };
-  isSuccess && setPacker(dataPacker);
-  isSuccessAddPacker && closeForm();
+  if (isSuccessCheckPacker) {
+    setPacker(dataPacker);
+    closeForm();
+    closeDropDown();
+  }
+  isSuccessAddPacker  && closeForm();  
 
   const errorMessage = errors.password
   ? errors.password.type === "required"
@@ -51,11 +56,10 @@ const { mutate: addPacker, isSuccess: isSuccessAddPacker} = useAddPacker({name: 
       <form className={s.form} onSubmit={handleSubmit(onSumbit)}>
         {!small && (
           <Input
-            variant="default"
+            variant='default'
             placeholder="ім'я"
             register={{ ...register("name") }}
             autoFocus
-            type="text"
           />
         )}
         <Input
