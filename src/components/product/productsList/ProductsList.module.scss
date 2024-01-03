@@ -1,0 +1,44 @@
+@import "../../../styles//global.scss";
+
+.container { 
+    font-family: $font-family-ligth-compact;
+    font-size: 14px;
+    font-weight: 100;
+    color: #0052CC;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .product_item { 
+      display: flex;
+      padding-left: 2px;
+      border-radius: 3px;
+      background-color: #F4F5F7;  
+    }
+
+    .button {
+      font-weight: 400;
+      color: #0052CC;
+      height: 20px;
+      background-color: #F4F5F7;  
+      border-radius: 3px;
+      border: none;
+      display: flex;
+      padding: 2px 2px 2px 10px;
+      position: relative;
+        &:hover {
+          outline: 0.8px solid #0052CC;
+        }
+
+        &::before {
+          content: "+";  
+          position: absolute; 
+          left: 0px; 
+          top: 3px;
+          color: #0052CC; 
+        }
+    }
+}

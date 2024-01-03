@@ -21,7 +21,7 @@ const client = useQueryClient();
                         data: [...oldPackers.data, newPacker.data]
                     }
                  }   
-                 return oldPackers;
+                 client.invalidateQueries(['packers']);
             })
         },
         onError: async (error: ExtendedAxiosError ) => {

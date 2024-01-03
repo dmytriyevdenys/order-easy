@@ -1,10 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../shared/ui/Input/Input";
 import s from "./SearchPackerForm.module.scss";
 import { DropDown } from "../../shared/ui/DropDown/DropDown";
 import { DropDownItem } from "../../shared/ui/DropDown/DropDownItem/DropDownItem";
 import { useDebounce } from "../../../utils/useDebounce";
-import { useIntDocs } from "../../../hooks/Packer/useIntDocs";
 
 type SearchPackerFormProps = {
   onSearch?: (search: string, filter: string) => void;

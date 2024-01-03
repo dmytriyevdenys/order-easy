@@ -1,0 +1,1 @@
+export const BASE_ENDPOINT_DEV = 'http://localhost:8000/'

@@ -8,13 +8,6 @@ import s from './PackerTable.module.scss'
 import { StatusSell } from './StatusCell/StatusCell';
 import { Cell } from './Cell/Cell';
 
-const SkeletonRow: React.FC = () => (
-  <tr>
-    <td className={s.td}>Loading...</td>
-    {/* Додайте інші клітинки, якщо потрібно */}
-  </tr>
-);
-
 type IntDocTable = { 
 id: number ,
 IntDocNumber: string,

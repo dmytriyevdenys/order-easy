@@ -1,0 +1,30 @@
+.add_products_container {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.products_list {
+    width: 409px;
+    max-height: 275px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+        background-color: lightgray;
+        border-radius: 10px;
+    }
+}
+
+.buttons_container {
+    display: flex;
+    padding: 16px 8px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    border-top: 1px solid #DFE1E6;
+
+}

@@ -1,10 +1,10 @@
 import React, { ButtonHTMLAttributes } from "react";
 import s from './Button.module.scss';
-import { ReactComponent as AddIcon } from "../../../../assets/icons/buttonIcons/Vector (1).svg";
+import { ReactComponent as AddIcon } from "../../../../assets/icons/buttonIcons/add-icon.svg";
 import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color: "primary" | "secondary";
+  color: "primary" | "secondary" | "hover";
   variant: "default" | "addLarge" | "addSmall";
   leftElement?: boolean;
   rightElement?: boolean;
@@ -24,16 +24,16 @@ export const Button: React.FC<ButtonProps> = ({
   const colorClass = s[color];
   const disabledClass = disabled ? s.disabled : '';
   const withFullClass = withFull ? s.with_full : ''
-
+  const colorIconClass = color === 'hover' ? s.color_icon : '';
   return (
     <button
       className={disabled ? disabledClass : `${s.button} ${s[variant]} ${colorClass} ${withFullClass} `}
       disabled={disabled}
       {...props}
     >
-      {leftElement && <AddIcon className={s.icon_left} />}
+      {leftElement && <AddIcon className={`${s.icon_left} ${colorIconClass}`} />}
       {children}
-      {rightElement && <SelectIcon className={s.icon_right} />}
+      {rightElement && <SelectIcon className={`${s.icon_right} ${colorIconClass}`} />}
     </button>
   );
 };

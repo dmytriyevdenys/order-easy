@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from "react";
+import React, { InputHTMLAttributes, useState, forwardRef } from "react";
 import s from "./Input.module.scss";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { ReactComponent as ErrorIcon } from "../../../../assets/icons/error.svg";
@@ -33,65 +33,71 @@ const getIconForVariant = (variant: InputProps["variant"]): IconInfo => {
   }
 };
 
-export const Input: React.FC<InputProps> = ({
-  variant,
-  error,
-  register,
-  disabled,
-  onClick,
-  readOnly,
-  ...props
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const inputClass = s[variant];
-  const hasError = Boolean(error);
-  const iconInfo = getIconForVariant(variant);
-  const disabledClass = disabled ? s.disabled : "";
-  const selectReadOnlyClass =
-    variant === "select" && readOnly ? s.select_read_only : "";
+// ... (інші імпорти)
 
-  return (
-    <div
-      className={`${s.container} ${
-        hasError ? s.errorContainer : ""
-      } ${selectReadOnlyClass}`}
-      onClick={onClick}
-    >
-      <div className={ disabled ? disabledClass :`${s.inputContainer} ${hasError ? s.errorBorder : ""}`}>
-        <input
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    { variant, error, register, disabled, onClick, readOnly, ...props },
+    ref
+  ) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const inputClass = s[variant];
+    const hasError = Boolean(error);
+    const iconInfo = getIconForVariant(variant);
+    const disabledClass = disabled ? s.disabled : ""; // додано disabledClass тут
+    const selectReadOnlyClass =
+      variant === "select" && readOnly ? s.select_read_only : "";
+    const selectedValueinInputSelectClass =
+      variant === "select" && props.value ? s.selected_select : "";
+
+    return (
+      <div
+        className={`${s.container} ${
+          hasError ? s.errorContainer : ""
+        } ${selectReadOnlyClass}`}
+        onClick={onClick}
+      >
+        <div
           className={`${
-            disabled ? disabledClass : `${s.input} ${inputClass}`
-          } ${selectReadOnlyClass}`}
-          type={
-            variant === "password" && !showPassword
-              ? "password"
-              : variant === "search"
-              ? "search"
-              : "text"
-          }
-          disabled={disabled}
-          {...register}
-          {...props}
-        />
-        {iconInfo && (
-          <div
-            className={`${s.iconContainer} ${iconInfo.iconClass} ${
-              variant === "search" ? s.searchIcon : ""
-            }`}
-            onClick={() =>
-              variant.includes("password") && setShowPassword((prev) => !prev)
+            s.inputContainer
+          } ${inputClass} ${selectedValueinInputSelectClass} ${
+            hasError ? s.errorBorder : ""
+          } ${disabledClass}`}
+        >
+          <input
+            ref={ref}
+            className={`${s.input} ${selectReadOnlyClass}`}
+            type={
+              variant === "password" && !showPassword
+                ? "password"
+                : variant === "search"
+                ? "search"
+                : "text"
             }
-          >
-            {iconInfo.icon}
+            disabled={disabled}
+            {...register}
+            {...props}
+          />
+          {iconInfo && (
+            <div
+              className={`${s.iconContainer} ${iconInfo.iconClass} ${
+                variant === "search" ? s.searchIcon : ""
+              }`}
+              onClick={() =>
+                variant.includes("password") && setShowPassword((prev) => !prev)
+              }
+            >
+              {iconInfo.icon}
+            </div>
+          )}
+        </div>
+        {error && (
+          <div className={s.errorContainer}>
+            <ErrorIcon className={s.errorIcon} />
+            <span className={s.errorMessage}>{error}</span>
           </div>
         )}
       </div>
-      {error && (
-        <div className={s.errorContainer}>
-          <ErrorIcon className={s.errorIcon} />
-          <span className={s.errorMessage}>{error}</span>
-        </div>
-      )}
-    </div>
-  );
-};
+    );
+  }
+);

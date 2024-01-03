@@ -6,10 +6,11 @@ import {
 } from "../interfaces/api-response.interface";
 import { IntDoc } from "../interfaces/int-doc.type";
 import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
+import { BASE_ENDPOINT_DEV } from "../constans/baseEndPoint";
 
 class PackerService {
-  private baseUrl = "http://localhost:8000/packer";
-  private baseUrlIntDoc = "http://localhost:8000/internet-document";
+  private baseUrl = `${BASE_ENDPOINT_DEV}packer`;
+  private baseUrlIntDoc = `${BASE_ENDPOINT_DEV}internet-document`;
 
   async getAllPackers() {
     const packers = await axios.get<ApiResponse<IPacker[]>>(this.baseUrl);

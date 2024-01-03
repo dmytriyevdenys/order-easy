@@ -8,6 +8,7 @@ import { useElementPosition } from "../../../../utils/useElementPosition";
 type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   showElement?: "button" | "input";
+  colorElement?: "primary" | "hover" | "secondary"
   readonlyInput?: boolean;
   value?: string | number;
   closeToClickElement?: boolean;
@@ -21,6 +22,7 @@ type DropDownProps = HTMLAttributes<HTMLDivElement> & {
 export const DropDown: React.FC<DropDownProps> = ({
   children,
   showElement,
+  colorElement = 'primary',
   readonlyInput,
   showLeftIconButton,
   showRightIconButton,
@@ -44,6 +46,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   });
   useEffect(() => {
     if (show === false ) setShowDropDown(false);
+    if (show === true) setShowDropDown(true)
   },[show, setShowDropDown]);
   const listClassName = elementPosition === 'above' ? s.above : s.below ;  
   return (
@@ -52,7 +55,8 @@ export const DropDown: React.FC<DropDownProps> = ({
         {showElement === "button" && (
           <Button leftElement={showLeftIconButton} rightElement={showRightIconButton} 
             variant="addLarge"
-            color="primary"
+            color={colorElement && colorElement}
+            withFull
             onClick={() => {
              setShowDropDown(prev => !prev);
               onButtonClick && onButtonClick();

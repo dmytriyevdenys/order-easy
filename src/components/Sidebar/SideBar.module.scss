@@ -3,6 +3,7 @@
     height: 100%;
     width: 64px;
     display: flex;
+    gap: 50px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -16,5 +17,25 @@
         height: 32px;
         fill: #FFFF;
         cursor: pointer;
+    }
+
+    .list_container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .list_container > li {
+        cursor: pointer;
+    }
+
+    .list_item {
+        width: 23px;
+        height: 32px;
+        fill: #FFFF;
+
+        &:hover {
+            fill: aqua;
+        }
     }
 }

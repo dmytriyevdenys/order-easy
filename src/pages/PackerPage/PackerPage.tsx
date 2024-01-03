@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./PackerPage.module.scss";
 import useOnlineStatus from "../../hooks/Packer/useOnlineStatus";
 import { useAddIntDoc } from "../../hooks/Packer/useAddIntDoc";
@@ -83,8 +83,8 @@ export const PackerPage: React.FC = () => {
   return (
     <div className={s.container}>
       <div className={s.packer_container}>
-        <NetworkStatus isOnline={isOnline} />
-        <div className={s.packer}>
+{  !isOnline &&    <NetworkStatus isOnline={isOnline} />}       
+ <div className={s.packer}>
           {
             <DropDownPacker
               setPacker={setPacker}
@@ -109,7 +109,7 @@ export const PackerPage: React.FC = () => {
               ></Input>
               <Button
                 variant="default"
-                color="primary"
+                color="secondary"
                 type="submit"
                 disabled={!selectedPacker?.id}
               >

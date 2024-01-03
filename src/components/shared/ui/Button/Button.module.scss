@@ -11,11 +11,10 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
-
 }
 
 .default { 
-    padding: 12px 6px;
+    padding: 6px 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +26,7 @@
     font-size: 14px;
     font-weight: 600;
     height: 48px;
-    max-width: 170px;
+    width: 170px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -70,9 +69,14 @@
     color: #42526E;
 
     &:hover { 
-        border: 0.8px solid #0052CC;
+        outline: 0.8px solid #0052CC;
         color: #0052CC;
     }
+}
+
+.hover { 
+    background-color: #DEEBFF;
+    color: #0747A6;
 }
 
 
@@ -80,7 +84,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12 6 12 6px;
+    padding: 6px 12px;
     color: #A5ADBA;
     font-size: 14px;
     height: 32px;
@@ -101,6 +105,12 @@
     height: 13px;
     stroke: white;
     stroke-width: 1.67px;
+
+}
+
+.color_icon { 
+    fill: #0747A6;
+    stroke: #0747A6;
 }
 
 .with_full { 

@@ -19,11 +19,10 @@ input[type="number"] {
     height: 32px;
     width: 100%;
     font-family: $font-family-compact;
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 14px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-bottom: 1px solid #EEEFF2;
 
     &:hover {
@@ -38,7 +37,16 @@ input[type="number"] {
     &.errorBorder {
         border-bottom: 1px solid #DE350B;
     }
+    &.select {
+        background: none;
+    }
 
+    &.selected_select {
+        border-radius: 3px;
+        background: #091E420A;
+    }
+
+   
 }
 
 .errorContainer {
@@ -64,12 +72,10 @@ input[type="number"] {
     height: auto;
     font-family: $font-family-ligth-compact;
     font-weight: 400px;
-    font-size: 14px;
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
-        linear-gradient(0deg, #EEEFF2, #EEEFF2);
+    font-size: 14px;    
+   background: #FFFFFF;
     border: none;
     outline: none;
-
 }
 .errorMessage {
     font-family: $font-family-compact;
@@ -86,10 +92,10 @@ input[type="number"] {
 }
 
 .iconContainer {
-    fill: #7A869A;   
+    fill: #7A869A;
     
     &.selectIcon {
-        margin-top: 5px;
+        margin: 5px 4px 0 0 ;
         width: 10px;
         height: 10px;
     }
@@ -122,4 +128,6 @@ input[type="number"] {
 .select_read_only {
     cursor: pointer;
     caret-color: transparent; 
+    background: none;
 }
+

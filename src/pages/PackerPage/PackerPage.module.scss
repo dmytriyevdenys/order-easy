@@ -2,6 +2,7 @@
 
 
 .container {
+  margin-top: 5px;
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
@@ -20,11 +21,6 @@
       max-width: auto;
       display: flex;
       justify-content: space-between;
-
-      .form_int_doc {
-        display: flex;
-        gap: 20px;
-      }
 
       .filter_container {
         display: flex;
