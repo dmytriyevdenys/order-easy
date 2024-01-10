@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         >
           <input
             ref={ref}
-            className={`${s.input} ${selectReadOnlyClass}`}
+            className={`${s.input} ${selectedValueinInputSelectClass} ${selectReadOnlyClass}`}
             type={
               variant === "password" && !showPassword
                 ? "password"

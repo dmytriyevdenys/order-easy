@@ -15,6 +15,7 @@ type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   showLeftIconButton?: boolean;
   showRightIconButton?: boolean;
   show?: boolean;
+  listWidth?: string;
   onButtonClick?: () => void; 
   closeDropDown?: () => void;
 };
@@ -30,6 +31,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   placeholder,
   closeToClickElement,
   show,
+  listWidth,
   onButtonClick,
   closeDropDown,
   ...props
@@ -43,14 +45,15 @@ export const DropDown: React.FC<DropDownProps> = ({
       setShowDropDown(false);
       closeDropDown && closeDropDown();
     },
-  });
+  });    
+  
   useEffect(() => {
     if (show === false ) setShowDropDown(false);
     if (show === true) setShowDropDown(true)
   },[show, setShowDropDown]);
   const listClassName = elementPosition === 'above' ? s.above : s.below ;  
   return (
-    <div className={s.container} ref={containerRef} {...props}>
+<div className={s.container} ref={containerRef} {...props}>
       <div className={s.drop_down_button}>
         {showElement === "button" && (
           <Button leftElement={showLeftIconButton} rightElement={showRightIconButton} 
@@ -60,6 +63,7 @@ export const DropDown: React.FC<DropDownProps> = ({
             onClick={() => {
              setShowDropDown(prev => !prev);
               onButtonClick && onButtonClick();
+              
             }}
           >
             {value}
@@ -79,10 +83,11 @@ export const DropDown: React.FC<DropDownProps> = ({
         <ul
           className={`${s.list} ${listClassName}`}
           onClick={() => closeToClickElement && setShowDropDown(false)}
+          style={{width: listWidth}}
         >
           {children}
         </ul>
       )}
-    </div>
+    </div>    
   );
 };

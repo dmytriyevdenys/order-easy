@@ -1,72 +1,57 @@
-import { useState } from "react";
-import { useGetProductsToOrder } from "../../../hooks/Product/useGetProductToOrder";
 import { Button } from "../../shared/ui/Button/Button";
 import { DropDown } from "../../shared/ui/DropDown/DropDown";
 import { ProductDropDownItem } from "../productDropDownItem/ProductDropDownItem";
 import s from "./AddProductsDropDown.module.scss";
-import { TProduct } from "../../../interfaces/products/products.type";
 import { Input } from "../../shared/ui/Input/Input";
 import { ProductsList } from "../productsList/ProductsList";
-import { useDebounce } from "../../../utils/useDebounce";
+import { TProduct } from "../../../interfaces/products/products.type";
+import { SetStateAction } from "react";
 
-export const AddProductsDropDown: React.FC = () => {
-  const [products, setProducts] = useState<TProduct[]>([]);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [addedProductsIds, setAddedProductsIds] = useState<number[]>([]);
-  const [search, setSearch] = useState<string>('');
-  const debouncedSearch = useDebounce(search, 500);
-  const { data: dataProducts } = useGetProductsToOrder(debouncedSearch);
-
-  const addProduct = (product: TProduct) => {
-    setProducts((prevProduct) => [...prevProduct, product]);
-    setAddedProductsIds(prevIds => [...prevIds, product.id]);
-  };
-  const removeProduct = (productId: number) => {
-    const updatedProducts = products.filter(
-      (product) => product.id !== productId
-    );
-    const updatedIds = addedProductsIds.filter(
-      (id) => id !== productId
-    )
-    setProducts(updatedProducts);
-    setAddedProductsIds(updatedIds);
-  };
-
-  const updateProduct = (updatedProduct: TProduct) => {
-    const index = products.findIndex((product) => product.id === updatedProduct.id);  
-  if (index !== -1) {
-    const updatedProducts = [...products];
-    updatedProducts[index] = updatedProduct;
-    
-    setProducts(updatedProducts);
-  }
-  }
-
-  const cancel = () => {
-    setAddedProductsIds([]);
-    setProducts([]);
-    setSearch('');
-    setButtonClicked(false);
-  }
-
-  const toConfirm = () => {
-    setAddedProductsIds([]);
-    setSearch('');
-    setButtonClicked(false);
-  }
-
-  const onButtonClickHandle =  () => {
-    setButtonClicked((prev) => !prev);
-  };
-
-  
-    return (
+type AddProductsDropDownProps = {
+  addProduct: (product: TProduct) => void;
+  removeProduct: (product: TProduct) => void;
+  removeCheckProduct: (id: number) => void;
+  updateProduct: (product: TProduct) => void;
+  cancel: () => void;
+  toConfirm: () => void;
+  handleProductClick: (product: TProduct) => void;
+  setButtonClicked: (b: SetStateAction<boolean>) => void;
+  setSearch: (search: string) => void;
+  selectedProduct: TProduct | null;
+  search: string;
+  addedProductsIds: number[];
+  dataProducts: TProduct[] | undefined;
+  buttonClicked: boolean;
+  products: TProduct[];
+};
+export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
+  addProduct,
+  removeProduct,
+  removeCheckProduct,
+  updateProduct,
+  cancel,
+  toConfirm,
+  handleProductClick,
+  setButtonClicked,
+  setSearch,
+  selectedProduct,
+  search,
+  addedProductsIds,
+  dataProducts,
+  buttonClicked,
+  products,
+}) => {
+  return (
     <div className={s.add_products_container}>
+ {buttonClicked && <div className={s.overlay_active} />}
+      <div className={s.content_wrapper}>
       <ProductsList
         products={products}
         removeProduct={removeProduct}
+        updateProduct={updateProduct}
         isActiveDropDown={buttonClicked}
-        openDropDown={onButtonClickHandle}
+        openDropDown={() => setButtonClicked((prev) => !prev)}
+        onProductClick={handleProductClick}
       />
       {!buttonClicked && !products.length && (
         <Button
@@ -74,7 +59,7 @@ export const AddProductsDropDown: React.FC = () => {
           color="hover"
           rightElement
           withFull
-          onClick={onButtonClickHandle}
+          onClick={() => setButtonClicked((prev) => !prev)}
         >
           Додати товар
         </Button>
@@ -85,23 +70,33 @@ export const AddProductsDropDown: React.FC = () => {
         show={buttonClicked}
         closeDropDown={() => setButtonClicked(false)}
       >
-        {buttonClicked && <Input 
-        variant="search" 
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        autoFocus
-        />}
+        {selectedProduct && (
+          <ProductDropDownItem
+            product={selectedProduct}
+            updateProduct={updateProduct}
+            addedProductsIds={[selectedProduct.id]}
+          />
+        )}
+        {buttonClicked && !selectedProduct && (
+          <Input
+            variant="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoFocus
+          />
+        )}
         <div className={s.products_list}>
-          {dataProducts?.map((product) => (
-            <ProductDropDownItem
-              key={product.id}
-              product={product}
-              addProduct={addProduct}
-              removeProduct={removeProduct}
-              updateProduct={updateProduct}
-              addedProductsIds={addedProductsIds}
-            />
-          ))}
+          {!selectedProduct &&
+            dataProducts?.map((product) => (
+              <ProductDropDownItem
+                key={product.id}
+                product={product}
+                addProduct={addProduct}
+                removeCheckProduct={removeCheckProduct}
+                updateProduct={updateProduct}
+                addedProductsIds={addedProductsIds}
+              />
+            ))}
         </div>
         <div className={s.buttons_container}>
           <div>
@@ -111,7 +106,7 @@ export const AddProductsDropDown: React.FC = () => {
               style={{ backgroundColor: "white", color: "#7A869A" }}
               onClick={cancel}
             >
-              Відміна
+              Скасувати все
             </Button>
           </div>
           <div>
@@ -127,6 +122,7 @@ export const AddProductsDropDown: React.FC = () => {
           </div>
         </div>
       </DropDown>
+    </div>
     </div>
   );
 };

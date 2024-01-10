@@ -1,0 +1,16 @@
+%custom-scrollbar {
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: lightgray;
+      border-radius: 10px;
+    }
+  }
+
+  %flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

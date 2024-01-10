@@ -1,3 +1,6 @@
+@import "../../../styles/templates.scss";
+
+
 .add_products_container {
     width: 420px;
     display: flex;
@@ -8,15 +11,7 @@
     width: 409px;
     max-height: 275px;
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-      
-    &::-webkit-scrollbar-thumb {
-        background-color: lightgray;
-        border-radius: 10px;
-    }
+    @extend %custom-scrollbar
 }
 
 .buttons_container {
@@ -28,3 +23,21 @@
     border-top: 1px solid #DFE1E6;
 
 }
+.content_wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 1000; 
+}
+
+.overlay_active {
+    overflow: hidden; 
+    overflow-y: auto; 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s;
+    z-index: 998; 
+  }

@@ -16,6 +16,7 @@ input[type="number"] {
 }
 
 .inputContainer {
+   
     height: 32px;
     width: 100%;
     font-family: $font-family-compact;
@@ -44,8 +45,8 @@ input[type="number"] {
     &.selected_select {
         border-radius: 3px;
         background: #091E420A;
+        cursor: pointer;
     }
-
    
 }
 
@@ -76,6 +77,7 @@ input[type="number"] {
    background: #FFFFFF;
     border: none;
     outline: none;
+
 }
 .errorMessage {
     font-family: $font-family-compact;
@@ -129,5 +131,11 @@ input[type="number"] {
     cursor: pointer;
     caret-color: transparent; 
     background: none;
+}
+
+.selected_select {
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
 }
 

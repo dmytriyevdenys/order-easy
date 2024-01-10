@@ -1,22 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { TProduct } from "../../../interfaces/products/products.type";
 import s from "./ProductDropDownItem.module.scss";
 import { Input } from "../../shared/ui/Input/Input";
 
 type ProductDropDownItemProps = {
   product: TProduct;
-  addProduct: (product: TProduct) => void;
-  removeProduct: (productId: number) => void;
+  addProduct?: (product: TProduct) => void;
+  removeCheckProduct?: (productId: number) => void;
   updateProduct: (updatedProduct: TProduct) => void;
-  addedProductsIds: number[];
+  addedProductsIds?: number[];
 };
 
 export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
   product,
   addProduct,
-  removeProduct,
+  removeCheckProduct,
   addedProductsIds,
-  updateProduct
+  updateProduct,
 }) => {
   const amountRef = useRef<HTMLDivElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
@@ -24,12 +29,12 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
   const [clicked, setClicked] = useState({ amount: false, price: false });
   const [productItem, setProductItem] = useState<TProduct>({
     ...product,
-    quantity: 1,
-    price: product.price || 0,
+    quantity: product.indexId ? product.quantity: 1,
+    price: product.indexId ? product.price : product.price || 0,
   });
   const { id: productId, name: productName, quantity, price } = productItem;
   const [checkedProduct, setCheckedProduct] = useState(
-    addedProductsIds.includes(productId)
+    addedProductsIds && addedProductsIds.includes(productId)
   );
 
   const handleCheckboxChange = (e: React.MouseEvent<HTMLElement>) => {
@@ -44,13 +49,41 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
     const isChecked = !checkedProduct;
     setCheckedProduct(isChecked);
 
-    isChecked && addProduct(productItem);
-    !isChecked && removeProduct(productId);
+    (isChecked && addProduct) && addProduct(productItem);
+    (!isChecked && removeCheckProduct) && removeCheckProduct(productId);
   };
 
+  const handleUpdateProduct = (
+    e: ChangeEvent<HTMLInputElement>,
+    input: "quantity" | "price"
+  ) => {
+    if (input === "quantity") {
+      setProductItem({
+        ...productItem,
+        quantity: Number(e.target.value),
+      });
+      updateProduct({
+        ...productItem,
+        quantity: Number(e.target.value),
+      });
+    }
+    if (input === "price") {
+      setProductItem({
+        ...productItem,
+        price: Number(e.target.value),
+      });
+      updateProduct({
+        ...productItem,
+        price: Number(e.target.value),
+      });
+    }
+  };
+  
   useEffect(() => {
-    !addedProductsIds.length && setCheckedProduct(false);
+    addedProductsIds && !addedProductsIds.length && setCheckedProduct(false);
   }, [addedProductsIds]);
+
+
   
   return (
     <div className={s.container} onClick={handleCheckboxChange}>
@@ -74,36 +107,19 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
               variant="default"
               type="number"
               autoFocus
-              onChange={(e) =>
-                {setProductItem({
-                  ...productItem,
-                  quantity: Number(e.target.value),
-                  
-                })
-                updateProduct({
-                  ...productItem,
-                  quantity: Number(e.target.value)
-                })
-              }
-              }
+              onChange={(e) => handleUpdateProduct(e, "quantity")}
               onBlur={() => setClicked({ amount: false, price: false })}
               ref={inputRef}
             />
           </div>
         )}
         {clicked.price && (
-          <div className={s.amount}>
+          <div className={s.price}>
             <Input
               variant="default"
               type="number"
               autoFocus
-              onChange={(e) =>{
-                setProductItem({
-                  ...productItem,
-                  price: Number(e.target.value),
-                })
-              }
-              }
+              onChange={(e) => handleUpdateProduct(e, "price")}
               onBlur={() => setClicked({ amount: false, price: false })}
               ref={inputRef}
             />

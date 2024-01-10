@@ -1,31 +1,38 @@
-import { TProduct } from "../../../interfaces/products/products.type";
+import { TProduct } from "interfaces/products/products.type";
 import s from "./ProductsList.module.scss";
-import { ReactComponent as CloseIcon } from "../../../assets/icons/orderIcons/close.svg";
+import { ProductListItem } from "./ProductListItem/ProductListItem";
+import { useEffect, useRef } from "react";
 
 type ProductsListProps = {
   products: TProduct[];
   isActiveDropDown: boolean;
   openDropDown: () => void;
-  removeProduct: (productId: number) => void;
+  removeProduct: (product: TProduct) => void;
+  updateProduct: (product: TProduct) => void;
+  onProductClick: (product: TProduct) => void;
 };
 export const ProductsList: React.FC<ProductsListProps> = ({
   products,
   removeProduct,
   openDropDown,
+  onProductClick,
   isActiveDropDown,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null); 
+  const containerClass = isActiveDropDown ? `${s.container} ${s.is_active}`: s.container;
+  useEffect(() => {
+    if (isActiveDropDown && containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [products, isActiveDropDown]);
   return (
-    <div className={s.container}>
+    <div className={containerClass} ref={containerRef}>
       {products.map((product, index) => (
-        <div key={index} className={s.product_item}>
-          <span>
-            {product.quantity !== null && product?.quantity > 1
-              ? `${product.name} -${product.quantity}шт`
-              : product.name}
-          </span>
-          <div onClick={() => removeProduct(product.id)}>
-            <CloseIcon />
-          </div>
+        <div key={index} >
+          <ProductListItem product={product} removeProduct={removeProduct} onProductClick={onProductClick} />
         </div>
       ))}
       {!isActiveDropDown && products.length > 0 && (

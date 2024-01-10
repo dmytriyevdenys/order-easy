@@ -1,0 +1,11 @@
+@import "../../../styles/templates.scss";
+
+.container {
+    width: 200px;
+}
+
+.list {
+    overflow-y: scroll;
+    max-height: 300px;
+    @extend %custom-scrollbar
+}

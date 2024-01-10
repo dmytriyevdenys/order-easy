@@ -1,4 +1,5 @@
 @import "../../../styles/global.scss";
+@import "../../../styles/templates.scss";
 
 .table_container {
   font-family: $font-family-ligth-compact;
@@ -12,17 +13,10 @@
   max-height: 75vh;
   overflow-y: scroll;
   border-bottom: 2px solid #DFE1E6;
+  @extend %custom-scrollbar
 
 }
 
-.table_container::-webkit-scrollbar {
-  width: 5px;
-}
-
-.table_container::-webkit-scrollbar-thumb {
-  background-color: lightgray;
-  border-radius: 10px;
-}
 
 table {
   width: 100%;

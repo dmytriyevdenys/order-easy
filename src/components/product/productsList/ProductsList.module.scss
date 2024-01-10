@@ -1,4 +1,5 @@
 @import "../../../styles//global.scss";
+@import "../../../styles/templates.scss";
 
 .container { 
     font-family: $font-family-ligth-compact;
@@ -11,6 +12,13 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+
+    &.is_active {
+      min-height: 40px;
+      max-height: 50px;
+      overflow-x: scroll;
+      @extend %custom-scrollbar;
+    }
 
     .product_item { 
       display: flex;

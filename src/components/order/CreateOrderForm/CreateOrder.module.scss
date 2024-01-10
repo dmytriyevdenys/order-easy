@@ -1,0 +1,13 @@
+.container { 
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+width: 450px;
+
+.source_tag_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: content;
+}
+}

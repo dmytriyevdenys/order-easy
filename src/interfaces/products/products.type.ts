@@ -8,4 +8,5 @@ export type TProduct = {
     price: number;
     createdAt: Date;
     updatedAt: Date;
+    indexId: number;
 }
