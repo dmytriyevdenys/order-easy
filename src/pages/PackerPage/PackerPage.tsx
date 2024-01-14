@@ -9,7 +9,6 @@ import { Button } from "../../components/shared/ui/Button/Button";
 import ErrorToast from "../../components/shared/ErrorToast";
 import { PackerTable } from "../../components/packer/PackerTable/PackerTable";
 import { useIntDocs } from "../../hooks/Packer/useIntDocs";
-import { useSseIntDoc } from "../../hooks/Packer/useSseIntDoc";
 import { Pagination } from "../../components/pagination/Pagination";
 import { NetworkStatus } from "../../components/networkStatus/networkStatus";
 import { DropDownPacker } from "../../components/packer/DropDownPacker/DropDownPacker";
@@ -76,10 +75,6 @@ export const PackerPage: React.FC = () => {
       setIntDocNumber("");
     }
   };
-
-
-  useSseIntDoc({ page: currentPage, limit: perPage });
-
   return (
     <div className={s.container}>
       <div className={s.packer_container}>

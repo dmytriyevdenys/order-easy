@@ -2,12 +2,23 @@
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
-width: 450px;
+width: 420px;
+padding: 30px 15px 30px 15px;
+
+.wrapper{
+    width: 360px;
+}
 
 .source_tag_container {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex: content;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 }

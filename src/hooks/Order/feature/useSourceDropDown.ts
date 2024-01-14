@@ -25,7 +25,8 @@ export const useSourceDropDown= () => {
 
   const handleSetSource = (source: OrderAssociations) => {
     setSourceName(source.name);
-    setSourceId(source.id)
+    setSourceId(source.id);
+    setSearchTerm('');
   };
 
   return {

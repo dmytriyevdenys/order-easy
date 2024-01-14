@@ -54,7 +54,8 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
         onProductClick={handleProductClick}
       />
       {!buttonClicked && !products.length && (
-        <Button
+        <div className={s.button_container}>
+          <Button
           variant="addLarge"
           color="hover"
           rightElement
@@ -62,7 +63,9 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
           onClick={() => setButtonClicked((prev) => !prev)}
         >
           Додати товар
-        </Button>
+        </Button> 
+        </div>
+        
       )}
       <DropDown
         showLeftIconButton

@@ -1,0 +1,21 @@
+@import "../../../styles/global.scss";
+@import "../../../styles/templates.scss";
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    font-family: $font-family-compact;
+    font-size: 14px;
+    color: #7A869A;    
+
+    .drop_container {
+        flex-grow: 1;
+    }
+
+    .list_container {
+        width: 150px;
+    }
+}

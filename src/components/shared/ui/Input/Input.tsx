@@ -33,8 +33,6 @@ const getIconForVariant = (variant: InputProps["variant"]): IconInfo => {
   }
 };
 
-// ... (інші імпорти)
-
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     { variant, error, register, disabled, onClick, readOnly, ...props },

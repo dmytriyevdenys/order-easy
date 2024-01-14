@@ -1,9 +1,8 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/global.scss'; 
-import {App} from './App';
 import { QueryClient, QueryClientProvider,  } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
+import {  RouterProvider } from 'react-router-dom';
+import { router } from 'routes/routes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,8 +16,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-      <App />
-      </BrowserRouter>
+      <RouterProvider router={router}/>
     </QueryClientProvider>
 );

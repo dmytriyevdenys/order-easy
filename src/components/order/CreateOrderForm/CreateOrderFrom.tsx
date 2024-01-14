@@ -5,6 +5,11 @@ import { useProductManagment } from "../../../hooks/Product/feature/useProductMa
 import { TProduct } from "../../../interfaces/products/products.type";
 import { SourceDropDown } from "../SourceDropDown/SourceDropDown";
 import { useSourceDropDown } from "../../../hooks/Order/feature/useSourceDropDown";
+import { ManagerDropDown } from "../ManagerDropDown/ManagerDropDown";
+import { StatusDropDown } from "../StatusDropDown/StatusDropDown";
+import { AbstractFormComponent } from "../AbstractFormComponent/AbstractFormComponent";
+import { Input } from "components/shared/ui/Input/Input";
+import { SearchSettlements } from "../SearchSettlements/SearchSettlements";
 
 type FormProps = {
   id?: number;
@@ -35,11 +40,10 @@ export const CreateOrderForm: React.FC = () => {
     const {products} = addProductsDropDownProps
     const newData = { ...data, products };
   };
-
-
   return (
     <div className={s.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={s.wrapper}>
+      <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <div className={s.add_products_container}>
           <AddProductsDropDown {...addProductsDropDownProps}/>
         </div>
@@ -49,8 +53,13 @@ export const CreateOrderForm: React.FC = () => {
             Тег
           </div>
           </div>
-        
+          <StatusDropDown/>
+          <AbstractFormComponent label='Менеджер' Component={ManagerDropDown} />
+          <AbstractFormComponent label="ТТН" Component={Input} componentProps={{variant: 'default'}} />
+          <AbstractFormComponent label="Сума" Component={Input} componentProps={{variant: 'grivnja'}}/>
+          <AbstractFormComponent label="Місто" Component={SearchSettlements}/>
       </form>
+      </div>
     </div>
   );
 };

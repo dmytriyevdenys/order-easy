@@ -4,7 +4,7 @@ import { orderService } from "services/order.service"
 export const useGetStatuses = () => {
     return useQuery({
         queryKey: ['statuses'],
-        queryFn: () => orderService.getStatus(),
+        queryFn: () => orderService.getStatuses(),
         enabled: false
     })
 }

@@ -19,6 +19,7 @@ export const DropDownPerPage: React.FC<DropDownPerPageProps> = ({
           key={index}
            data={perPageItem}
            onClick={() => onPerPageChange(perPageItem)}
+           defaultValue={20}
            />
         ))}
       </DropDown>

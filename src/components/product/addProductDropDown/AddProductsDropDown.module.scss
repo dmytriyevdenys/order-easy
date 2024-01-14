@@ -2,13 +2,14 @@
 
 
 .add_products_container {
-    width: 420px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 .products_list {
-    width: 409px;
+   width: 100%;
+   min-width: 370px;
     max-height: 275px;
     overflow-y: scroll;
     @extend %custom-scrollbar
@@ -40,4 +41,8 @@
     background: rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s;
     z-index: 998; 
+  }
+
+  .button_container {
+    width: 100%c;
   }

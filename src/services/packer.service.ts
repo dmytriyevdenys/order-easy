@@ -1,4 +1,3 @@
-import axios from "axios";
 import { IPacker } from "../interfaces/packer.interface";
 import {
   ApiResponse,
@@ -6,14 +5,14 @@ import {
 } from "../interfaces/api-response.interface";
 import { IntDoc } from "../interfaces/int-doc.type";
 import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
-import { BASE_ENDPOINT_DEV } from "../constans/baseEndPoint";
+import { api } from "./api/axiosConfig";
 
 class PackerService {
-  private baseUrl = `${BASE_ENDPOINT_DEV}packer`;
-  private baseUrlIntDoc = `${BASE_ENDPOINT_DEV}internet-document`;
+  private packerPath = 'packer';
+  private internetDocumentPath = 'internet-document';
 
   async getAllPackers() {
-    const packers = await axios.get<ApiResponse<IPacker[]>>(this.baseUrl);
+    const packers = await api.get<ApiResponse<IPacker[]>>(this.packerPath);
     return packers.data;
   }
 
@@ -30,10 +29,10 @@ class PackerService {
     pageUrl
       ? (url = pageUrl)
       : (url = packerId
-          ? `${this.baseUrlIntDoc}?packerId=${packerId}`
-          : this.baseUrlIntDoc);
+          ? `${this.internetDocumentPath}?packerId=${packerId}`
+          : this.internetDocumentPath);
 
-    const response = await axios.get<ApiResponsePagination<IntDoc[]>>(url, {
+    const response = await api.get<ApiResponsePagination<IntDoc[]>>(url, {
       params: options,
     });
 
@@ -44,15 +43,15 @@ class PackerService {
     id: number,
     password: { password: string }
   ): Promise<IPacker> {
-    const response = await axios.post<ApiResponse<IPacker>>(
-      `${this.baseUrl}/${id}`,
+    const response = await api.post<ApiResponse<IPacker>>(
+      `${this.packerPath}/${id}`,
       password
     );
     return response.data.data;
   }
 
   async addPacker ({name, password}: {name: string, password: string}) {
-     const response = await axios.post<ApiResponse<IPacker>>(this.baseUrl, {name, password});
+     const response = await api.post<ApiResponse<IPacker>>(this.packerPath, {name, password});
      return response.data;
   }
 
@@ -61,8 +60,8 @@ class PackerService {
     intDoc: TScanIntDoc
   ): Promise<ApiResponsePagination<IntDoc>> {
     
-    const response = await axios.post<ApiResponsePagination<IntDoc>>(
-      `${this.baseUrl}/${id}/scan/`,
+    const response = await api.post<ApiResponsePagination<IntDoc>>(
+      `${this.packerPath}/${id}/scan/`,
       intDoc
     );
     return response.data;

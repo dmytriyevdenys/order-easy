@@ -5,9 +5,10 @@ import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDow
 
 export const StatusDropDown: React.FC = () => {
     const {data, refetch} = useGetStatuses();
+
     return (
         <div className={s.container}>
-            <DropDown showElement='button' onClick={() => refetch()} >
+            <DropDown showElement='input' onClick={() => refetch()} >
                 {data?.map(status => (
                     <DropDownItem key={status.id} data={status.name}/>
                 ))}

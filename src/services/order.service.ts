@@ -1,20 +1,26 @@
 import axios from "axios";
-import { BASE_ENDPOINT_DEV } from "../constans/baseEndPoint";
 import { OrderAssociations } from "../interfaces/order/order-associations";
+import { api } from "./api/axiosConfig";
+import { TUser } from "interfaces/user/user.type";
 
 class OrderService {
-    private baseUrl = `${BASE_ENDPOINT_DEV}order`;
-    private urlToSource = `${this.baseUrl}/source`;
+    private path = 'order';
     
-    async getSource () {
-        const sources = await axios.get<OrderAssociations[]>(this.urlToSource);
+    async getSources() {
+        const sources = await api.get<OrderAssociations[]>(`${this.path}/source`);
         return sources.data;
     }
 
-    async getStatus () {
-        const statuses = await axios.get<OrderAssociations[]>(`${this.baseUrl}/status`);
+    async getStatuses () {
+        const statuses = await api.get<OrderAssociations[]>(`${this.path}/status`);
         return statuses.data;
     }
+
+    async getUsers () { 
+        const users = await api.get<TUser[]>('user');
+        return users.data
+    }
+
 }
 
 export const orderService = new OrderService();
