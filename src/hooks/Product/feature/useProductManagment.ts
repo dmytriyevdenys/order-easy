@@ -84,6 +84,11 @@ export const useProductManagment = () => {
     setButtonClicked(true);
   };
 
+  const totalPrice = products.reduce((total, product) => {
+    const productTotal = product.price * (product.quantity || 1); 
+    return total + productTotal;
+  }, 0);  
+
   return {
     addProduct,
     removeProduct,
@@ -99,6 +104,7 @@ export const useProductManagment = () => {
     setSearch,
     selectedProduct,
     search,
-    addedProductsIds
+    addedProductsIds,
+    totalPrice
   };
 };

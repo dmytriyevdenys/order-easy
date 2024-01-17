@@ -10,6 +10,9 @@ import { StatusDropDown } from "../StatusDropDown/StatusDropDown";
 import { AbstractFormComponent } from "../AbstractFormComponent/AbstractFormComponent";
 import { Input } from "components/shared/ui/Input/Input";
 import { SearchSettlements } from "../SearchSettlements/SearchSettlements";
+import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
+import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
+import { SearchWarehouse } from "../SearchWarehouse/SearchWarehouse";
 
 type FormProps = {
   id?: number;
@@ -28,7 +31,13 @@ type FormProps = {
 type CreateOrderFormProps = {};
 export const CreateOrderForm: React.FC = () => {
   const addProductsDropDownProps = useProductManagment();
-  const sourceDropDownProps = useSourceDropDown()
+  const sourceDropDownProps = useSourceDropDown();
+  const searchSettlementsProps = useSearchSettlements();
+  const { settlement } = searchSettlementsProps;
+  const searchWarehouseProps = useSearchWarehouse(
+    settlement ? settlement.Ref : ""
+  );
+
   const {
     register,
     handleSubmit,
@@ -37,28 +46,49 @@ export const CreateOrderForm: React.FC = () => {
   } = useForm();
 
   const onSubmit: SubmitHandler<FormProps> = (data) => {
-    const {products} = addProductsDropDownProps
+    const { products } = addProductsDropDownProps;
     const newData = { ...data, products };
   };
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-        <div className={s.add_products_container}>
-          <AddProductsDropDown {...addProductsDropDownProps}/>
-        </div>
-        <div className={s.source_tag_container}>
-          <SourceDropDown {...sourceDropDownProps}/>
-          <div>
-            Тег
+        <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+          <div className={s.add_products_container}>
+            <AddProductsDropDown {...addProductsDropDownProps} />
           </div>
+          <div className={s.source_tag_container}>
+            <SourceDropDown {...sourceDropDownProps} />
+            <div>Тег</div>
           </div>
-          <StatusDropDown/>
-          <AbstractFormComponent label='Менеджер' Component={ManagerDropDown} />
-          <AbstractFormComponent label="ТТН" Component={Input} componentProps={{variant: 'default'}} />
-          <AbstractFormComponent label="Сума" Component={Input} componentProps={{variant: 'grivnja'}}/>
-          <AbstractFormComponent label="Місто" Component={SearchSettlements}/>
-      </form>
+          <StatusDropDown />
+          <AbstractFormComponent
+            label="Менеджер"
+            Component={<ManagerDropDown />}
+          />
+          <AbstractFormComponent
+            label="ТТН"
+            Component={<Input variant="default" disabled={true} />}
+          />
+          <AbstractFormComponent
+            label="Сума"
+            Component={
+              <Input
+                variant="grivnja"
+                type="number"
+                value={addProductsDropDownProps.totalPrice}
+                onChange={(e) => e.target.value}
+              />
+            }
+          />
+          <AbstractFormComponent
+            label="Місто"
+            Component={<SearchSettlements {...searchSettlementsProps} />}
+          />
+          <AbstractFormComponent
+            label="№ відділення"
+            Component={<SearchWarehouse {...searchWarehouseProps} />}
+          />
+        </form>
       </div>
     </div>
   );

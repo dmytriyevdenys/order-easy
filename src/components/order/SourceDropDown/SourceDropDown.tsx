@@ -1,20 +1,11 @@
-import { ChangeEvent, SetStateAction } from "react";
 import { DropDown } from 'components/shared/ui/DropDown/DropDown';
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import s from "./SourceDropDown.module.scss";
 import { Input } from "components/shared/ui/Input/Input";
-import { OrderAssociations } from "interfaces/order/order-associations";
+import { useSourceDropDown } from "hooks/Order/feature/useSourceDropDown";
 
-type SourceDropDownProps = {
-  showDropDown: boolean;
-  handleShowDropDown: () => void;
-  sourceName: string;
-  handleOnChange: (value: ChangeEvent<HTMLInputElement>) => void;
-  filteredData: OrderAssociations[] | undefined;
-  handleSetSource: (source: OrderAssociations) => void;
-  setSourceName: (name: string) => void
-  setShowDropDown: (b: SetStateAction<boolean>) => void;
-};
+type SourceDropDownProps = ReturnType<typeof useSourceDropDown>;
+
 export const SourceDropDown: React.FC<SourceDropDownProps> = ({
   handleShowDropDown,
   handleOnChange,

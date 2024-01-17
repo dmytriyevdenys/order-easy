@@ -3,12 +3,17 @@ import s from "./ManagerDropDown.module.scss"
 import { useGetManagers } from "hooks/Order/useGetManagers"
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { TUser } from "interfaces/user/user.type";
 
 type TManager = { 
     manager_id: number;
     manager_name: string;
 }
 export const ManagerDropDown = () => {
+    const client = useQueryClient();
+    const defaultManager = client.getQueryData<TUser>(['user, me'])
+    
     const {data, isSuccess} = useGetManagers();
     const [manager, setManager] = useState<TManager>();
 
@@ -20,7 +25,7 @@ export const ManagerDropDown = () => {
             <DropDown 
             showElement='input'
             closeToClickElement
-            value={manager?.manager_name} 
+            value={defaultManager? defaultManager.name : manager?.manager_name} 
             >
                 {isSuccess && data?.map(manager => (
                     <div className={s.list_container} key={manager?.manager_id}>

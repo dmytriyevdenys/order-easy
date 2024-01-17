@@ -4,26 +4,10 @@ import { ProductDropDownItem } from "../productDropDownItem/ProductDropDownItem"
 import s from "./AddProductsDropDown.module.scss";
 import { Input } from "../../shared/ui/Input/Input";
 import { ProductsList } from "../productsList/ProductsList";
-import { TProduct } from "../../../interfaces/products/products.type";
-import { SetStateAction } from "react";
+import { useProductManagment } from "hooks/Product/feature/useProductManagment";
 
-type AddProductsDropDownProps = {
-  addProduct: (product: TProduct) => void;
-  removeProduct: (product: TProduct) => void;
-  removeCheckProduct: (id: number) => void;
-  updateProduct: (product: TProduct) => void;
-  cancel: () => void;
-  toConfirm: () => void;
-  handleProductClick: (product: TProduct) => void;
-  setButtonClicked: (b: SetStateAction<boolean>) => void;
-  setSearch: (search: string) => void;
-  selectedProduct: TProduct | null;
-  search: string;
-  addedProductsIds: number[];
-  dataProducts: TProduct[] | undefined;
-  buttonClicked: boolean;
-  products: TProduct[];
-};
+type AddProductsDropDownProps = ReturnType<typeof useProductManagment>;
+
 export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
   addProduct,
   removeProduct,

@@ -16,6 +16,8 @@ type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   showRightIconButton?: boolean;
   show?: boolean;
   listWidth?: string;
+  below?: boolean;
+  scrollHeight?: string;
   onButtonClick?: () => void; 
   closeDropDown?: () => void;
 };
@@ -32,6 +34,8 @@ export const DropDown: React.FC<DropDownProps> = ({
   closeToClickElement,
   show,
   listWidth,
+  below,
+  scrollHeight,
   onButtonClick,
   closeDropDown,
   ...props
@@ -51,7 +55,8 @@ export const DropDown: React.FC<DropDownProps> = ({
     if (show === false ) setShowDropDown(false);
     if (show === true) setShowDropDown(true)
   },[show, setShowDropDown]);
-  const listClassName = elementPosition === 'above' ? s.above : s.below ;  
+  const listClassName =  elementPosition === 'above' ? s.above : s.below ;  
+const scrollClassName = scrollHeight &&  s.scroll
   return (
 <div className={s.container} ref={containerRef} {...props}>
       <div className={s.drop_down_button}>
@@ -81,9 +86,9 @@ export const DropDown: React.FC<DropDownProps> = ({
       </div>
       {showDropDown && (
         <ul
-          className={`${s.list} ${listClassName}`}
+          className={`${s.list} ${!below && listClassName} ${scrollClassName}`}
           onClick={() => closeToClickElement && setShowDropDown(false)}
-          style={{width: listWidth}}
+          style={{width: listWidth, maxHeight: scrollHeight}}
         >
           {children}
         </ul>
