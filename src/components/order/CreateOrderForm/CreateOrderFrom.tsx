@@ -13,6 +13,10 @@ import { SearchSettlements } from "../SearchSettlements/SearchSettlements";
 import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
 import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
 import { SearchWarehouse } from "../SearchWarehouse/SearchWarehouse";
+import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDropDown";
+import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
+import {AdditionalInformation} from "../Additionalnformation/Additionalnformation";
+import { Button } from "components/shared/ui/Button/Button";
 
 type FormProps = {
   id?: number;
@@ -37,6 +41,9 @@ export const CreateOrderForm: React.FC = () => {
   const searchWarehouseProps = useSearchWarehouse(
     settlement ? settlement.Ref : ""
   );
+  const paymentMethodDropDownProps = usePaymentMethod(
+    addProductsDropDownProps.totalPrice
+  );
 
   const {
     register,
@@ -46,8 +53,9 @@ export const CreateOrderForm: React.FC = () => {
   } = useForm();
 
   const onSubmit: SubmitHandler<FormProps> = (data) => {
-    const { products } = addProductsDropDownProps;
-    const newData = { ...data, products };
+    const { products, totalPrice } = addProductsDropDownProps;
+    const { source_id } = sourceDropDownProps;
+    const newData = { ...data, products, totalPrice, source_id };
   };
   return (
     <div className={s.container}>
@@ -67,12 +75,12 @@ export const CreateOrderForm: React.FC = () => {
           />
           <AbstractFormComponent
             label="ТТН"
-            Component={<Input variant="default" disabled={true} />}
+            Component={<Input variant="default" disabled />}
           />
           <AbstractFormComponent
             label="Сума"
             Component={
-              <Input
+              <Input 
                 variant="grivnja"
                 type="number"
                 value={addProductsDropDownProps.totalPrice}
@@ -87,6 +95,25 @@ export const CreateOrderForm: React.FC = () => {
           <AbstractFormComponent
             label="№ відділення"
             Component={<SearchWarehouse {...searchWarehouseProps} />}
+          />
+          <AbstractFormComponent
+            label="Спосіб оплати"
+            Component={
+              <PaymentMethodDropDown {...paymentMethodDropDownProps} />
+            }
+          />
+          {paymentMethodDropDownProps.paymentMethod.label === "Аванс" && (
+            <AbstractFormComponent
+              label="Сума авансу"
+              Component={<Input variant="grivnja" autoFocus />}
+            />
+          )}
+          <AbstractFormComponent
+            label="Додат.інформ"
+            Component={<AdditionalInformation
+               products={addProductsDropDownProps.products}
+               newProduct={addProductsDropDownProps.newProduct}
+               />}
           />
         </form>
       </div>

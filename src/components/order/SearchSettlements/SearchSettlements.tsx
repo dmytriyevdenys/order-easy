@@ -33,8 +33,8 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
         show={showDropDown}
         closeDropDown={() => setShowDropDown(false)}
         closeToClickElement
-        below
         scrollHeight="300"
+        below
       >
         {cityData &&
           cityData.map((city, index) => (

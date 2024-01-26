@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import errorSound from "../../assets/audio/error.mp3";
 
 type Props = {
     message: string;
 }
 
-const ErrorToast: React.FC<Props> = ({message}) => {
+export const ErrorToast: React.FC<Props> = ({ message }) => {
     const [show, setShow] = useState(true);
+    const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
-
         const timer = setTimeout(() => {
             setShow(false);
-        }, 3000);    
+        }, 3000);
+
         return () => {
             clearTimeout(timer);
         };
     }, []);
+
+    useEffect(() => {
+        if (audioRef.current) {
+       audioRef.current.play();
+        }
+    }, [audioRef]);
 
     return (
         <div
@@ -34,8 +42,10 @@ const ErrorToast: React.FC<Props> = ({message}) => {
             }}
         >
             {message}
+            <audio ref={audioRef}>
+                <source src={errorSound} type="audio/mp3"  />
+            </audio>
         </div>
     );
 };
 
-export default ErrorToast;

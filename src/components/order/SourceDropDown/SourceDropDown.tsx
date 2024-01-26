@@ -15,7 +15,6 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
   showDropDown,
   sourceName,
   filteredData,
-  
 }) => {
 
   return (
@@ -26,6 +25,7 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
         onChange={(e) => handleOnChange(e)}
         value={sourceName}
         onFocus={() => setSourceName("")}
+        placeholder='Оберіть джерело'
       />
       <DropDown
         closeToClickElement

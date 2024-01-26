@@ -12,7 +12,10 @@ export const AbstractFormComponent: React.FC<AbstractFormComponentProps> = ({
 }) => {
   return (
     <div className={s.container}>
+      <div className={s.label_container}>
       <label>{label}</label>
+    </div>
+     
       <div className={s.drop_container}>
         {React.cloneElement(Component)}
       </div>

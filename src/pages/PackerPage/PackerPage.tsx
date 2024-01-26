@@ -6,7 +6,7 @@ import { useOfflineAddIntDoc } from "../../hooks/Packer/useOfflineAddIntDoc";
 import { useSyncWithServer } from "../../hooks/Packer/useSyncWithServer";
 import { IPacker } from "../../interfaces/packer.interface";
 import { Button } from "../../components/shared/ui/Button/Button";
-import ErrorToast from "../../components/shared/ErrorToast";
+import {ErrorToast} from "../../components/shared/ErrorToast";
 import { PackerTable } from "../../components/packer/PackerTable/PackerTable";
 import { useIntDocs } from "../../hooks/Packer/useIntDocs";
 import { Pagination } from "../../components/pagination/Pagination";
@@ -20,15 +20,17 @@ export const PackerPage: React.FC = () => {
   const isOnline = useOnlineStatus();
   const [selectedPacker, setSelectedPacker] = useState<IPacker>();
   const [intDocNumber, setIntDocNumber] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+ 
   const [perPage, setPerPage] = useState(20);
   const [query, setQuery] = useState({filter: '', search: ''})
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: intDocs,
     isFetching: isFetchingIntDocs,
     isSuccess: isSuccessIntDocs,
+
   } = useIntDocs(
-    { page: currentPage, limit: perPage, filter: query.filter, search: query.search },
+    { page:  query.search ? 1: currentPage , limit: perPage, filter: query.filter, search: query.search },
     Number(selectedPacker?.id)
   );
   

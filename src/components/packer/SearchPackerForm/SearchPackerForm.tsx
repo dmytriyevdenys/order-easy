@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "../../shared/ui/Input/Input";
 import s from "./SearchPackerForm.module.scss";
 import { DropDown } from "../../shared/ui/DropDown/DropDown";
@@ -11,12 +11,17 @@ type SearchPackerFormProps = {
 
 type FilterOption = {
   label: string;
-  value: 'IntDocNumber' | 'order_id';
+  value: "IntDocNumber" | "order_id";
 };
 
-export const SearchPackerForm: React.FC<SearchPackerFormProps> = ({ onSearch }) => {
+export const SearchPackerForm: React.FC<SearchPackerFormProps> = ({
+  onSearch,
+}) => {
   const [search, setSearch] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState<FilterOption | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<FilterOption | null>(
+    null
+  );
+  const [error, setError] = useState("");
 
   const filterOptions: FilterOption[] = [
     { label: "№ замовлення", value: "order_id" },
@@ -25,30 +30,42 @@ export const SearchPackerForm: React.FC<SearchPackerFormProps> = ({ onSearch }) 
   const debouncedSearch = useDebounce(search, 500);
 
   const handleSearch = () => {
-    onSearch && onSearch(debouncedSearch, selectedFilter?.value ? selectedFilter.value : "");
-  }
+    selectedFilter?.value && setError("");
+    onSearch &&
+      selectedFilter?.value &&
+      onSearch(
+        debouncedSearch,
+        selectedFilter?.value ? selectedFilter.value : ""
+      );
+  };
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    !selectedFilter?.value && setError("Виберіть фільтр");
+    setSearch(e.target.value);
+  };
   useEffect(() => {
-    handleSearch()
-  },[debouncedSearch]);
+    handleSearch();
+  }, [debouncedSearch, search, selectedFilter?.value]);
   return (
     <div className={s.form}>
       <Input
         variant="search"
         placeholder="Пошук"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={handleOnChange}
+        error={error}
       />
       <div className={s.input_container}>
-        <DropDown 
-          showElement='input' 
-          readonlyInput 
+        <DropDown
+          showElement="input"
+          readonlyInput
           value={selectedFilter?.label}
-          placeholder='Оберіть фільтр'
+          placeholder="Оберіть фільтр"
           closeToClickElement
         >
           <div className={s.drop_down_list}>
             {filterOptions.map((option, index) => (
-              <DropDownItem 
+              <DropDownItem
                 key={index}
                 data={option.label}
                 onClick={() => {

@@ -31,6 +31,7 @@ export const useAddIntDoc = (packerId: number, intDocNumber: string) => {
     },
     onError: async (error: ExtendedAxiosError) => {
       if (error instanceof AxiosError) {
+        
         throw error;
       }
     },

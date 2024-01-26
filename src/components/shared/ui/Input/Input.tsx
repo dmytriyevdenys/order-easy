@@ -42,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputClass = s[variant];
     const hasError = Boolean(error);
     const iconInfo = getIconForVariant(variant);
-    const disabledClass = disabled ? s.disabled : ""; // додано disabledClass тут
+    const disabledClass = disabled ? s.disabled : ""; 
     const selectReadOnlyClass =
       variant === "select" && readOnly ? s.select_read_only : "";
     const selectedValueinInputSelectClass =

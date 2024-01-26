@@ -10,6 +10,8 @@ export const useProductManagment = () => {
   const [search, setSearch] = useState<string>("");
   const debouncedSearch = useDebounce(search, 500);
   const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null);
+  const [newProduct, setNewProduct] = useState<TProduct | null>(null);
+  
 
   const { data: dataProducts } = useGetProductsToOrder(debouncedSearch);
 
@@ -18,8 +20,9 @@ export const useProductManagment = () => {
       ...prevProduct,
       { ...product, indexId: prevProduct.length + 1 },
     ]);
-
+    setNewProduct(product);
     setAddedProductsIds((prevIds) => [...prevIds, product.id]);
+
   };
   const removeProduct = (removedProduct: TProduct) => {
     const updatedProducts = products.filter(
@@ -30,6 +33,7 @@ export const useProductManagment = () => {
     );
     setProducts(updatedProducts);
     setAddedProductsIds(updatedIds);
+    setNewProduct(removedProduct)
   };
 
   const removeCheckProduct = (productId: number) => {
@@ -47,6 +51,12 @@ export const useProductManagment = () => {
       setProducts(updatedProducts);
       setAddedProductsIds(updatedIds);
     }
+    setNewProduct(() => {
+      
+      const product = products.find(product => product.id === productId);
+      return product || null
+      })
+
   };
 
   const updateProduct = (updatedProduct: TProduct) => {
@@ -62,6 +72,8 @@ export const useProductManagment = () => {
       updatedProducts[actualIndex] = updatedProduct;
       setProducts(updatedProducts);
     }
+    setNewProduct(updatedProduct)
+
   };
 
   const cancel = () => {
@@ -70,6 +82,7 @@ export const useProductManagment = () => {
     setSelectedProduct(null);
     setSearch("");
     setButtonClicked(false);
+    setNewProduct(null)
   };
 
   const toConfirm = () => {
@@ -77,11 +90,15 @@ export const useProductManagment = () => {
     setSearch("");
     setSelectedProduct(null);
     setButtonClicked(false);
+    setNewProduct(null)
+
   };
 
   const handleProductClick = (product: TProduct) => {
     setSelectedProduct(product);
     setButtonClicked(true);
+    setNewProduct(null)
+
   };
 
   const totalPrice = products.reduce((total, product) => {
@@ -105,6 +122,7 @@ export const useProductManagment = () => {
     selectedProduct,
     search,
     addedProductsIds,
-    totalPrice
+    totalPrice,
+    newProduct
   };
 };
