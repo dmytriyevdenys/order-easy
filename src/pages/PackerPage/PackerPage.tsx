@@ -15,10 +15,13 @@ import { DropDownPacker } from "../../components/packer/DropDownPacker/DropDownP
 import { SearchPackerForm } from "../../components/packer/SearchPackerForm/SearchPackerForm";
 import { Input } from "../../components/shared/ui/Input/Input";
 import { usePackers } from "../../hooks/Packer/useAllPackers";
+import { LocalStorageManager } from "local-storage";
 
 export const PackerPage: React.FC = () => {
   const isOnline = useOnlineStatus();
-  const [selectedPacker, setSelectedPacker] = useState<IPacker>();
+  const localStorage = new LocalStorageManager<IPacker>('packer')
+  const packerSavedInLocal = localStorage.getData()
+  const [selectedPacker, setSelectedPacker] = useState<IPacker>(packerSavedInLocal[0]);
   const [intDocNumber, setIntDocNumber] = useState("");
  
   const [perPage, setPerPage] = useState(20);

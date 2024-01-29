@@ -1,0 +1,27 @@
+@import "../../../../styles/templates.scss";
+
+.container {
+    width: max-content;
+    height: 100%;
+    font-size: 14px;
+    padding: 0 12px 0 12px;
+    color: #42526E;
+    fill: #42526E;
+    @extend %flex-center;
+    gap: 5px;
+    border-bottom: 1px solid #0052CC;
+
+    .span { 
+        display: flex;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    
+    .active {
+        color: #0052CC;
+        fill: #42526E;
+    }
+}

@@ -52,7 +52,7 @@ const productsText = products.map((product) =>
 
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
-    const newInputText = getDifference(productsString, newValue).join(', ');
+    const newInputText = getDifference(productsString, newValue).join(' ');
     setInputText(newInputText);
     setValue(newValue);
   };

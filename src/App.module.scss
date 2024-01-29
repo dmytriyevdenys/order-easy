@@ -1,4 +1,7 @@
+@import "./styles//global.scss";
 .container { 
+    font-family: $font-family-compact;
+    font-size: 14px;
     height: 100vh;
     display: flex;
 

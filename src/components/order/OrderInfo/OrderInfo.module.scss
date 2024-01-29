@@ -1,0 +1,19 @@
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-color: #F5F9FF;
+    padding: 30px 15px 30px 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+
+    .buttons_container {
+        width: 100%;
+        height: 48px;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 10px;
+    }
+}

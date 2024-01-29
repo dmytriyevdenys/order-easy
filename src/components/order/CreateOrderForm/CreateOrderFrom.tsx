@@ -15,7 +15,7 @@ import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
 import { SearchWarehouse } from "../SearchWarehouse/SearchWarehouse";
 import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDropDown";
 import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
-import {AdditionalInformation} from "../Additionalnformation/Additionalnformation";
+import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
 import { Button } from "components/shared/ui/Button/Button";
 
 type FormProps = {
@@ -61,9 +61,7 @@ export const CreateOrderForm: React.FC = () => {
     <div className={s.container}>
       <div className={s.wrapper}>
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-          <div className={s.add_products_container}>
             <AddProductsDropDown {...addProductsDropDownProps} />
-          </div>
           <div className={s.source_tag_container}>
             <SourceDropDown {...sourceDropDownProps} />
             <div>Тег</div>
@@ -80,7 +78,7 @@ export const CreateOrderForm: React.FC = () => {
           <AbstractFormComponent
             label="Сума"
             Component={
-              <Input 
+              <Input
                 variant="grivnja"
                 type="number"
                 value={addProductsDropDownProps.totalPrice}
@@ -110,11 +108,31 @@ export const CreateOrderForm: React.FC = () => {
           )}
           <AbstractFormComponent
             label="Додат.інформ"
-            Component={<AdditionalInformation
-               products={addProductsDropDownProps.products}
-               newProduct={addProductsDropDownProps.newProduct}
-               />}
+            Component={
+              <AdditionalInformation
+                products={addProductsDropDownProps.products}
+                newProduct={addProductsDropDownProps.newProduct}
+              />
+            }
           />
+          <AbstractFormComponent
+            label="ПІБ"
+            Component={
+              <Input
+                variant="default"
+                {...register("buyer_name")}
+              />
+            }
+          />
+          <AbstractFormComponent
+            label="Телефон"
+            Component={<Input variant="default" type="number" />}
+            {...register('buyer_phone')}
+          />
+          <div className={s.buttons_container}>
+            <Button variant='default' color='secondary'>Відміна</Button>
+            <Button variant='default' color='primary'>Зберегти</Button>
+          </div>
         </form>
       </div>
     </div>
