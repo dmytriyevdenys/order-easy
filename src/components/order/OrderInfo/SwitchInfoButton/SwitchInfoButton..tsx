@@ -1,15 +1,16 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import s from "./SwitchInfoButton.module.scss";
 
-type SwitchInfoButtonProps = {
+type SwitchInfoButtonProps =  {
     text: string;
     icon: ReactNode;
+    OnClick: () => void;
+    selected: boolean;
 }
-export const SwitchInfoButton: React.FC<SwitchInfoButtonProps> = ({text, icon}) => {
-    const [isActive, setIsActive] = useState(false);
-    const activeClass = isActive ? s.active: ''
+export const SwitchInfoButton: React.FC<SwitchInfoButtonProps> = ({text, icon, selected, OnClick}) => {
+    const activeClass = selected ? s.active: '';    
     return (
-        <div className={`${s.container} ${activeClass}`}>
+        <div className={`${s.container} ${activeClass}`} onClick={() => OnClick()}>
               {icon}
             <span className={s.span}>{text}</span>
         </div>

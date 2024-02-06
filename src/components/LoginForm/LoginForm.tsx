@@ -6,7 +6,6 @@ import { useLogin } from "hooks/Auth/useLogin";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { setupAxios } from "services/api/axiosConfig";
 type InputProps = {
   email: string;
   password: string;
@@ -16,7 +15,6 @@ export const LoginForm: React.FC = () => {
   const auth = client.getQueryData<{isAuth: boolean}>(['auth']);
  const isAuth = auth?.isAuth ;
  const navigate = useNavigate();
- setupAxios(navigate);
   const { register, handleSubmit } = useForm<InputProps>();
   const [dataForm, setDataForm] = useState<InputProps>({email: '', password: ''});
   const {mutate, error, isSuccess} = useLogin(dataForm);

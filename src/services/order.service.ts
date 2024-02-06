@@ -1,7 +1,6 @@
-import axios from "axios";
 import { OrderAssociations } from "../interfaces/order/order-associations";
-import { api } from "./api/axiosConfig";
 import { TUser } from "interfaces/user/user.type";
+import { api } from "./api/axiosConfig";
 
 class OrderService {
     private path = 'order';

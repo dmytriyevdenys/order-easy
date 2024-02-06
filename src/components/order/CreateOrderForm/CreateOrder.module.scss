@@ -1,18 +1,55 @@
 @import "../../../styles/templates.scss";
 
 .container { 
-width: 390px;
-height: 100%;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-padding: 30px 15px 30px 15px;
+    width: 390px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 30px 15px 30px 15px;
+    position: relative;
+
+    .resizeHandle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        height: 100%;
+        cursor: col-resize;
+      }
+  
+    &.active_add_product {
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffff; 
+        opacity: 70%;
+        z-index: 1;
+      }
+  
+      transition: opacity 0.3s;
+    }
+  
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 0;
+    pointer-events: none; 
+  }
+
 
 .wrapper{
     height: 100%;
     width: 100%;
-    min-width: 300px;
-    max-width: 500px;
+  
 }
 
 .source_tag_container {

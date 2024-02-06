@@ -9,7 +9,7 @@
     fill: #42526E;
     @extend %flex-center;
     gap: 5px;
-    border-bottom: 1px solid #0052CC;
+    border-bottom: 1px solid  #42526E;
 
     .span { 
         display: flex;
@@ -20,8 +20,10 @@
     }
 
     
-    .active {
+    &.active {
         color: #0052CC;
-        fill: #42526E;
+        fill: #0052CC;
+        border-bottom: 1px solid  #0052CC;
+
     }
 }

@@ -1,6 +1,6 @@
 import { TSignIn } from "interfaces/auth/sign-in.type";
-import { api } from "./api/axiosConfig";
 import { TUser } from "interfaces/user/user.type";
+import { api } from "./api/axiosConfig";
 
 class AuthService { 
     private authPath = 'auth';
@@ -15,7 +15,10 @@ class AuthService {
     async authMe () {
       const me = await api.get<TUser>(`${this.authPath}/me`);
       return me.data;
-      
+    }
+    async refresh (access_token: string) {
+      const response = await api.post<{access_token: string}>(`${this.authPath}/refresh`, access_token);
+      return response.data.access_token;
     }
 }
 

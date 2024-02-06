@@ -17,6 +17,7 @@ import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDro
 import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
 import { Button } from "components/shared/ui/Button/Button";
+import { useResizableContainer } from "utils/useResizableContainer";
 
 type FormProps = {
   id?: number;
@@ -34,6 +35,7 @@ type FormProps = {
 };
 type CreateOrderFormProps = {};
 export const CreateOrderForm: React.FC = () => {
+  const {containerRef, resizeHandleRef, handleMouseDown}= useResizableContainer({minWidth: 300, maxWidth: 500 , side: 'right'})
   const addProductsDropDownProps = useProductManagment();
   const sourceDropDownProps = useSourceDropDown();
   const searchSettlementsProps = useSearchSettlements();
@@ -57,11 +59,20 @@ export const CreateOrderForm: React.FC = () => {
     const { source_id } = sourceDropDownProps;
     const newData = { ...data, products, totalPrice, source_id };
   };
+  const containerClass = addProductsDropDownProps.buttonClicked
+    ? s.active_add_product
+    : "";
   return (
-    <div className={s.container}>
+    <div className={`${s.container} ${containerClass}`} ref={containerRef}>
+      <div className={s.overlay}></div>
       <div className={s.wrapper}>
+      <div
+          ref={resizeHandleRef}
+          className={s.resizeHandle}
+          onMouseDown={handleMouseDown}
+        ></div>
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-            <AddProductsDropDown {...addProductsDropDownProps} />
+          <AddProductsDropDown {...addProductsDropDownProps} />
           <div className={s.source_tag_container}>
             <SourceDropDown {...sourceDropDownProps} />
             <div>Тег</div>
@@ -117,21 +128,28 @@ export const CreateOrderForm: React.FC = () => {
           />
           <AbstractFormComponent
             label="ПІБ"
-            Component={
-              <Input
-                variant="default"
-                {...register("buyer_name")}
-              />
-            }
+            Component={<Input variant="default" {...register("buyer_name")} />}
           />
           <AbstractFormComponent
             label="Телефон"
             Component={<Input variant="default" type="number" />}
-            {...register('buyer_phone')}
+            {...register("buyer_phone")}
           />
           <div className={s.buttons_container}>
-            <Button variant='default' color='secondary'>Відміна</Button>
-            <Button variant='default' color='primary'>Зберегти</Button>
+            <Button
+              variant="default"
+              color="secondary"
+              disabled={addProductsDropDownProps.buttonClicked}
+            >
+              Відміна
+            </Button>
+            <Button
+              variant="default"
+              color="primary"
+              disabled={addProductsDropDownProps.buttonClicked}
+            >
+              Зберегти
+            </Button>
           </div>
         </form>
       </div>

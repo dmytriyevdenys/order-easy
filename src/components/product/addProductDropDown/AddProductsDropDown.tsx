@@ -27,7 +27,6 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
 }) => {
   return (
     <div className={s.add_products_container}>
- {buttonClicked && <div className={s.overlay_active} />}
       <div className={s.content_wrapper}>
       <ProductsList
         products={products}
@@ -55,8 +54,8 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
         showLeftIconButton
         showRightIconButton
         show={buttonClicked}
-        closeDropDown={() => setButtonClicked(false)}
-      >
+        listWidth="100%"
+        closeDropDown={() => setButtonClicked(false)}      >
         {selectedProduct && (
           <ProductDropDownItem
             product={selectedProduct}
@@ -100,7 +99,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
             {" "}
             <Button
               variant="default"
-              color="secondary"
+              color="primary"
               disabled={!products.length}
               onClick={toConfirm}
             >
