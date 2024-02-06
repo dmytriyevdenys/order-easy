@@ -9,7 +9,7 @@ export const OrderPage:React.FC = () => {
         <div className={s.container}>
             <div><CreateOrderForm/></div> 
             <div className={s.order_info}><OrderInfo/></div>
-            <div><Post/></div>
+          <div><Post/></div>
         </div>
        
     )

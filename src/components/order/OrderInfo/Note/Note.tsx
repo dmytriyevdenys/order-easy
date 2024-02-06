@@ -1,13 +1,15 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import s from "./Note.module.scss";
+import { useTextAreaHeight } from "../../../../utils/useTextareaHeight";
+import { Textarea } from "components/shared/ui/Textarea/Textarea";
 
 type NoteProps = {
   note?: string;
   active?: boolean;
   onNoteChange: (text: string) => void;
 };
-export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange}) => {
-  const [text, setText] = useState(note || '');
+export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange }) => {
+  const [text, setText] = useState(note || "");
   const [isActive, setIsActive] = useState(active || false);
   const containerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -21,24 +23,18 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange}) => {
 
   const handleOnBlur = () => {
     setIsActive(false);
- 
   };
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setText(value);
-    onNoteChange(value)
+    onNoteChange(value);
   };
-
-  useEffect(() => {
-    if (isActive && textareaRef.current && containerRef.current) {
-      const textareaHeight = textareaRef.current.scrollHeight;
-      textareaRef.current.style.height = `${textareaHeight}px`;
-    }
-  }, [text, isActive]);
-
-  const height = Number(containerRef.current?.clientHeight) ;
-  const width = Number(containerRef.current?.clientWidth) + 3;
-  
+  const { height, width } = useTextAreaHeight({
+    textareaRef: textareaRef,
+    containerRef: containerRef,
+    isActive: isActive,
+    text,
+  });
   return (
     <div
       className={s.container}
@@ -48,17 +44,15 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange}) => {
       ref={containerRef}
     >
       {(isActive || active) && (
-        <div><textarea
-          ref={textareaRef}
-          className={s.textarea}
-          value={text}
-          onChange={handleOnChange}
-          autoFocus
-          style={{
-            height: height,
-            width:  width
-          }}
-        />
+        <div>
+          <Textarea 
+            value={text}
+            onChange={(e) => handleOnChange(e)}
+            ref={textareaRef}
+            autoFocus
+            border
+            style={{width: width , height}}
+          />
         </div>
       )}
       {!isActive && !active && (

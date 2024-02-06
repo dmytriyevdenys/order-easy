@@ -8,7 +8,7 @@ export const StatusDropDown: React.FC = () => {
 
     return (
         <div className={s.container}>
-            <DropDown showElement='input' onClick={() => refetch()} >
+            <DropDown showElement='input' onClick={() => refetch()} listWidth="100%" scrollHeight="300">
                 {data?.map(status => (
                     <DropDownItem key={status.id} data={status.name}/>
                 ))}

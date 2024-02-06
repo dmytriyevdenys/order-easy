@@ -32,10 +32,11 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
         value={sourceName}
         show={showDropDown}
         closeDropDown={() => setShowDropDown(false)}
-        listWidth="190"
+        listWidth="100%"
+        scrollHeight='300'
       >
         {" "}
-        <div className={s.list}>
+        <div>
           {filteredData?.map((source) => (
             <DropDownItem
               key={source.id}

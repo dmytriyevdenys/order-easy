@@ -17,7 +17,7 @@ import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDro
 import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
 import { Button } from "components/shared/ui/Button/Button";
-import { useResizableContainer } from "utils/useResizableContainer";
+import { ResizeContainer } from "components/shared/Resize";
 
 type FormProps = {
   id?: number;
@@ -35,7 +35,6 @@ type FormProps = {
 };
 type CreateOrderFormProps = {};
 export const CreateOrderForm: React.FC = () => {
-  const {containerRef, resizeHandleRef, handleMouseDown}= useResizableContainer({minWidth: 300, maxWidth: 500 , side: 'right'})
   const addProductsDropDownProps = useProductManagment();
   const sourceDropDownProps = useSourceDropDown();
   const searchSettlementsProps = useSearchSettlements();
@@ -63,96 +62,95 @@ export const CreateOrderForm: React.FC = () => {
     ? s.active_add_product
     : "";
   return (
-    <div className={`${s.container} ${containerClass}`} ref={containerRef}>
-      <div className={s.overlay}></div>
-      <div className={s.wrapper}>
-      <div
-          ref={resizeHandleRef}
-          className={s.resizeHandle}
-          onMouseDown={handleMouseDown}
-        ></div>
-        <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-          <AddProductsDropDown {...addProductsDropDownProps} />
-          <div className={s.source_tag_container}>
-            <SourceDropDown {...sourceDropDownProps} />
-            <div>Тег</div>
-          </div>
-          <StatusDropDown />
-          <AbstractFormComponent
-            label="Менеджер"
-            Component={<ManagerDropDown />}
-          />
-          <AbstractFormComponent
-            label="ТТН"
-            Component={<Input variant="default" disabled />}
-          />
-          <AbstractFormComponent
-            label="Сума"
-            Component={
-              <Input
-                variant="grivnja"
-                type="number"
-                value={addProductsDropDownProps.totalPrice}
-                onChange={(e) => e.target.value}
-              />
-            }
-          />
-          <AbstractFormComponent
-            label="Місто"
-            Component={<SearchSettlements {...searchSettlementsProps} />}
-          />
-          <AbstractFormComponent
-            label="№ відділення"
-            Component={<SearchWarehouse {...searchWarehouseProps} />}
-          />
-          <AbstractFormComponent
-            label="Спосіб оплати"
-            Component={
-              <PaymentMethodDropDown {...paymentMethodDropDownProps} />
-            }
-          />
-          {paymentMethodDropDownProps.paymentMethod.label === "Аванс" && (
+    <div className={`${s.container} ${containerClass}`}>
+      <ResizeContainer minWidth={300} maxWidth={500} width="390" side="right">
+        <div className={s.overlay}></div>
+        <div className={s.wrapper}>
+          <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+            <AddProductsDropDown {...addProductsDropDownProps} />
+            <div className={s.source_tag_container}>
+              <SourceDropDown {...sourceDropDownProps} />
+              <div>Тег</div>
+            </div>
+            <StatusDropDown />
             <AbstractFormComponent
-              label="Сума авансу"
-              Component={<Input variant="grivnja" autoFocus />}
+              label="Менеджер"
+              Component={<ManagerDropDown />}
             />
-          )}
-          <AbstractFormComponent
-            label="Додат.інформ"
-            Component={
-              <AdditionalInformation
-                products={addProductsDropDownProps.products}
-                newProduct={addProductsDropDownProps.newProduct}
+            <AbstractFormComponent
+              label="ТТН"
+              Component={<Input variant="default" disabled />}
+            />
+            <AbstractFormComponent
+              label="Сума"
+              Component={
+                <Input
+                  variant="grivnja"
+                  type="number"
+                  value={addProductsDropDownProps.totalPrice}
+                  onChange={(e) => e.target.value}
+                />
+              }
+            />
+            <AbstractFormComponent
+              label="Місто"
+              Component={<SearchSettlements {...searchSettlementsProps} />}
+            />
+            <AbstractFormComponent
+              label="№ відділення"
+              Component={<SearchWarehouse {...searchWarehouseProps} />}
+            />
+            <AbstractFormComponent
+              label="Спосіб оплати"
+              Component={
+                <PaymentMethodDropDown {...paymentMethodDropDownProps} />
+              }
+            />
+            {paymentMethodDropDownProps.paymentMethod.label === "Аванс" && (
+              <AbstractFormComponent
+                label="Сума авансу"
+                Component={<Input variant="grivnja" autoFocus />}
               />
-            }
-          />
-          <AbstractFormComponent
-            label="ПІБ"
-            Component={<Input variant="default" {...register("buyer_name")} />}
-          />
-          <AbstractFormComponent
-            label="Телефон"
-            Component={<Input variant="default" type="number" />}
-            {...register("buyer_phone")}
-          />
-          <div className={s.buttons_container}>
-            <Button
-              variant="default"
-              color="secondary"
-              disabled={addProductsDropDownProps.buttonClicked}
-            >
-              Відміна
-            </Button>
-            <Button
-              variant="default"
-              color="primary"
-              disabled={addProductsDropDownProps.buttonClicked}
-            >
-              Зберегти
-            </Button>
-          </div>
-        </form>
-      </div>
+            )}
+            <AbstractFormComponent
+              label="Додат.інформ"
+              Component={
+                <AdditionalInformation
+                  products={addProductsDropDownProps.products}
+                  newProduct={addProductsDropDownProps.newProduct}
+                />
+              }
+            />
+            <AbstractFormComponent
+              label="ПІБ"
+              Component={
+                <Input variant="default" {...register("buyer_name")} />
+              }
+            />
+            <AbstractFormComponent
+              label="Телефон"
+              Component={<Input variant="default" type="number" />}
+              {...register("buyer_phone")}
+            />
+            <div className={s.buttons_container}>
+              <Button
+                variant="default"
+                color="secondary"
+                disabled={addProductsDropDownProps.buttonClicked}
+              >
+                Відміна
+              </Button>
+              <Button
+                variant="default"
+                color="primary"
+                disabled={addProductsDropDownProps.buttonClicked}
+              >
+                Зберегти
+              </Button>
+            </div>
+          </form>
+        </div>
+      </ResizeContainer>
     </div>
   );
 };

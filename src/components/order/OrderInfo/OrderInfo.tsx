@@ -3,8 +3,8 @@ import s from "./OrderInfo.module.scss";
 import { SwitchInfoButton } from "./SwitchInfoButton/SwitchInfoButton.";
 import { ReactComponent as NoteIcon } from "assets/icons/orderIcons/NoteIcon.svg";
 import { ReactComponent as RecentIcon } from "assets/icons/orderIcons/RecentIcon.svg";
-import { Note } from "./Note/Note";
-import { Button } from "components/shared/ui/Button/Button";
+import { Notes } from "./Notes/Notes";
+import { Tasks } from "./Tasks/Tasks";
 
 type OrderInfoProps = {
   notes?: string[];
@@ -15,7 +15,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
     { id: "notes", text: "Записи", icon: <NoteIcon /> },
     { id: "history", text: "Історія змін", icon: <RecentIcon /> },
   ];
-  const [selectedButton, setSelectedButton] = useState<string | null>(null);
+  const [selectedButton, setSelectedButton] = useState<string | null>('notes');
   const [notesLocal, setNotesLocal] = useState<string[]>(notes || []);
   const [newNote, setNewNote] = useState(false);
 
@@ -57,27 +57,19 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
           />
         ))}
       </div>
-      <div>
-        <div className={s.note_container}>
-          <Button
-            variant="addSmall"
-            color="hover"
-            leftElement
-            onClick={() => addNewNote()}
-            onBlur={() => setNewNote(false)}
-          ></Button>
-          <div className={s.notes_container} onBlur={() => filterNonEmptyNotes()}>
-            {notesLocal.map((note, index) => (
-              <Note
-                key={index}
-                note={note}
-                active={newNote}
-                onNoteChange={(newText) => handleNoteChange(index, newText)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      {selectedButton === 'notes' &&  <div className={s.notations}>
+        <Notes 
+          notes={notesLocal}
+          newNote={newNote}
+          addNewNote={addNewNote}
+          setNewNote={setNewNote}
+          filterNonEmptyNotes={filterNonEmptyNotes}
+          noteChange={handleNoteChange}
+        />
+        <Tasks/>
+       </div>
+        }
+        {selectedButton === 'history' && <div>Цей фунціонал ще в розробці</div>}
     </div>
   );
 };

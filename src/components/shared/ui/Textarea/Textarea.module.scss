@@ -1,0 +1,17 @@
+@import "../../../../styles/global.scss";
+.container { 
+    font-family: $font-family-compact;
+    font-size: 14px;
+    line-height: 17px;
+    color: #7A869A;  
+    width: 100%;  
+    resize: none;
+    outline: none;
+    border: none;
+
+    &.border { 
+        &:focus {
+            outline: 1px solid #4C9AFF;
+        }
+    }
+}

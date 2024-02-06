@@ -42,8 +42,6 @@ export const useResizableContainer = ({
       }
     }
   };
-  
-
   const handleMouseUp = () => {
     setIsResizing(false);
   };

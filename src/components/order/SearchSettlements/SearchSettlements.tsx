@@ -1,5 +1,4 @@
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
-import s from "./SearchSettlements.module.scss";
 import { Input } from "components/shared/ui/Input/Input";
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
@@ -20,7 +19,7 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
 }) => {
 
   return (
-    <div className={s.container}>
+    <div >
       <Input
         variant='globe'
         onClick={handleInputClick}
@@ -35,6 +34,7 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
         closeToClickElement
         scrollHeight="300"
         below
+        listWidth="100%"
       >
         {cityData &&
           cityData.map((city, index) => (

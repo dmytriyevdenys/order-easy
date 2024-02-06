@@ -1,0 +1,26 @@
+@import "../../../../styles/templates.scss";
+@import "../../../../styles/global.scss";
+.container { 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    .label_notes {
+        font-family: $font-family-compact;
+        line-height: 23.2px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+.notes_container{ 
+    padding: 2px 5px 2px 1px;
+   display: flex;
+   flex-direction: column-reverse;
+   gap: 10px;
+   max-height: 80vh;
+   overflow-x: scroll;
+   @extend %custom-scrollbar;
+
+  
+}
