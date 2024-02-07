@@ -17,7 +17,6 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
   handleInputClick,
   handleOnBlur
 }) => {
-
   return (
     <div >
       <Input

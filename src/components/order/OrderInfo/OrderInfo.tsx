@@ -54,6 +54,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
             icon={button.icon}
             OnClick={() => handleButtonClick(button.id)}
             selected={selectedButton === button.id}
+            width="100%"
           />
         ))}
       </div>

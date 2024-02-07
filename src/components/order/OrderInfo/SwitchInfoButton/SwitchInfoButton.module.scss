@@ -1,7 +1,6 @@
 @import "../../../../styles/templates.scss";
 
 .container {
-    width: 100%;
     height: 100%;
     font-size: 14px;
     padding: 0 12px 0 12px;
@@ -9,7 +8,7 @@
     fill: #42526E;
     @extend %flex-center;
     gap: 5px;
-    border-bottom: 1px solid  #42526E;
+    border-bottom: 2px solid  #42526E;
 
     .span { 
         display: flex;
@@ -23,7 +22,7 @@
     &.active {
         color: #0052CC;
         fill: #0052CC;
-        border-bottom: 1px solid  #0052CC;
+        border-bottom: 2px solid  #0052CC;
 
     }
 }

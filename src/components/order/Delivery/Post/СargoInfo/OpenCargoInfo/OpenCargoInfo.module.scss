@@ -1,0 +1,29 @@
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.buttons_container {
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.form {
+    padding: 0 20px 0 10px ;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.general_parameters {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.cost {
+    display: flex;
+    justify-content: space-between;
+}
