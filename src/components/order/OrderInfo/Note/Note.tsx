@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import s from "./Note.module.scss";
 import { useTextAreaHeight } from "../../../../utils/useTextareaHeight";
 import { Textarea } from "components/shared/ui/Textarea/Textarea";
@@ -19,6 +19,7 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange }) => {
   };
   const handleOnFocus = () => {
     setIsActive(true);
+    containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   };
 
   const handleOnBlur = () => {
@@ -35,6 +36,12 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange }) => {
     isActive: isActive,
     text,
   });
+
+  useEffect(() => {  
+   active && window.scrollTo({behavior: 'smooth', top: 0})
+  text.length > 0 && containerRef.current?.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest' })
+  }, [text]);
+
   return (
     <div
       className={s.container}
@@ -51,7 +58,7 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange }) => {
             ref={textareaRef}
             autoFocus
             border
-            style={{width: width , height}}
+            style={{width , height}}
           />
         </div>
       )}

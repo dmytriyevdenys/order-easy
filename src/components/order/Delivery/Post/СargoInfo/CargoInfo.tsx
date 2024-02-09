@@ -1,15 +1,19 @@
-import { PostComponentContainer } from "../PostComponentContainer/ PostComponentContainer"
-import { ReactComponent as ArrovIcon } from "assets/icons/orderIcons/arrow.svg";
+import { PostComponentContainer } from "../PostComponentContainer/ PostComponentContainer";
 import { OpenCargoInfo } from "./OpenCargoInfo/OpenCargoInfo";
+import { useState } from "react";
 
 export const CargoInfo: React.FC = () => {
-    return (
-        <div>
-            <PostComponentContainer>
-                <span>Інформація про вантаж</span>
-                <ArrovIcon/>
-            </PostComponentContainer>
-            <OpenCargoInfo/>
-        </div>
-    )
-}
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleSetIsOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+  return (
+    <div>
+      <div onClick={handleSetIsOpen}>
+        <PostComponentContainer text="Інфо" isOpen={isOpen} />
+      </div>
+      {isOpen && <OpenCargoInfo />}
+    </div>
+  );
+};

@@ -1,34 +1,5 @@
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.buttons_container {
-    height: 30px;
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-}
-.form {
-    padding: 0 20px 0 10px ;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.general_parameters {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-.cost {
-    display: flex;
-    justify-content: space-between;
-}
-
 .form_of_payments {
+    padding: 0 10px 0 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -37,7 +8,6 @@
         font-size: 11px;
         color: #7A869A;
     }
-
     label {
         color: #42526E;
     }
@@ -53,5 +23,4 @@
                 gap: 10px;
             }
         }
-
 }

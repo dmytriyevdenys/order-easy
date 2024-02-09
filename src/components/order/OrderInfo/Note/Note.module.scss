@@ -22,6 +22,8 @@
     resize: none;
     outline: none;
     border: none;
+    max-height: 75vh;
+    overflow-y: scroll;
 
     &:focus {
         outline: 1px solid #4C9AFF;

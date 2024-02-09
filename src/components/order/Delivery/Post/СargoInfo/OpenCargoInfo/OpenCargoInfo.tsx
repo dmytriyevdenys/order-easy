@@ -1,6 +1,7 @@
 import { SwitchInfoButton } from "components/order/OrderInfo/SwitchInfoButton/SwitchInfoButton.";
 import s from "./OpenCargoInfo.module.scss";
 import { Input } from "components/shared/ui/Input/Input";
+import { PaymentBlock } from "./PaymentBlock/PaymentBlock";
 
 export const OpenCargoInfo: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ export const OpenCargoInfo: React.FC = () => {
       </div>
       <form className={s.form}>
         <div className={s.general_parameters}>
-            <Input variant="default" placeholder="Вага" style={{background: 'none'}}/>
+            <Input variant="default" placeholder="Вага" name="weight" style={{background: 'none'}}/>
             <Input variant="default" placeholder="К-сть міць"style={{background: 'none'}}/>
         </div>
         <div className={s.cost}>
@@ -20,6 +21,9 @@ export const OpenCargoInfo: React.FC = () => {
         </div>
         <Input variant="default" placeholder="Опис" style={{background: 'none'}}/>
         <Input variant="default" placeholder="Додаткова Інф" style={{background: 'none'}}/>
+        <PaymentBlock textBlock="Платник доставки"/>
+        <PaymentBlock textBlock="Платник післяоплати"/>
+        <PaymentBlock textBlock="Форма оплати"/>
       </form>
     </div>
   );

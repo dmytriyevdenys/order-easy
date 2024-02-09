@@ -1,6 +1,7 @@
 import { Button } from "components/shared/ui/Button/Button"
 import s from "./Notes.module.scss"
 import { Note } from "../Note/Note"
+import {  useRef } from "react";
 
 type NotesProps = {
     notes: string[];
@@ -11,9 +12,9 @@ type NotesProps = {
     noteChange: (index: number, text: string) => void;
 }
 export const Notes: React.FC<NotesProps> = ({notes, newNote, addNewNote, setNewNote, filterNonEmptyNotes, noteChange}) => {
-
+const containerRef = useRef<HTMLDivElement>(null)
     return (
-        <div className={s.container}>
+        <div className={s.container} ref={containerRef}>
           <label className={s.label_notes}>Нотатки</label>
           <Button
             variant="addSmall"
