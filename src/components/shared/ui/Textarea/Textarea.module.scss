@@ -8,10 +8,12 @@
     resize: none;
     outline: none;
     border: none;
+    padding: 12px;
+    overflow: hidden;
 
     &.border { 
         &:focus {
-            outline: 1px solid #4C9AFF;
+            border: 1px solid #4C9AFF;
         }
     }
 }

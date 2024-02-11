@@ -5,27 +5,11 @@
     height: 100%;
 }
 .value {
-    width: 100%;
-    padding: 2px;
+    padding: 12px;
     color: #7A869A ;   
     font-size: 14px;
     line-height: 17px; 
     background-color: #ffff;
+    border: 1px solid #EBECEE;
 }
-.textarea {
-    font-family: $font-family-compact;
-    font-size: 14px;
-    line-height: 17px;
-    color: #7A869A;  
-    width: 100%;
-    min-height: 60px;
-    resize: none;
-    outline: none;
-    border: none;
-    max-height: 75vh;
-    overflow-y: scroll;
 
-    &:focus {
-        outline: 1px solid #4C9AFF;
-    }
-}

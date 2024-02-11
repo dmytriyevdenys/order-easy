@@ -1,7 +1,24 @@
-
 .container {
+    min-height: 100vh;
     display: flex;
+
     .order_info {
         flex: 1;
     }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+
+        .create_order_form,
+        .order_info,
+        .post {
+            width: 100%;
+        }
+    }
+}
+
+.create_order_form,
+.order_info,
+.post {
+    margin-bottom: 20px;
 }

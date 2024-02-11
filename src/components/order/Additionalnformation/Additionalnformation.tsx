@@ -5,9 +5,8 @@ import { Textarea } from "components/shared/ui/Textarea/Textarea";
 import { useTextAreaHeight } from "utils/useTextareaHeight";
 
 type AdditionalInformationProps = {
-  products: TProduct[];
+  products?: TProduct[];
   additionalInformation?: string;
-  newProduct: TProduct | null;
 };
 
 export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
@@ -34,7 +33,7 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
   const updateValue = (products: string, inputText: string) => {
     setValue(`${products} ${inputText}`);
   };
-  const productsText = products
+  const productsText = products && products
     .map((product) =>
       product.quantity && product.quantity > 1
         ? `${product.name}-${product.quantity}шт`
@@ -43,7 +42,7 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
     .join(", ");
 
   useEffect(() => {
-    setProductsString(productsText);
+    setProductsString(productsText || '');
     if (additionalInformation) {
       setValue(additionalInformation);
     } else {
@@ -86,7 +85,7 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
           ref={textareaRef}
           onChange={(e) => handleOnChange(e)}
           autoFocus
-          style={{ height }}
+          style={{ height, padding: '2px' }}
         />
       ) : (
         <div className={s.value}>{value}</div>

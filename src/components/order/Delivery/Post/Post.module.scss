@@ -1,19 +1,33 @@
+@import "../../../../styles/templates.scss";
 
 .container {
-    width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #FFFBFA;
-    margin: 0 0 0 30px;
-    display: flex;
-    flex-direction: column;
+    max-height: 100vh;
+    overflow-y: scroll;
+    @extend %custom-scrollbar;
 
-    .buttons_container {
-        fill: white;
-        padding: 30px 20px 10px 20px;
-        border-bottom: 2px solid #EBECF0;
-        .post {
-            padding: 10px;
-            background-color: #DA291C;
+        .buttons_container {
+            fill: white;
+            padding: 30px 20px 10px 20px;
+            border-bottom: 2px solid #EBECF0;
+            
+
+            .post {
+                padding: 10px;
+                background-color: #DA291C;
+            }
+        }  
+
+        .post_elements {
+            
+            display: flex;
+            flex-direction: column;
+
+            .button {
+                margin: 20px 0 20px 0;
+                padding: 0 20px 0 20px;
+            }
         }
     }
-}
+   

@@ -1,5 +1,4 @@
 
-
 .container {
     display: flex;
     flex-direction: column;
@@ -19,13 +18,26 @@
 }
 .general_parameters {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.optional_parameters {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
     gap: 10px;
+  
 }
 
 .cost {
     display: flex;
     justify-content: space-between;
+    gap: 30px;
+    
+}
+.post_field{ 
+    max-width: 70px;
 }
 
 .form_of_payments {

@@ -42,8 +42,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
       const filteredNotes = notesLocal.filter((note) => !!note.length);
       setNotesLocal(filteredNotes);      
     }
-  };
-
+  };  
   return (
     <div className={s.container}>
       <div className={s.buttons_container}>

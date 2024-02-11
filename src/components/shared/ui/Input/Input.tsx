@@ -12,6 +12,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   variant: "default" | "select" | "globe" | "grivnja" | "search" | "password";
   error?: string | null;
   register?: UseFormRegisterReturn;
+  backgroundNone?: boolean
 };
 
 type IconInfo = { icon: React.ReactNode; iconClass: string } | null;
@@ -35,7 +36,7 @@ const getIconForVariant = (variant: InputProps["variant"]): IconInfo => {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { variant, error, register, disabled, onClick, readOnly, ...props },
+    { variant, error, register, disabled, onClick, readOnly, backgroundNone,  ...props },
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -75,6 +76,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             {...register}
             {...props}
+            style={{background : backgroundNone ? 'none' : ''}}
           />
           {iconInfo && (
             <div

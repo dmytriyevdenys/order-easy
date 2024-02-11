@@ -19,7 +19,7 @@ export const PaymentOption: React.FC<{
 };
 
 export const PaymentBlock: React.FC<PaymentBlockProps> = ({ textBlock }) => {
-  const [selectedOption, setSelectedOption] = useState("recipient"); // початковий вибір
+  const [selectedOption, setSelectedOption] = useState("recipient"); 
 
   const handleOptionChange = (option: string) => {
     setSelectedOption(option);

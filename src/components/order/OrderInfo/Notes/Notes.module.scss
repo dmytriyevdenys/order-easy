@@ -14,12 +14,11 @@
     }
 }
 .notes_container{ 
-    padding: 2px 5px 2px 1px;
    display: flex;
    flex-direction: column-reverse;
    gap: 10px;
    max-height: 70vh;
-   overflow-x: scroll;
+   overflow-x: auto;
    @extend %custom-scrollbar;
 
   
