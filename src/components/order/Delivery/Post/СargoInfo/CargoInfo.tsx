@@ -5,7 +5,7 @@ export const CargoInfo: React.FC = () => {
 
   return (
       <div >
-        <PostComponentContainer text="Інфо" ><OpenCargoInfo/></PostComponentContainer>
+        <PostComponentContainer text="Інфо" open ><OpenCargoInfo /></PostComponentContainer>
       </div>
   );
 };

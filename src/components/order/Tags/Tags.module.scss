@@ -1,0 +1,14 @@
+.container {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    
+    .tags_list {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 10px;
+        flex: 1;
+    }
+}

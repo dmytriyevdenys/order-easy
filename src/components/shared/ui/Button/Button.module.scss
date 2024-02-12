@@ -62,8 +62,29 @@
     .icon_left {
         stroke: #0052CC;
     }
-
 }
+.mini {
+    font-weight: 400;
+    color: #0052CC;
+    height: 20px;
+    background-color: #F4F5F7;  
+    border-radius: 3px;
+    border: none;
+    display: flex;
+    padding: 2px 2px 2px 10px;
+    position: relative;
+      &:hover {
+        outline: 0.8px solid #0052CC;
+      }
+
+      &::before {
+        content: "+";  
+        position: absolute; 
+        left: 5px; 
+        top: 1px;
+        color: #0052CC; 
+      }
+  }
 .secondary { 
     background-color: $button-secondary-color;
     color: #42526E;

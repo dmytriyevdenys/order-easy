@@ -49,7 +49,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex: content;
+   gap: 10px;
+
+   .tags_container{
+    flex: 1;
+   }
+
 }
 
 .form {

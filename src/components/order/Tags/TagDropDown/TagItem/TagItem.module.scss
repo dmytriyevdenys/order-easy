@@ -1,0 +1,8 @@
+@import "../../../../../styles/templates.scss";
+.container {
+    padding: 0 4px 0 4px;
+    width: max-content;
+    height: 20px;
+    @extend %flex-center;
+    border-radius: 3px;
+}

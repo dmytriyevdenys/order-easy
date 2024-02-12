@@ -4,8 +4,8 @@ import { ReactComponent as AddIcon } from "../../../../assets/icons/buttonIcons/
 import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color: "primary" | "secondary" | "hover";
-  variant: "default" | "addLarge" | "addSmall";
+  color?: "primary" | "secondary" | "hover";
+  variant: "default" | "addLarge" | "addSmall" | "mini";
   leftElement?: boolean;
   rightElement?: boolean;
   withFull?: boolean
@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   withFull,
   ...props
 }) => {
-  const colorClass = s[color];
+  const colorClass = s[color || ''];
   const disabledClass = disabled ? s.disabled : '';
   const withFullClass = withFull ? s.with_full : ''
   const colorIconClass = color === 'hover' ? s.color_icon : '';

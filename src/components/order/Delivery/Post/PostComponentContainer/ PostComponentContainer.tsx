@@ -5,9 +5,10 @@ import { ReactComponent as ArrovIcon } from 'assets/icons/orderIcons/arrow.svg';
 type PostComponentContainerProps = {
     text: string,
     children?: ReactNode;
+    open? : boolean;
 }
-export const PostComponentContainer: React.FC<PostComponentContainerProps> = ({text, children}) => {
-    const [isOpen, setIsOpen] = useState(true);
+export const PostComponentContainer: React.FC<PostComponentContainerProps> = ({text, children, open}) => {
+    const [isOpen, setIsOpen] = useState<boolean>(open || false);
 
     const handleSetIsOpen = () => {
       setIsOpen((prev) => !prev);

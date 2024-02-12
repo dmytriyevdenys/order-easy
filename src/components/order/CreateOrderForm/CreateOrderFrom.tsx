@@ -18,6 +18,8 @@ import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
 import { Button } from "components/shared/ui/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
+import { TagDropDown } from "../Tags/TagDropDown/TagDropDown";
+import { Tags } from "../Tags/Tags";
 
 type FormProps = {
   id?: number;
@@ -69,8 +71,12 @@ export const CreateOrderForm: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
             <AddProductsDropDown {...addProductsDropDownProps} />
             <div className={s.source_tag_container}>
-              <SourceDropDown {...sourceDropDownProps} />
-              <div>Тег</div>
+              <div>
+                <SourceDropDown {...sourceDropDownProps} />
+              </div>
+              <div className={s.tags_container}>
+              <Tags/>
+              </div>
             </div>
             <StatusDropDown />
             <AbstractFormComponent

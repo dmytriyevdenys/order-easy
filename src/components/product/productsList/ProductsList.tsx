@@ -2,6 +2,7 @@ import { TProduct } from "interfaces/products/products.type";
 import s from "./ProductsList.module.scss";
 import { ProductListItem } from "./ProductListItem/ProductListItem";
 import { useEffect, useRef } from "react";
+import { Button } from "components/shared/ui/Button/Button";
 
 type ProductsListProps = {
   products: TProduct[];
@@ -36,9 +37,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({
         </div>
       ))}
       {!isActiveDropDown && products.length > 0 && (
-        <button className={s.button} onClick={openDropDown}>
-          додати
-        </button>
+        <Button variant='mini'style={{width: '70px'}} onClick={openDropDown}>Додати</Button>
       )}
     </div>
   );
