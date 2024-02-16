@@ -31,6 +31,7 @@ export const PackerPage: React.FC = () => {
     data: intDocs,
     isFetching: isFetchingIntDocs,
     isSuccess: isSuccessIntDocs,
+  
 
   } = useIntDocs(
     { page:  query.search ? 1: currentPage , limit: perPage, filter: query.filter, search: query.search },

@@ -46,7 +46,7 @@ export const Note: React.FC<NoteProps> = ({ note, active, onNoteChange }) => {
             ref={textareaRef}
             autoFocus
             border
-            style={{width , height}}
+            style={{width , height, maxHeight: '70vh', overflow: 'auto'}}
           />
         </div>
       )}

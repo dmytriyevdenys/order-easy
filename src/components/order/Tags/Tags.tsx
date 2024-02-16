@@ -7,25 +7,26 @@ import { Button } from "components/shared/ui/Button/Button";
 import { useGetTags } from "hooks/Order/useGetTags";
 
 type TagsProps = {
-  newTag?: TTag;
   tags?: TTag[];
 };
-export const Tags: React.FC<TagsProps> = ({ tags, newTag }) => {
+export const Tags: React.FC<TagsProps> = ({ tags }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { data: tagsData, isSuccess, refetch: getTags } = useGetTags();
-
-  const [tag, setTag] = useState<TTag[]>(tags || []);
+  const [tagsInList, setTagsInList] = useState<TTag[]>(tags || []);
+  const { data: tagsData, refetch: getTags } = useGetTags();
   const containerRef = useRef<HTMLDivElement>(null);
   const addTag = (tagToAdd: TTag) => {
-    if (!tag.some((existingTag) => existingTag.id === tagToAdd.id)) {
-        setTag((prev) => [...prev, tagToAdd]);
+    if (!tagsInList.some((existingTag) => existingTag.id === tagToAdd.id)) {
+      setTagsInList((prev) => [...prev, tagToAdd]);
       }
   };
-
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
     !isOpen && getTags();
   };
+
+  const tagsUnique = tagsData?.filter(tagItem => (
+    !tagsInList.some(tagListItem => tagListItem.id === tagItem.id)
+  ));
   return (
     <div className={s.container} ref={containerRef}>
       <div className={s.tags_list}>
@@ -36,7 +37,7 @@ export const Tags: React.FC<TagsProps> = ({ tags, newTag }) => {
       >
         Тег
       </Button>
-        {tag.map((tagItem) => (
+        {tagsInList.map((tagItem) => (
           <TagItem id={tagItem?.id} name={tagItem.name} color={tagItem.color} />
         ))}
       </div>
@@ -44,7 +45,7 @@ export const Tags: React.FC<TagsProps> = ({ tags, newTag }) => {
       <TagDropDown
         addTag={addTag}
         listWidth={String(containerRef.current?.clientWidth)}
-        tags={tagsData || []}
+        tags={tagsUnique || []}
         closeDropDown={() => setIsOpen(false)}
         isOpen={isOpen}
       />

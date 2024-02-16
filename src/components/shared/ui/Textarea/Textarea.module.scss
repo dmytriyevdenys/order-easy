@@ -1,4 +1,6 @@
 @import "../../../../styles/global.scss";
+@import "../../../../styles/templates.scss";
+
 .container { 
     font-family: $font-family-compact;
     font-size: 14px;
@@ -10,7 +12,7 @@
     border: none;
     padding: 12px;
     overflow: hidden;
-
+    @extend %custom-scrollbar;
     &.border { 
         &:focus {
             border: 1px solid #4C9AFF;

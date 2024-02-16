@@ -11,6 +11,7 @@ export const Post: React.FC = () => {
   return (
     <div className={s.container}>
       <ResizeContainer minWidth={230} maxWidth={400} width="270" side="left">
+        <div className={s.wrapper}>
           <div className={s.buttons_container}>
             <div className={s.post}>
               <NovaPostIcon />
@@ -21,11 +22,12 @@ export const Post: React.FC = () => {
               <div><Sender /></div> 
               <div><Recipient /></div>
               <div><CargoInfo /></div>
-              <div className={s.button}> <Button variant="default" color="primary" withFull style={{ backgroundColor: "#E24F2A" }}>
+          </div>
+          <div className={s.button}> <Button variant="default" color="primary" withFull style={{ backgroundColor: "#E24F2A" }}>
               Створити ттн
                 </Button>
               </div>
-          </div>
+              </div>
       </ResizeContainer>
     </div>
   );
