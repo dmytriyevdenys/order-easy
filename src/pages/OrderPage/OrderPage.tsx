@@ -4,7 +4,6 @@ import { CreateOrderForm } from "../../components/order/CreateOrderForm/CreateOr
 import { Post } from "components/order/Delivery/Post/Post"
     
 export const OrderPage:React.FC = () => {
-
     return (
         <div className={s.container}>
             <div className={s.create_order_form} ><CreateOrderForm/></div> 

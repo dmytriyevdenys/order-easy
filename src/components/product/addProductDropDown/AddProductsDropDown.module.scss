@@ -9,7 +9,7 @@
     margin-bottom: -20px;
 }
 .products_list {
-    max-height: 275px;
+    max-height: 50vh;
     overflow-y: scroll;
     @extend %custom-scrollbar
 }

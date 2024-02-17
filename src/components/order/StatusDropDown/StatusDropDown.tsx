@@ -1,24 +1,22 @@
 import { useGetStatuses } from "hooks/Order/useGetStatus";
 import s from "./StatusDropDown.module.scss";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
-import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import { useState } from "react";
 import { TStatus } from "interfaces/order/status.type";
 import { StatusItem } from "./StatusItem/StatusItem";
 
 export const StatusDropDown: React.FC = () => {
-  const { data, refetch } = useGetStatuses();
+  const { data } = useGetStatuses();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<TStatus>();
+  const [status, setStatus] = useState<TStatus>(data[0]);
 
   const handleOpenDropDown = () => {
-    !isOpen && refetch();
-    setIsOpen(true);
-  };
+   setIsOpen(prev => !prev)
+  };  
   return (
     <div className={s.container}>
       <div onClick={handleOpenDropDown} className={s.status}>
-        {status?.name || "Оберіть статус"}
+         {status?.name}
         <div
           className={s.status_color}
           style={{ backgroundColor: status?.color || "" }}

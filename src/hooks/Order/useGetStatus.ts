@@ -5,6 +5,12 @@ export const useGetStatuses = () => {
     return useQuery({
         queryKey: ['statuses'],
         queryFn: () => orderService.getStatuses(),
-        enabled: false
+        initialData: () => [{
+            id: 1,
+            name: 'Нове замовлення',
+            alias: 'new',
+            color: '#36B441',
+            is_active: true
+          }]
     })
 }

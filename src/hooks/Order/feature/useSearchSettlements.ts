@@ -9,7 +9,7 @@ export const useSearchSettlements = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [showDropDown, setShowDropDown] = useState(false);
     const debounceSearch = useDebounce(search, 500);
-    const { data: cityData } = useGetCity(debounceSearch, showDropDown);
+    const { data: cityData, error } = useGetCity(debounceSearch, showDropDown);
   
     const handleInputClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
       e.stopPropagation();
@@ -38,10 +38,12 @@ export const useSearchSettlements = () => {
         isEditing,
         settlement,
         search,
+        error,
         setShowDropDown,
         handleInputClick,
         handleInputChange,
         handleDropDownItemClick,
         handleOnBlur
+        
     }
 }

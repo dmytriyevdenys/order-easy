@@ -11,13 +11,14 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
   isEditing,
   settlement,
   search,
+  error,
   setShowDropDown,
   handleInputChange,
   handleDropDownItemClick,
   handleInputClick,
   handleOnBlur
 }) => {
-  return (
+    return (
     <div >
       <Input
         variant='globe'
@@ -26,6 +27,7 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
         onFocus={handleInputChange}
         value={isEditing ? search : settlement?.Description || ""}
         onBlur={handleOnBlur}
+        error={error?.response.data.message}
       />
       <DropDown 
         show={showDropDown}
