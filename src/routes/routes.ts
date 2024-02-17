@@ -1,7 +1,8 @@
 import { App } from "App";
-import { LOGIN_ROUTE, ORDER_ROUTE, PACKER_ROUTE } from "constans/routes";
+import { LOGIN_ROUTE, ORDERS_ROUTE, ORDER_ROUTE, PACKER_ROUTE } from "constans/routes";
 import { LoginPage } from "pages/LoginPage/LoginPage";
 import { OrderPage } from "pages/OrderPage/OrderPage";
+import { OrdersPage } from "pages/OrdersPage/OrdersPage";
 import { PackerPage } from "pages/PackerPage/PackerPage";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -16,9 +17,13 @@ export const router = createBrowserRouter([
                 Component: PackerPage
             },
             {
-                path: ORDER_ROUTE,
-                Component: OrderPage
+                path: ORDERS_ROUTE,
+                Component: OrdersPage
             },
+            {
+                path: `${ORDER_ROUTE}/:id` || `${ORDER_ROUTE}/new`,
+                Component: OrderPage
+            }
            
         ]
     },

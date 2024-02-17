@@ -8,7 +8,7 @@ export const SideBar: React.FC = () => {
         <nav className={s.container}>
             <div className={s.logo_container}><LogoIcon className={s.logo}/></div>
            <ul className={s.list_container}>
-          <NavLink to={'/order'}><li className={s.list_item}> <OrderIcon className={`${s.list_item} ${s.order_icon}`}/></li></NavLink>
+          <NavLink to={'/orders'}><li className={s.list_item}> <OrderIcon className={`${s.list_item} ${s.order_icon}`}/></li></NavLink>
           <NavLink to={'/packer'}><li className={s.list_item}><PackerIcon/></li></NavLink>
             </ul> 
             </nav>

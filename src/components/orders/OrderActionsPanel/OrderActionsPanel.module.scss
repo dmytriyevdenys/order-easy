@@ -1,0 +1,15 @@
+.container {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    .filters_container {
+        min-width: 650px;
+        display: flex;
+        gap: 10px;
+        
+        .input_container{
+            flex-grow: 1;
+        }
+    }
+}
