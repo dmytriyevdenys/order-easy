@@ -1,0 +1,22 @@
+.status {
+    margin: 10px 0 10px 0;
+    color: #7A869A;
+    line-height: 16.71px;
+    font-weight: 400;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    .status_color {
+        width: 100%;
+        height: 4px;
+    }
+}
+
+.status_list {
+    display: flex;
+    flex-direction: column;
+}

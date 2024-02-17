@@ -1,0 +1,21 @@
+.container {
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 14px;
+
+    &:hover{ 
+        background-color: #DEEBFF;
+    }
+
+    span {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .color_block{ 
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+    }
+}

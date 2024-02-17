@@ -78,7 +78,11 @@ const scrollClassName = scrollHeight &&  s.scroll
           <Input
             variant="select"
             readOnly={readonlyInput}
-            onClick={() => setShowDropDown((prev) => !prev)}
+            onClick={() => {
+              setShowDropDown((prev) => !prev)
+              onButtonClick && onButtonClick();
+
+            }}
             value={value}
             placeholder={placeholder}
           />

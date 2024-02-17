@@ -2,6 +2,8 @@ import { OrderAssociations } from "../interfaces/order/order-associations";
 import { TUser } from "interfaces/user/user.type";
 import { api } from "./api/axiosConfig";
 import { TTag } from "interfaces/order/tag.type";
+import { TStatus } from "interfaces/order/status.type";
+import { ApiResponse } from "interfaces/api-response.interface";
 
 class OrderService {
     private path = 'order';
@@ -12,7 +14,7 @@ class OrderService {
     }
 
     async getStatuses () {
-        const statuses = await api.get<OrderAssociations[]>(`${this.path}/status`);
+        const statuses = await api.get<TStatus[]>(`${this.path}/status`);
         return statuses.data;
     }
 

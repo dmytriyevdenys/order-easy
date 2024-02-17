@@ -18,7 +18,6 @@ import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
 import { Button } from "components/shared/ui/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
-import { TagDropDown } from "../Tags/TagDropDown/TagDropDown";
 import { Tags } from "../Tags/Tags";
 
 type FormProps = {
@@ -78,7 +77,7 @@ export const CreateOrderForm: React.FC = () => {
               <Tags/>
               </div>
             </div>
-            <StatusDropDown />
+            <div><StatusDropDown /></div>
             <AbstractFormComponent
               label="Менеджер"
               Component={<ManagerDropDown />}
