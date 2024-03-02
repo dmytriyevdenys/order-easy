@@ -37,12 +37,18 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
     });
   };
 
+  const deleteNote = (index: number) => {
+    const updatedNotes = notesLocal.filter((_, i) => i !== index);
+    setNotesLocal(updatedNotes);
+  };
+
   const filterNonEmptyNotes = () => {
     if (!newNote) {
-      const filteredNotes = notesLocal.filter((note) => !!note.length);
+      const filteredNotes = notesLocal.filter((note) => !!note.length);      
       setNotesLocal(filteredNotes);      
     }
-  };  
+  }; 
+  
   return (
     <div className={s.container}>
       <div className={s.buttons_container}>
@@ -63,8 +69,9 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
           newNote={newNote}
           addNewNote={addNewNote}
           setNewNote={setNewNote}
-          filterNonEmptyNotes={filterNonEmptyNotes}
+          deleteNote={deleteNote}
           noteChange={handleNoteChange}
+          filterNonEmptyNotes={filterNonEmptyNotes}
         />
         <Tasks/>
        </div>

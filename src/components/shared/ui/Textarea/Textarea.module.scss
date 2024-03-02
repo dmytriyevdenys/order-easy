@@ -12,6 +12,7 @@
     border: none;
     padding: 12px;
     overflow: hidden;
+    white-space: wrap;
     @extend %custom-scrollbar;
     &.border { 
         &:focus {

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, MouseEventHandler } from "react";
 import { TProduct } from "../../../interfaces/products/products.type";
 import { useDebounce } from "../../../utils/useDebounce";
 import { useGetProductsToOrder } from "../useGetProductToOrder";
+import { useKeyPress } from "utils/useKeyPress";
 
 export const useProductManagment = () => {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -100,6 +101,11 @@ export const useProductManagment = () => {
     setNewProduct(null)
 
   };
+
+  useKeyPress('Escape', () => setButtonClicked(false));
+  useKeyPress('Enter', toConfirm);
+  useKeyPress('Space', () => setButtonClicked(true));
+ 
 
   const totalPrice = products.reduce((total, product) => {
     const productTotal = product.price * (product.quantity || 1); 

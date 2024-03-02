@@ -4,7 +4,7 @@ import { ReactComponent as AddIcon } from "../../../../assets/icons/buttonIcons/
 import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color?: "primary" | "secondary" | "hover";
+  color?: "primary" | "secondary" | "hover" | 'red';
   variant: "default" | "addLarge" | "addSmall" | "mini";
   leftElement?: boolean;
   rightElement?: boolean;

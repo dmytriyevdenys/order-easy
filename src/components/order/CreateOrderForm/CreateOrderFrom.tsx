@@ -145,8 +145,8 @@ export const CreateOrderForm: React.FC = () => {
                 Відміна
               </Button>
               <Button
-                variant="default"
-                color="primary"
+                variant='default'
+                color='primary'
                 disabled={addProductsDropDownProps.buttonClicked}
               >
                 Зберегти

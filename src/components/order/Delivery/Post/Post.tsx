@@ -23,7 +23,7 @@ export const Post: React.FC = () => {
               <div><Recipient /></div>
               <div><CargoInfo /></div>
           </div>
-          <div className={s.button}> <Button variant="default" color="primary" withFull style={{ backgroundColor: "#E24F2A" }}>
+          <div className={s.button}> <Button variant="default" color="red" withFull >
               Створити ттн
                 </Button>
               </div>

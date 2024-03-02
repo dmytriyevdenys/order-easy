@@ -41,8 +41,7 @@ export const DropDownPacker: React.FC<DropDownPackerProps> = ({
     !buttonClicked && getPacker();
     setButtonClicked(prev => !prev);
     (buttonClicked && showForm) && closeForm();
-  }  
-  
+  }    
   return (
     <div className={s.container}>
       <DropDown 

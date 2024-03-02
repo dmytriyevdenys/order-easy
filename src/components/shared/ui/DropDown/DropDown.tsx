@@ -4,6 +4,7 @@ import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 import { useOnClickOutside } from "../../../../utils/useClickOutside";
 import { useElementPosition } from "../../../../utils/useElementPosition";
+import { useKeyPress } from "utils/useKeyPress";
 
 type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
@@ -49,7 +50,8 @@ export const DropDown: React.FC<DropDownProps> = ({
       setShowDropDown(false);
       closeDropDown && closeDropDown();
     },
-  });    
+  }); 
+  useKeyPress('Escape', () => setShowDropDown(false))   
   
   useEffect(() => {
     if (show === false ) setShowDropDown(false);

@@ -6,6 +6,7 @@ import { useLogin } from "hooks/Auth/useLogin";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { ORDERS_ROUTE } from "constans/routes";
 type InputProps = {
   email: string;
   password: string;
@@ -25,7 +26,7 @@ export const LoginForm: React.FC = () => {
   };
   useEffect (() => {
     if (isSuccess && isAuth) {
-      navigate('/order');
+      navigate(ORDERS_ROUTE);
     } 
   }, [isAuth, isSuccess, navigate])
 

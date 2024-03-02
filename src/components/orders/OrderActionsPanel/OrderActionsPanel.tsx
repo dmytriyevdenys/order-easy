@@ -3,6 +3,7 @@ import s from "./OrderActionsPanel.module.scss";
 import { ORDER_ROUTE } from "constans/routes";
 import { Button } from "components/shared/ui/Button/Button";
 import { Input } from "components/shared/ui/Input/Input";
+import { useKeyPress } from "utils/useKeyPress";
 
 export const OrderActionsPanel: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export const OrderActionsPanel: React.FC = () => {
     const route = orderId ? `${ORDER_ROUTE}/${orderId}` : `${ORDER_ROUTE}/new`;
     navigate(route);
   };
+  useKeyPress('Space', () => handleNavigate())
   return (
     <div className={s.container}>
         <div className={s.filters_container}>

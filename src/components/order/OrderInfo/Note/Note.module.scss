@@ -1,8 +1,15 @@
 @import '../../../../styles/global.scss';
 
 .container { 
+    position: relative;
     height: 100%;
     width: 100%;
+
+    .close_icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
 }
 .value {
     padding: 12px;
@@ -13,5 +20,10 @@
     border: 1px solid #EBECEE;
     max-height: 65vh;
     overflow: hidden;
+    white-space: pre-wrap;
+
+    &.clicked {
+        background-color: #F4F5F7;
+    }
 }
 

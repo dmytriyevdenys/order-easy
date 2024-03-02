@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import s from "./PackerPage.module.scss";
-import useOnlineStatus from "../../hooks/Packer/useOnlineStatus";
-import { useAddIntDoc } from "../../hooks/Packer/useAddIntDoc";
-import { useOfflineAddIntDoc } from "../../hooks/Packer/useOfflineAddIntDoc";
-import { useSyncWithServer } from "../../hooks/Packer/useSyncWithServer";
-import { IPacker } from "../../interfaces/packer.interface";
-import { Button } from "../../components/shared/ui/Button/Button";
-import {ErrorToast} from "../../components/shared/ErrorToast";
-import { PackerTable } from "../../components/packer/PackerTable/PackerTable";
-import { useIntDocs } from "../../hooks/Packer/useIntDocs";
-import { Pagination } from "../../components/pagination/Pagination";
-import { NetworkStatus } from "../../components/networkStatus/networkStatus";
-import { DropDownPacker } from "../../components/packer/DropDownPacker/DropDownPacker";
-import { SearchPackerForm } from "../../components/packer/SearchPackerForm/SearchPackerForm";
-import { Input } from "../../components/shared/ui/Input/Input";
-import { usePackers } from "../../hooks/Packer/useAllPackers";
+import useOnlineStatus from "hooks/Packer/useOnlineStatus";
+import { useAddIntDoc } from "hooks/Packer/useAddIntDoc";
+import { useOfflineAddIntDoc } from "hooks/Packer/useOfflineAddIntDoc";
+import { useSyncWithServer } from "hooks/Packer/useSyncWithServer";
+import { IPacker } from "interfaces/packer.interface";
+import { Button } from "components/shared/ui/Button/Button";
+import {ErrorToast} from "components/shared/ErrorToast";
+import { PackerTable } from "components/packer/PackerTable/PackerTable";
+import { useIntDocs } from "hooks/Packer/useIntDocs";
+import { Pagination } from "components/pagination/Pagination";
+import { NetworkStatus } from "components/networkStatus/networkStatus";
+import { DropDownPacker } from "components/packer/DropDownPacker/DropDownPacker";
+import { SearchPackerForm } from "components/packer/SearchPackerForm/SearchPackerForm";
+import { Input } from "components/shared/ui/Input/Input";
+import { usePackers } from "hooks/Packer/useAllPackers";
 import { LocalStorageManager } from "local-storage";
 
 export const PackerPage: React.FC = () => {
