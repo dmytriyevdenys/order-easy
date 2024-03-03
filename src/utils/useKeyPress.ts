@@ -6,7 +6,7 @@ type KeyHandler = (event: KeyboardEvent | MouseEventHandler) => void;
 export const useKeyPress = (targetKey: SupportedKeys, handler: KeyHandler) => {
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
-      if (event.code === targetKey) {
+      if (event.key === targetKey || event.code === targetKey) {
         if (
           event.code === "Space" &&
           !(event.target instanceof HTMLInputElement) &&

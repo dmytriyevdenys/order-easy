@@ -20,7 +20,8 @@
     border: 1px solid #EBECEE;
     max-height: 65vh;
     overflow: hidden;
-    white-space: pre-wrap;
+    display: flex;
+    white-space: wrap;
 
     &.clicked {
         background-color: #F4F5F7;

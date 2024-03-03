@@ -1,13 +1,18 @@
+@import "../../../styles/templates.scss";
 .container { 
     height: 100%;
     min-width: 178px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-
     .orders_container {
+        padding: 0 5px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        max-height: 70vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        @extend %custom-scrollbar;
     }
 }

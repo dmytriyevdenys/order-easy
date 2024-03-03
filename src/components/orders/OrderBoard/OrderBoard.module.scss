@@ -1,9 +1,9 @@
-
+@import "../../../styles/templates.scss";
 .container {
     height: 100%;
     padding: 0 40px 0 40px;
     display: flex;
-    overflow: scroll;
+    overflow: auto;
+    @extend %custom-scrollbar;
     gap: 58px;
-
 }

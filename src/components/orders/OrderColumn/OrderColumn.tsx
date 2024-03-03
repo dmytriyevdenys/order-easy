@@ -19,13 +19,13 @@ type OrderColumnProps = {
 }
 export const OrderColumn: React.FC<OrderColumnProps> = (props) => {
     const { status, orders } = props;
-    const { isOver, setNodeRef } = useDroppable({ id: status.id });
+    const {  setNodeRef } = useDroppable({ id: status.id });
   
     const totalSum = orders.reduce((sum, order) => sum + order.total_price, 0);
   
     return (
       <div className={s.container} ref={setNodeRef}>
-        <OrderColumnHead status={status} amount={orders.length} totalSum={totalSum} />
+     <OrderColumnHead status={status} amount={orders.length} totalSum={totalSum} />
         <div className={s.orders_container}>
           {orders.map((order) => (
             <OrderSmall key={order.id} {...order} color={status.color} />

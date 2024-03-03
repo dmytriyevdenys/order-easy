@@ -125,9 +125,7 @@ const orders = [
 ];
 export const OrderBoard: React.FC = () => {
   const { data: statuses } = useGetStatuses();
-  const [ordersDrags, setOrders] = useState(orders);
-
-  const [isDraggedOverDroppable, setIsDraggedOverDroppable] = useState(false);
+  const [ordersDrags] = useState(orders);
 
   const handleDragEnd = (e: DragEndEvent) => {
     if (e.over?.id) {
@@ -159,7 +157,7 @@ export const OrderBoard: React.FC = () => {
 
   return (
     <div className={s.container}>
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners} autoScroll={false}>
         {statuses?.map((status) => (
           <OrderColumn
             key={status.id}

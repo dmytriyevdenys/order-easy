@@ -32,7 +32,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
   const handleNoteChange = (index: number, newText: string) => {
     setNotesLocal((prev) => {
       const updatedNotes = [...prev];
-      updatedNotes[index] = newText.trim();
+      updatedNotes[index] = newText;
       return updatedNotes;
     });
   };
@@ -44,7 +44,10 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
 
   const filterNonEmptyNotes = () => {
     if (!newNote) {
-      const filteredNotes = notesLocal.filter((note) => !!note.length);      
+      const filteredNotes = notesLocal.filter((note) => {
+        const trimmedNote = note.trim();
+      return !!trimmedNote.length;
+      });      
       setNotesLocal(filteredNotes);      
     }
   }; 

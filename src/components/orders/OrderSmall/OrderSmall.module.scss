@@ -1,11 +1,13 @@
 .container {
     padding: 12px;
+    background-color: #FFFFFF;
     font-size: 12px;
     line-height: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-
+ 
+    
     .info_block {
         color: #6B778C;
         opacity: 50%;
