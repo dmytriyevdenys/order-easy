@@ -18,4 +18,14 @@ api.interceptors.request.use(
     (error) =>  Promise.reject(error)
 )
 
+api.interceptors.response.use(
+    (config) => {
+        const localStorage =  new LocalStorageManager<{access_token: string}>('token');
+        const token = localStorage.getData();
+        if (token) config.headers['Authorization'] = `Bearer ${token}`;
+        return config;
+    },
+    (error) => Promise.reject(error)
+)
+
 

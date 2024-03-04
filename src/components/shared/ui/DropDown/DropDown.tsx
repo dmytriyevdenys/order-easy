@@ -51,7 +51,6 @@ export const DropDown: React.FC<DropDownProps> = ({
       closeDropDown && closeDropDown();
     },
   }); 
-  useKeyPress('Escape', () => setShowDropDown(false))   
   
   useEffect(() => {
     if (show === false ) setShowDropDown(false);
@@ -59,6 +58,8 @@ export const DropDown: React.FC<DropDownProps> = ({
   },[show, setShowDropDown]);
   const listClassName =  elementPosition === 'above' ? s.above : s.below ;  
 const scrollClassName = scrollHeight &&  s.scroll
+useKeyPress('Escape', () => setShowDropDown(false)); 
+
   return (
 <div className={s.container} ref={containerRef} {...props}>
       <div className={s.drop_down_button}>

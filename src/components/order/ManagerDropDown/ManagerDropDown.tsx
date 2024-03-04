@@ -16,7 +16,7 @@ export const ManagerDropDown = () => {
     
     const {data, isSuccess} = useGetManagers();
     const [manager, setManager] = useState<TManager>();
-
+    
     const setManagerHandle = (manager: TManager | null) => {
        manager !== null && setManager(manager)
     }

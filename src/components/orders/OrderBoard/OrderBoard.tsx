@@ -1,8 +1,9 @@
 import { useGetStatuses } from "hooks/Order/useGetStatus";
 import s from "./OrderBoard.module.scss";
-import { OrderColumn } from "../OrderColumn/OrderColumn";
-import { DndContext, DragEndEvent, closestCorners } from "@dnd-kit/core";
+import { OrderColumn, order } from "../OrderColumn/OrderColumn";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCorners } from "@dnd-kit/core";
 import { useState } from "react";
+import { OrderSmall } from "../OrderSmall/OrderSmall";
 
 const orders = [
   {
@@ -126,7 +127,7 @@ const orders = [
 export const OrderBoard: React.FC = () => {
   const { data: statuses } = useGetStatuses();
   const [ordersDrags] = useState(orders);
-
+  const [activeDragOrder, setActiveDragOrder] = useState<order>();
   const handleDragEnd = (e: DragEndEvent) => {
     if (e.over?.id) {
       const draggedOrderId = e.active.id;
@@ -153,11 +154,25 @@ export const OrderBoard: React.FC = () => {
       }
     }
   };
-  
+  const hanldeDragStart = (e: DragStartEvent) => {    
+    const orderId = e.active.id;
+    const draggedOrder = ordersDrags.map(elem => elem.orders.find(order => order.id === orderId)).find(order => order?.id);
+    setActiveDragOrder(draggedOrder);    
+  }
+  const getColorByOrderId = (orderId: number): string => {
+    for (const orderGroup of ordersDrags) {
+      const order = orderGroup.orders.find(o => o.id === orderId);
+      if (order) {
+        const matchingStatus = statuses?.find(status => status.id === orderGroup.status_id);
+        return matchingStatus?.color || 'defaultColor'; 
+      }
+    }
+    return 'defaultColor';
+  };
 
   return (
-    <div className={s.container}>
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners} autoScroll={false}>
+    <div className={s.container} >
+      <DndContext onDragStart={hanldeDragStart} onDragEnd={handleDragEnd} collisionDetection={closestCorners} autoScroll={false}>
         {statuses?.map((status) => (
           <OrderColumn
             key={status.id}
@@ -168,6 +183,11 @@ export const OrderBoard: React.FC = () => {
             }
           />
         ))}
+            <DragOverlay>
+              {activeDragOrder && (
+                <OrderSmall {...activeDragOrder} color={getColorByOrderId(activeDragOrder.id)}/>
+              )}
+            </DragOverlay>
       </DndContext>
     </div>
   );

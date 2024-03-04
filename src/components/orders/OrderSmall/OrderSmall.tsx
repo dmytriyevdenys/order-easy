@@ -1,15 +1,14 @@
 import { useDraggable } from "@dnd-kit/core";
 import { order } from "../OrderColumn/OrderColumn";
 import s from "./OrderSmall.module.scss"
-import { useRef, useState } from "react";
-
+import { useState } from "react";
 type OrderSmallProps = order & {
     color: string;
 }
 export const OrderSmall: React.FC<OrderSmallProps> = ({ buyer, created_at, total_price, IntDoc, additionalInforation, color, id }) => {
-  const {attributes, listeners, setNodeRef, transform,} = useDraggable({id})
+  const {attributes, listeners, setNodeRef, transform } = useDraggable({id})
     const [isHovered, setIsHovered] = useState(false);
-    const testRef = useRef<HTMLDivElement>(null);
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -28,16 +27,11 @@ export const OrderSmall: React.FC<OrderSmallProps> = ({ buyer, created_at, total
 
 const containerStyle: React.CSSProperties = {
   transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : '',
-  boxShadow: transform ? '0px 0px 1px 0px #091E424F' : '',
   border: `1px solid ${isHovered ? color : hexToRgba(color, '0.5')}`,
-  cursor: isHovered ? 'pointer' : 'default',
-  position: transform ? 'absolute': 'relative',
-  width: transform ? testRef.current?.clientWidth  : ''
+  boxShadow: transform ? '0px 0px 1px 0px #091E424F, 0px 3px 5px 0px #091E4233': '',
 };
 
-
   return (
-<div  ref={testRef}   >
     <div
       ref={setNodeRef}
       {...listeners}
@@ -58,7 +52,6 @@ const containerStyle: React.CSSProperties = {
           <span>{total_price} ₴</span>
         </div>
       </div>
-    </div>
     </div>
   );
 }
