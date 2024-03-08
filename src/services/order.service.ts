@@ -3,9 +3,19 @@ import { TUser } from "interfaces/user/user.type";
 import { api } from "./api/axiosConfig";
 import { TTag } from "interfaces/order/tag.type";
 import { TStatus } from "interfaces/order/status.type";
+import { TOrderByStatus } from "interfaces/order/order-small.type";
 
 class OrderService {
     private path = 'order';
+
+    async getOrdersByStatus (statusId: number[]) {
+        
+        const orders = await api.get<TOrderByStatus>(`${this.path}`, {
+            params: {statuses: statusId.join(',')}
+        })
+        
+        return orders.data;
+    }
     
     async getSources() {
         const sources = await api.get<OrderAssociations[]>(`${this.path}/source`);
@@ -13,7 +23,9 @@ class OrderService {
     }
 
     async getStatuses () {
-        const statuses = await api.get<TStatus[]>(`${this.path}/status`);
+        const statuses = await api.get<TStatus[]>(`${this.path}/status`, {
+            params: {id: '1,2,3,5,6,7'}
+        });
         return statuses.data;
     }
 

@@ -31,15 +31,18 @@
         flex-direction: column;
         gap: 5px;
 
+        .additionalnformation {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+         }
+
         .int_doc_sum_block {
             color: #0747A6;
             display: flex;
             justify-content: space-between;
 
-            span {
-                color: #6B778C;
-                opacity: 50%;
-            }
+            
         }
     }
 }
