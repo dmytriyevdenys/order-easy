@@ -1,12 +1,10 @@
-// useAddIntDoc.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { packerService } from "../../services/packer.service";
-import { AxiosError } from "axios";
-import { ExtendedAxiosError } from "../../interfaces/axios-error.interface";
-import { IntDoc } from "../../interfaces/int-doc.type";
+import { packerService } from "services/packer.service";
+import { IntDoc } from "interfaces/int-doc.type";
 import {
   ApiResponsePagination,
-} from "../../interfaces/api-response.interface";
+} from "interfaces/api-response.interface";
+import { handleAxiosError } from "utils/axiosError";
 
 export const useAddIntDoc = (packerId: number, intDocNumber: string) => {
   const client = useQueryClient();
@@ -29,11 +27,6 @@ export const useAddIntDoc = (packerId: number, intDocNumber: string) => {
         }
       );
     },
-    onError: async (error: ExtendedAxiosError) => {
-      if (error instanceof AxiosError) {
-        
-        throw error;
-      }
-    },
+    onError: handleAxiosError
   });
 };

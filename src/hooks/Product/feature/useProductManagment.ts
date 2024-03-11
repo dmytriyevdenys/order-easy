@@ -4,8 +4,8 @@ import { useDebounce } from "../../../utils/useDebounce";
 import { useGetProductsToOrder } from "../useGetProductToOrder";
 import { useKeyPress } from "utils/useKeyPress";
 
-export const useProductManagment = () => {
-  const [products, setProducts] = useState<TProduct[]>([]);
+export const useProductManagment = (product?: TProduct[]) => {
+  const [products, setProducts] = useState<TProduct[]>(product || []);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [addedProductsIds, setAddedProductsIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");

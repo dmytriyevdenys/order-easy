@@ -19,6 +19,7 @@ import { AdditionalInformation } from "../Additionalnformation/Additionalnformat
 import { Button } from "components/shared/ui/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
 import { Tags } from "../Tags/Tags";
+import { TOrder } from "interfaces/order/order.type";
 
 type FormProps = {
   id?: number;
@@ -34,9 +35,12 @@ type FormProps = {
   buyer?: string;
   notes?: string[];
 };
-type CreateOrderFormProps = {};
-export const CreateOrderForm: React.FC = () => {
-  const addProductsDropDownProps = useProductManagment();
+type CreateOrderFormProps = {
+  order?: TOrder
+};
+export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
+  
+  const addProductsDropDownProps = useProductManagment(order?.products); 
   const sourceDropDownProps = useSourceDropDown();
   const searchSettlementsProps = useSearchSettlements();
   const { settlement } = searchSettlementsProps;

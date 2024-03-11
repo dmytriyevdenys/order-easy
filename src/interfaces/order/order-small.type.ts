@@ -5,7 +5,10 @@ export type TOrderSmall = {
     total_price: number;
     full_name: string;
     status_id: number;
-    intdocnumber: string;
+    IntDocNumber: string;
 }
 
-export type TOrderByStatus = Record<number, TOrderSmall[]>
+export type TOrderByStatus = {
+    status_id: number;
+    orders: TOrderSmall[]
+}

@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
                 Component: OrdersPage
             },
             {
-                path: `${ORDER_ROUTE}/:id` || `${ORDER_ROUTE}/new`,
+                path: `${ORDER_ROUTE}/:orderId` || `${ORDER_ROUTE}/new`,
                 Component: OrderPage
             }
            
