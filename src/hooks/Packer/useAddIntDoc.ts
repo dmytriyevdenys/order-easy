@@ -19,6 +19,13 @@ export const useAddIntDoc = (packerId: number, intDocNumber: string) => {
           if (oldPacker) {
             if (oldPacker.data.length === 1)
               client.invalidateQueries(["packer", packerId]);
+
+            if(oldPacker.data.length < oldPacker.per_page) {
+              return {
+                ...oldPacker,
+                data: [newIntDoc.data, ...oldPacker.data]
+              }
+            }
             return {
               ...oldPacker,
               data: [newIntDoc.data, ...oldPacker.data.slice(0, -1)]};

@@ -1,7 +1,7 @@
 import { TWarehouse } from "interfaces/order/warehouse.type";
 import { useState } from "react"
 import { useDebounce } from "utils/useDebounce";
-import { useGetWarehouse } from "../useGetWarehouse";
+import { useGetWarehouse } from "../addresses/useGetWarehouse";
 
 export const useSearchWarehouse = (cityRef: string) => {
     const [search, setSearch] = useState('');

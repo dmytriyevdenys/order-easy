@@ -21,7 +21,7 @@
     max-height: 65vh;
     overflow: hidden;
     display: flex;
-    white-space: wrap;
+    white-space: pre-wrap;
 
     &.clicked {
         background-color: #F4F5F7;

@@ -13,7 +13,7 @@ export const DropDownPerPage: React.FC<DropDownPerPageProps> = ({
   const perPageItems = [20, 50, 100];  
   return (
     <div className={s.drop_down}>
-      <DropDown showElement='input' readonlyInput value={per_page} closeToClickElement >
+      <DropDown showElement='input' readonlyInput value={per_page} closeToClickElement  >
         {perPageItems.map((perPageItem, index) => (
           <DropDownItem 
           key={index}

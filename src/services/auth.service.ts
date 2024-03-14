@@ -5,7 +5,7 @@ import { api } from "./api/axiosConfig";
 class AuthService { 
     private authPath = 'auth';
 
-    async login({email, password}: TSignIn) {
+    async login({email, password}: TSignIn) {      
         const token = await api.post<{access_token: string, isAuth: boolean}>(`${this.authPath}/login`, {email, password});
         return token.data;
     }
