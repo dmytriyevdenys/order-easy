@@ -6,7 +6,7 @@ import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
 type SearchSettlementsProps = ReturnType<typeof useSearchSettlements>
 
 export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
-  cityData,
+  citiesData,
   showDropDown,
   isEditing,
   settlement,
@@ -37,8 +37,8 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
         below
         listWidth="100%"
       >
-        {cityData &&
-          cityData.map((city, index) => (
+        {citiesData &&
+          citiesData.map((city, index) => (
             <DropDownItem 
               key={index} 
               data={city.Description}

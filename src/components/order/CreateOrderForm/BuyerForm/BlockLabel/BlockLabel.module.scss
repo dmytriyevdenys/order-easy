@@ -1,0 +1,47 @@
+@import "../../../../../styles/templates.scss";
+
+.container {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #0747A6;
+    cursor: pointer;
+}
+
+.default {
+    @extend %flex-center;
+    width: max-content;
+}
+
+.full_and_button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
+.icon_container {
+    width: 20px;
+    height: 20px;
+    @extend %flex-center;
+
+    .icon {
+        height: 4px;
+        fill: #0747A6;
+    }
+}
+
+.add_icon_container {
+    width: 16px;
+    height: 16px;
+    background-color: #DEEBFF;
+    @extend %flex-center;
+
+    .add_icon {
+        width: 8px;
+        height: 8px;
+        stroke: blue;
+    }
+
+}

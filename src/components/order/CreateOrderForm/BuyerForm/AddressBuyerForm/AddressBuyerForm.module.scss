@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .new_address_container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        span {
+            color: #0747A6;
+            font-size: 12px;
+        }
+        .choice_address_type {
+            display: flex;
+            gap: 10px;
+        }   
+    }
+}

@@ -1,12 +1,12 @@
 import React, { InputHTMLAttributes, useState, forwardRef } from "react";
 import s from "./Input.module.scss";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { ReactComponent as ErrorIcon } from "../../../../assets/icons/error.svg";
-import { ReactComponent as GlobeIcon } from "../../../../assets/icons/inputIcons/globe-icon.svg";
-import { ReactComponent as GrivnjaIcon } from "../../../../assets/icons/inputIcons/grivnya-icon.svg";
-import { ReactComponent as SelectIcon } from "../../../../assets/icons/inputIcons/select-icon.svg";
-import { ReactComponent as SearchIcon } from "../../../../assets/icons/inputIcons/search-icon.svg";
-import { ReactComponent as ShowPasswordIcon } from "../../../../assets/icons/inputIcons/shop-password-icon.svg";
+import { ReactComponent as ErrorIcon } from "assets/icons/error.svg";
+import { ReactComponent as GlobeIcon } from "assets/icons/inputIcons/globe-icon.svg";
+import { ReactComponent as GrivnjaIcon } from "assets/icons/inputIcons/grivnya-icon.svg";
+import { ReactComponent as SelectIcon } from "assets/icons/inputIcons/select-icon.svg";
+import { ReactComponent as SearchIcon } from "assets/icons/inputIcons/search-icon.svg";
+import { ReactComponent as ShowPasswordIcon } from "assets/icons/inputIcons/shop-password-icon.svg";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   variant: "default" | "select" | "globe" | "grivnja" | "search" | "password";

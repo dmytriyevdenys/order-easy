@@ -1,18 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./CreateOrder.module.scss";
-import { AddProductsDropDown } from "../../product/addProductDropDown/AddProductsDropDown";
-import { useProductManagment } from "../../../hooks/Product/feature/useProductManagment";
-import { TProduct } from "../../../interfaces/products/products.type";
+import { AddProductsDropDown } from "components/product/addProductDropDown/AddProductsDropDown";
+import { useProductManagment } from "hooks/Product/feature/useProductManagment";
+import { TProduct } from "interfaces/products/products.type";
 import { SourceDropDown } from "../SourceDropDown/SourceDropDown";
-import { useSourceDropDown } from "../../../hooks/Order/feature/useSourceDropDown";
+import { useSourceDropDown } from "hooks/Order/feature/useSourceDropDown";
 import { ManagerDropDown } from "../ManagerDropDown/ManagerDropDown";
 import { StatusDropDown } from "../StatusDropDown/StatusDropDown";
 import { AbstractFormComponent } from "../AbstractFormComponent/AbstractFormComponent";
 import { Input } from "components/shared/ui/Input/Input";
-import { SearchSettlements } from "../SearchSettlements/SearchSettlements";
 import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
 import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
-import { SearchWarehouse } from "../SearchWarehouse/SearchWarehouse";
 import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDropDown";
 import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
@@ -20,6 +18,7 @@ import { Button } from "components/shared/ui/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
 import { Tags } from "../Tags/Tags";
 import { TOrder } from "interfaces/order/order.type";
+import { BuyerForm } from "./BuyerForm/BuyerForm";
 
 type FormProps = {
   id?: number;
@@ -78,17 +77,15 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 <SourceDropDown {...sourceDropDownProps} />
               </div>
               <div className={s.tags_container}>
-              <Tags/>
+                <Tags />
               </div>
             </div>
-            <div><StatusDropDown /></div>
+            <div>
+              <StatusDropDown />
+            </div>
             <AbstractFormComponent
               label="Менеджер"
               Component={<ManagerDropDown />}
-            />
-            <AbstractFormComponent
-              label="ТТН"
-              Component={<Input variant="default" disabled />}
             />
             <AbstractFormComponent
               label="Сума"
@@ -101,13 +98,10 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 />
               }
             />
-            <AbstractFormComponent
-              label="Місто"
-              Component={<SearchSettlements {...searchSettlementsProps} />}
-            />
-            <AbstractFormComponent
-              label="№ відділення"
-              Component={<SearchWarehouse {...searchWarehouseProps} />}
+            <BuyerForm
+              buyer={order?.buyer}
+              searchSettlementProps={searchSettlementsProps}
+              searchWarehouseProps={searchWarehouseProps}
             />
             <AbstractFormComponent
               label="Спосіб оплати"
@@ -129,17 +123,6 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 />
               }
             />
-            <AbstractFormComponent
-              label="ПІБ"
-              Component={
-                <Input variant="default" {...register("buyer_name")} />
-              }
-            />
-            <AbstractFormComponent
-              label="Телефон"
-              Component={<Input variant="default" type="number" />}
-              {...register("buyer_phone")}
-            />
             <div className={s.buttons_container}>
               <Button
                 variant="default"
@@ -149,8 +132,8 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 Відміна
               </Button>
               <Button
-                variant='default'
-                color='primary'
+                variant="default"
+                color="primary"
                 disabled={addProductsDropDownProps.buttonClicked}
               >
                 Зберегти
