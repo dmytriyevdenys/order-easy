@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+
+    .label {
+        font-size: 13px;
+        color: #172B4D;
+        line-height: 20px;
+    }
+
+    .input:not(:checked)+.label {
+        color: #7A869A;
+    }
+}

@@ -1,7 +1,7 @@
 import { TOrder } from "interfaces/order/order.type";
 import { TWarehouse } from "interfaces/order/warehouse.type";
 
-type TCustomer = {
+export type TCustomer = {
     id: number
     full_name: string;
     phones: string[]; 
