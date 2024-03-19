@@ -26,6 +26,7 @@ export const ManagerDropDown = () => {
             showElement='input'
             closeToClickElement
             value={defaultManager? defaultManager.name : manager?.manager_name} 
+            
             >
                 {isSuccess && data?.map(manager => (
                     <div className={s.list_container} key={manager?.manager_id}>

@@ -7,6 +7,7 @@ import { AbstractFormComponent } from "components/order/AbstractFormComponent/Ab
 import { SearchSettlements } from "components/order/SearchSettlements/SearchSettlements";
 import { SearchWarehouse } from "components/order/SearchWarehouse/SearchWarehouse";
 import { Radio } from "components/shared/ui/Radio/Radio";
+import { AddressBlock } from "./AddressBlock/AddressBlock";
 
 type AddressBuyerFormProps =  {
 addresses?: TWarehouse[];
@@ -23,22 +24,15 @@ export const AddressBuyerForm: React.FC<AddressBuyerFormProps> = (
         <div className={s.new_address_container}>
           <span>Нова адреса</span>
           <div className={s.choice_address_type}>
-            <Radio label="Відділення" id='warehouse' checked/>
-            <Radio label="Адреса" id="address"/>     
+            <Radio label="Відділення" id="warehouse" checked />
+            <Radio label="Адреса" id="address" />
           </div>
-          <div className={s.new_address}>
-          <AbstractFormComponent
-              label="Місто"
-              Component={<SearchSettlements {...searchSettlementProps} />}
+            <AddressBlock
+              searchSettlementProps={searchSettlementProps}
+              searchWarehouseProps={searchWarehouseProps}
             />
-            <AbstractFormComponent
-              label="№ відділення"
-              Component={<SearchWarehouse {...searchWarehouseProps} />}
-            />
-            </div>
         </div>
       )}
-     
     </div>
   );
 };

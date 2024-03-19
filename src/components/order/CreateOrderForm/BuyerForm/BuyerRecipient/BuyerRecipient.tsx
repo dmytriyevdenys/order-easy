@@ -1,5 +1,4 @@
 import { TCustomer } from "interfaces/buyer/buyer.type";
-import { BlockLabel } from "../BlockLabel/BlockLabel";
 import { CustomerForm } from "../CustomerForm/CustomerForm";
 import { ToggleBlockLabel } from "../ToggleBlockLabel/ToggleBlockLabel";
 
@@ -10,7 +9,7 @@ export const BuyerRecipient: React.FC<BuyerRecipientProps> = ({ recipients }) =>
 
     return (
         <div>
-            <ToggleBlockLabel label="Інший отримуач" addButton>
+            <ToggleBlockLabel label="Інший отримувач" addButton>
             <CustomerForm/>
             </ToggleBlockLabel>
         </div>
