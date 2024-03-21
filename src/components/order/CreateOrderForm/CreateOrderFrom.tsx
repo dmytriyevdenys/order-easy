@@ -14,11 +14,12 @@ import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
 import { PaymentMethodDropDown } from "../PaymentMethodDropDown/PaymentMethodDropDown";
 import { usePaymentMethod } from "hooks/Order/feature/usePaymentMethod";
 import { AdditionalInformation } from "../Additionalnformation/Additionalnformation";
-import { Button } from "components/shared/ui/Button/Button";
+import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
 import { Tags } from "../Tags/Tags";
 import { TOrder } from "interfaces/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
+import { TBuyer } from "interfaces/buyer/buyer.type";
 
 type FormProps = {
   id?: number;
@@ -31,7 +32,7 @@ type FormProps = {
   totalPrice?: number;
   additionalnformation?: string;
   payments?: string;
-  buyer?: string;
+  buyer?: TBuyer;
   notes?: string[];
 };
 type CreateOrderFormProps = {

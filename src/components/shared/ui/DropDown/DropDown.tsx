@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactNode, useEffect, useState } from "react";
 import s from "./DropDown.module.scss";
-import { Button } from "../Button/Button";
+import { Button } from "../Buttons/Button/Button";
 import { Input } from "../Input/Input";
 import { useOnClickOutside } from "../../../../utils/useClickOutside";
 import { useElementPosition } from "../../../../utils/useElementPosition";

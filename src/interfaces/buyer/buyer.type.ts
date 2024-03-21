@@ -9,6 +9,7 @@ export type TCustomer = {
 }
 
 export type TBuyer = TCustomer & {
+    id: number;
     recipients: TCustomer[];
     addresses: TWarehouse[];
     orders: TOrder[]

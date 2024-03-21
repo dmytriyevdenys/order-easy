@@ -2,7 +2,7 @@ import { TProduct } from "interfaces/products/products.type";
 import s from "./ProductsList.module.scss";
 import { ProductListItem } from "./ProductListItem/ProductListItem";
 import { useEffect, useRef } from "react";
-import { Button } from "components/shared/ui/Button/Button";
+import { Button } from "components/shared/ui/Buttons/Button/Button";
 
 type ProductsListProps = {
   products: TProduct[];

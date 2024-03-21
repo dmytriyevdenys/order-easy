@@ -17,7 +17,7 @@ export const BuyerForm: React.FC<BuyerFormProps> = ({
   searchSettlementProps,
   searchWarehouseProps,
 }) => {
-  const { full_name, phones } = buyer || {};
+  const { full_name, phones } = buyer || {};  
   return (
     <div className={s.container}>
       <BlockLabel label="Покупець" />
@@ -25,6 +25,7 @@ export const BuyerForm: React.FC<BuyerFormProps> = ({
       <AddressBuyerForm
         searchSettlementProps={searchSettlementProps}
         searchWarehouseProps={searchWarehouseProps}
+        addresses={buyer?.addresses}
       />
       <BuyerRecipient recipients={buyer?.recipients || []}/>
     </div>

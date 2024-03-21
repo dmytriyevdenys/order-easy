@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Button } from "../../shared/ui/Button/Button";
+import { Button } from "../../shared/ui/Buttons/Button/Button";
 import { Input } from "../../shared/ui/Input/Input";
 import s from "./PackerFrom.module.scss";
 import { useCheckPacker } from "../../../hooks/Packer/useCheсkPacker";

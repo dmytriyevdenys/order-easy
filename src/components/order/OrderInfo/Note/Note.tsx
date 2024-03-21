@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import s from "./Note.module.scss";
 import { useTextAreaHeight } from "utils/useTextareaHeight";
 import { Textarea } from "components/shared/ui/Textarea/Textarea";
-import { CloseButton } from "components/shared/ui/CloseButton/CloseButton";
+import { CloseButton } from "components/shared/ui/Buttons/CloseButton/CloseButton";
 
 type NoteProps = {
   note?: string;

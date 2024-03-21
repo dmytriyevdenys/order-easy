@@ -8,9 +8,10 @@ export type ToggleBlockLabelProps = {
     active?: boolean;
     clickToAddButton?: () => void;
     clickToLabel?: () => void;
-    children: React.ReactNode
+    addElement?: React.ReactNode;
+    listElements?: React.ReactNode;
 }
-export const ToggleBlockLabel: React.FC<ToggleBlockLabelProps> = ({children, ...props}) => {
+export const ToggleBlockLabel: React.FC<ToggleBlockLabelProps> = ({addElement, listElements, ...props}) => {
 const {active} = props;
 const [isOpen, setIsOpen] = useState(active || false);
 
@@ -20,7 +21,8 @@ const toogleIsOpen = () => {
     return (
         <div className={s.container}>
             <BlockLabel {...props} clickToAddButton={toogleIsOpen} active={isOpen}/>
-            {isOpen && children}
+            {isOpen && addElement}
+            {listElements && listElements}
         </div>
     )
 }

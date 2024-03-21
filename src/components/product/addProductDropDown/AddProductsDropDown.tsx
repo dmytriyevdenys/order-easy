@@ -1,4 +1,4 @@
-import { Button } from "../../shared/ui/Button/Button";
+import { Button } from "../../shared/ui/Buttons/Button/Button";
 import { DropDown } from "../../shared/ui/DropDown/DropDown";
 import { ProductDropDownItem } from "../productDropDownItem/ProductDropDownItem";
 import s from "./AddProductsDropDown.module.scss";

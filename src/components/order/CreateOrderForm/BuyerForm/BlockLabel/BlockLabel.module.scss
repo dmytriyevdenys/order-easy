@@ -1,6 +1,7 @@
 @import "../../../../../styles/templates.scss";
 
 .container {
+    padding: 0 5px;
     height: 32px;
     display: flex;
     align-items: center;
@@ -15,6 +16,7 @@
 }
 
 .full_and_button {
+  
     display: flex;
     align-items: center;
     width: 100%;

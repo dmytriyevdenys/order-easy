@@ -10,8 +10,6 @@ export const OrderPage:React.FC = () => {
     const location = useLocation();
 const isNewOrder = location.pathname.includes('new')
 const {data: order, isSuccess} = useGetOrder(Number(orderId) || null)   
-console.log(order);
-
     return (
         <div className={s.container}>
             {(isSuccess  || isNewOrder) && <div className={s.create_order_form} ><CreateOrderForm order={order}/></div> }

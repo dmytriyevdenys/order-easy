@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./LoginForm.module.scss";
 import { Input } from "components/shared/ui/Input/Input";
-import { Button } from "components/shared/ui/Button/Button";
+import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { useLogin } from "hooks/Auth/useLogin";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";

@@ -3,7 +3,7 @@ import { TTag } from "interfaces/order/tag.type";
 import { useRef, useState } from "react";
 import { TagItem } from "./TagDropDown/TagItem/TagItem";
 import { TagDropDown } from "./TagDropDown/TagDropDown";
-import { Button } from "components/shared/ui/Button/Button";
+import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { useGetTags } from "hooks/Order/useGetTags";
 
 type TagsProps = {

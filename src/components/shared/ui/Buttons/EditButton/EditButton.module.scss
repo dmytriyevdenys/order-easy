@@ -1,0 +1,15 @@
+.container {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    &.active {
+        background-color: #0747A6;
+
+    }
+}
+
+.icon {
+    &.active {
+        stroke: #FFFFFF;
+    }
+}

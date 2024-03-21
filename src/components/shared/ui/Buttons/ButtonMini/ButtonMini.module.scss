@@ -1,0 +1,26 @@
+@import "../../../../../styles/templates.scss";
+
+.container {
+    width: 16px;
+    height: 16px;
+    @extend %flex-center;
+     
+    &:hover {
+        background-color: #DEEBFF;
+    }
+    &.active_button {
+        background-color: #0747A6;
+    }
+
+    .add_icon {
+        width: 8px;
+        height: 8px;
+        stroke-width: 2px;
+        stroke: blue;
+
+        &.active_button {
+            stroke: #FFFFFF;
+        }
+    }
+
+}

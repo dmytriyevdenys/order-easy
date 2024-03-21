@@ -1,10 +1,10 @@
 import s from "./BlockLabel.module.scss";
 import { ReactComponent as SelectIcon } from "assets/icons/inputIcons/select-icon.svg";
-import { ReactComponent as AddIcon } from "assets/icons/buttonIcons/add-icon.svg";
 import { ToggleBlockLabelProps } from "../ToggleBlockLabel/ToggleBlockLabel";
+import { ButtonMini } from "components/shared/ui/Buttons/ButtonMini/ButtonMini";
 
 
-export const BlockLabel: React.FC<Omit<ToggleBlockLabelProps, 'children'>> = ({
+export const BlockLabel: React.FC<Omit<ToggleBlockLabelProps, 'addElement'>> = ({
   label,
   addButton,
   active,
@@ -12,7 +12,6 @@ export const BlockLabel: React.FC<Omit<ToggleBlockLabelProps, 'children'>> = ({
   clickToLabel
 }) => {
   const buttonClass = addButton ? s.full_and_button : s.default;
-  const activeButtonClass = active ? s.active_button : "";
   return (
     <div className={s.container}>
       <div className={buttonClass} onClick={clickToLabel}>
@@ -22,9 +21,7 @@ export const BlockLabel: React.FC<Omit<ToggleBlockLabelProps, 'children'>> = ({
         </div>
       </div>
       {addButton && (
-        <div className={`${s.add_icon_container} ${activeButtonClass}`} onClick={clickToAddButton}>
-          <AddIcon className={`${s.add_icon} ${activeButtonClass}`} />
-        </div>
+        <ButtonMini active={active || false} clickToAddButton={clickToAddButton}/>
       )}
     </div>
   );

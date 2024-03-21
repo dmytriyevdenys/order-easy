@@ -1,4 +1,4 @@
-import { Button } from "components/shared/ui/Button/Button"
+import { Button } from "components/shared/ui/Buttons/Button/Button"
 import s from "./Tasks.module.scss"
 
 export const Tasks: React.FC = () => {

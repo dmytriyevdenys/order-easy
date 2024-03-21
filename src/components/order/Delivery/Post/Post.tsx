@@ -5,7 +5,7 @@ import { PostOptions } from "./PostOptions/PostOptions";
 import { Sender } from "./Sender/Sender";
 import { Recipient } from "./Recipient/Recipient";
 import { CargoInfo } from "./СargoInfo/CargoInfo";
-import { Button } from "components/shared/ui/Button/Button";
+import { Button } from "components/shared/ui/Buttons/Button/Button";
 
 export const Post: React.FC = () => {
   return (

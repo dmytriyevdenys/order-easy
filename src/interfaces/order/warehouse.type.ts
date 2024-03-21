@@ -1,4 +1,5 @@
 export type TWarehouse = {
+  id: number;
   CityDescription: string;
   CityRef: string;
   SettlementRef: string;

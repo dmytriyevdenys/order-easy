@@ -1,12 +1,12 @@
 import { useRef, useState, useCallback } from "react";
 import s from "./CloseButton.module.scss";
 import { ReactComponent as CloseIcon } from "assets/icons/orderIcons/close.svg";
-import { Button } from "../Button/Button";
 import {useKeyPress} from "utils/useKeyPress";
+import { Button } from "../Button/Button";
 
 type CloseButtonProps = {
   toConfirm: () => void;
-  cancel: () => void;
+  cancel?: () => void;
 };
 
 export const CloseButton: React.FC<CloseButtonProps> = ({ toConfirm, cancel }) => {
@@ -37,7 +37,7 @@ export const CloseButton: React.FC<CloseButtonProps> = ({ toConfirm, cancel }) =
   };
 
   const handleCancel = () => {
-    cancel();
+   cancel && cancel();
     setIsActiveDelete(false);
   }
 
@@ -71,4 +71,4 @@ export const CloseButton: React.FC<CloseButtonProps> = ({ toConfirm, cancel }) =
       )}
     </div>
   );
-};
+}
