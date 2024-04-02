@@ -3,13 +3,9 @@ import { AbstractFormComponent } from "components/order/AbstractFormComponent/Ab
 import { SearchSettlements } from "components/order/SearchSettlements/SearchSettlements";
 import { SearchWarehouse } from "components/order/SearchWarehouse/SearchWarehouse";
 import { Radio } from "components/shared/ui/Radio/Radio";
-import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
-import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
+import { TAdressesProps } from "interfaces/order/addresses/adresses-props.type";
 
-type AddressBlockProps = {
-searchSettlementProps: ReturnType<typeof useSearchSettlements>;
-searchWarehouseProps: ReturnType<typeof useSearchWarehouse>;
-}
+type AddressBlockProps = TAdressesProps
 export const AddressBlock: React.FC<AddressBlockProps> = ({searchSettlementProps, searchWarehouseProps}) => {
     return (
         <div className={s.container}>

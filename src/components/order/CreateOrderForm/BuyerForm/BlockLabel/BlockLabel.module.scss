@@ -12,26 +12,32 @@
 
 .default {
     @extend %flex-center;
+    gap: 5px;
     width: max-content;
 }
 
 .full_and_button {
-  
     display: flex;
     align-items: center;
     width: 100%;
     display: flex;
+    gap: 5px;
 }
 
 .icon_container {
-    width: 20px;
-    height: 20px;
     @extend %flex-center;
-
+    gap: 5px;
     .icon {
         height: 4px;
         fill: #0747A6;
     }
+}
+.copy_icon {
+    display: none;
+}
+
+.container:hover .copy_icon {
+    display: flex;
 }
 
 .add_icon_container {
@@ -54,7 +60,4 @@
             stroke: #FFFFFF;
         }
     }
-
-    
-
 }

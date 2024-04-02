@@ -1,11 +1,25 @@
 .container {
-    position: relative;
     display: flex;
+    flex-direction: column;
+    position: relative;
+    .block {
+        display: flex;
     align-items: center;
     justify-content: space-between;
     min-height: 32px;
     padding: 0 5px;
     border-radius: 2px;
+
+    }
+    .info_block {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .copy_icon {
+        display: none;
+    }
 }
 
 .container:hover {
@@ -20,21 +34,4 @@
     display: none;
     align-items: center;
     gap: 5px;
-}
-
-.edit_element { 
-    position: absolute;
-    top: 0;
-    width: 300px;
-    height: 100px;
-    padding: 12px 16px 12px 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    border-radius: 3px;
-    box-shadow: 0px 0px 1px 0px #091E424F;
-box-shadow: 0px 3px 5px 0px #091E4233;
-    background-color: white;
-    z-index: 9999999;
 }

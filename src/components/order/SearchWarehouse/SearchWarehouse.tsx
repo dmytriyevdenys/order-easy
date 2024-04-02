@@ -30,6 +30,7 @@ export const SearchWarehouse: React.FC<SearchWarehouseProps> = ({
         closeToClickElement
         below
         scrollHeight="300"
+        listWidth="100%"
         >
         {warehouseData?.map(warehouse => (
             <DropDownItem 

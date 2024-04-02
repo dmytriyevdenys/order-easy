@@ -1,5 +1,5 @@
 import { TOrder } from "interfaces/order/order.type";
-import { TWarehouse } from "interfaces/order/warehouse.type";
+import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
 
 export type TCustomer = {
     id: number

@@ -9,7 +9,7 @@ import { useKeyPress } from "utils/useKeyPress";
 type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   showElement?: "button" | "input";
-  colorElement?: "primary" | "hover" | "secondary"
+  colorElement?: "primary" | "hover" | "secondary";
   readonlyInput?: boolean;
   value?: string | number;
   closeToClickElement?: boolean;
@@ -19,14 +19,19 @@ type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   listWidth?: string;
   below?: boolean;
   scrollHeight?: string;
-  onButtonClick?: () => void; 
+  notCloseClickToOutside?: boolean;
+  position?: {
+    top: number;
+    left: number;
+  };
+  onButtonClick?: () => void;
   closeDropDown?: () => void;
 };
 
 export const DropDown: React.FC<DropDownProps> = ({
   children,
   showElement,
-  colorElement = 'primary',
+  colorElement = "primary",
   readonlyInput,
   showLeftIconButton,
   showRightIconButton,
@@ -37,41 +42,55 @@ export const DropDown: React.FC<DropDownProps> = ({
   listWidth,
   below,
   scrollHeight,
+  position,
+  notCloseClickToOutside,
   onButtonClick,
   closeDropDown,
   ...props
 }) => {
   const [showDropDown, setShowDropDown] = useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const elementPosition = useElementPosition({targetRef: containerRef});
+  const elementPosition = useElementPosition({ targetRef: containerRef });
   useOnClickOutside({
     ref: containerRef,
     handler: () => {
-      setShowDropDown(false);
-      closeDropDown && closeDropDown();
+      if (!notCloseClickToOutside) {
+        setShowDropDown(false);
+        closeDropDown && closeDropDown();
+      }
     },
-  }); 
-  
+  });
+
   useEffect(() => {
-    if (show === false ) setShowDropDown(false);
-    if (show === true) setShowDropDown(true)
-  },[show, setShowDropDown]);
-  const listClassName =  elementPosition === 'above' ? s.above : s.below ;  
-const scrollClassName = scrollHeight &&  s.scroll
-useKeyPress('Escape', () => setShowDropDown(false)); 
+    if (show === false) setShowDropDown(false);
+    if (show === true) setShowDropDown(true);
+  }, [show, setShowDropDown]);
+  const listClassName = elementPosition === "above" ? s.above : s.below;
+  const scrollClassName = scrollHeight && s.scroll;
+  useKeyPress("Escape", () => {
+   closeDropDown && closeDropDown();
+    setShowDropDown(false);
+  });
+  const { top, left } = position || {};
 
   return (
-<div className={s.container} ref={containerRef} {...props}>
+    <div
+      className={s.container}
+      ref={containerRef}
+      {...props}
+      style={position && { position: "absolute", top, left }}
+    >
       <div className={s.drop_down_button}>
         {showElement === "button" && (
-          <Button leftElement={showLeftIconButton} rightElement={showRightIconButton} 
+          <Button
+            leftElement={showLeftIconButton}
+            rightElement={showRightIconButton}
             variant="addLarge"
             color={colorElement && colorElement}
             withFull
             onClick={() => {
-             setShowDropDown(prev => !prev);
+              setShowDropDown((prev) => !prev);
               onButtonClick && onButtonClick();
-              
             }}
           >
             {value}
@@ -82,9 +101,8 @@ useKeyPress('Escape', () => setShowDropDown(false));
             variant="select"
             readOnly={readonlyInput}
             onClick={() => {
-              setShowDropDown((prev) => !prev)
+              setShowDropDown((prev) => !prev);
               onButtonClick && onButtonClick();
-
             }}
             value={value}
             placeholder={placeholder}
@@ -95,11 +113,11 @@ useKeyPress('Escape', () => setShowDropDown(false));
         <ul
           className={`${s.list} ${!below && listClassName} ${scrollClassName}`}
           onClick={() => closeToClickElement && setShowDropDown(false)}
-          style={{width: listWidth, maxHeight: scrollHeight}}
+          style={{ width: listWidth, maxHeight: scrollHeight }}
         >
           {children}
         </ul>
       )}
-    </div>    
+    </div>
   );
 };

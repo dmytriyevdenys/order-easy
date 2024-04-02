@@ -20,6 +20,7 @@ import { Tags } from "../Tags/Tags";
 import { TOrder } from "interfaces/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
 import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TCity } from "interfaces/order/addresses/api/city.type";
 
 type FormProps = {
   id?: number;
@@ -39,7 +40,6 @@ type CreateOrderFormProps = {
   order?: TOrder
 };
 export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
-  
   const addProductsDropDownProps = useProductManagment(order?.products); 
   const sourceDropDownProps = useSourceDropDown();
   const searchSettlementsProps = useSearchSettlements();
@@ -63,7 +63,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
     const { source_id } = sourceDropDownProps;
     const newData = { ...data, products, totalPrice, source_id };
   };
-  const containerClass = addProductsDropDownProps.buttonClicked
+  const containerClass = (addProductsDropDownProps.buttonClicked)
     ? s.active_add_product
     : "";
   return (

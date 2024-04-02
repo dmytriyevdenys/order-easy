@@ -2,15 +2,12 @@ import s from "./BuyerForm.module.scss";
 import { TBuyer } from "interfaces/buyer/buyer.type";
 import { BlockLabel } from "./BlockLabel/BlockLabel";
 import { AddressBuyerForm } from "./AddressBuyerForm/AddressBuyerForm";
-import { useSearchSettlements } from "hooks/Order/feature/useSearchSettlements";
-import { useSearchWarehouse } from "hooks/Order/feature/useSearchWarehouse";
 import { BuyerRecipient } from "./BuyerRecipient/BuyerRecipient";
 import { CustomerForm } from "./CustomerForm/CustomerForm";
+import { TAdressesProps } from "interfaces/order/addresses/adresses-props.type";
 
-type BuyerFormProps = {
+type BuyerFormProps = TAdressesProps & {
   buyer?: TBuyer;
-  searchSettlementProps: ReturnType<typeof useSearchSettlements>;
-  searchWarehouseProps: ReturnType<typeof useSearchWarehouse>;
 };
 export const BuyerForm: React.FC<BuyerFormProps> = ({
   buyer,
@@ -20,7 +17,7 @@ export const BuyerForm: React.FC<BuyerFormProps> = ({
   const { full_name, phones } = buyer || {};  
   return (
     <div className={s.container}>
-      <BlockLabel label="Покупець" />
+      <BlockLabel label="Покупець" copyButton/>
       <CustomerForm phones={phones} full_name={full_name}/>
       <AddressBuyerForm
         searchSettlementProps={searchSettlementProps}
