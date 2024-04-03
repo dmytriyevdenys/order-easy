@@ -20,7 +20,6 @@ import { Tags } from "../Tags/Tags";
 import { TOrder } from "interfaces/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
 import { TBuyer } from "interfaces/buyer/buyer.type";
-import { TCity } from "interfaces/order/addresses/api/city.type";
 
 type FormProps = {
   id?: number;
@@ -32,7 +31,7 @@ type FormProps = {
   products?: TProduct[];
   totalPrice?: number;
   additionalnformation?: string;
-  payments?: string;
+  payments?: any;
   buyer?: TBuyer;
   notes?: string[];
 };
@@ -61,7 +60,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     const { products, totalPrice } = addProductsDropDownProps;
     const { source_id } = sourceDropDownProps;
-    const newData = { ...data, products, totalPrice, source_id };
+    const newData = { ...data, products, totalPrice, source_id,};
   };
   const containerClass = (addProductsDropDownProps.buttonClicked)
     ? s.active_add_product
@@ -124,7 +123,8 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 />
               }
             />
-            <div className={s.buttons_container}>
+          </form>
+          <div className={s.buttons_container}>
               <Button
                 variant="default"
                 color="secondary"
@@ -140,7 +140,6 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 Зберегти
               </Button>
             </div>
-          </form>
         </div>
       </ResizeContainer>
     </div>

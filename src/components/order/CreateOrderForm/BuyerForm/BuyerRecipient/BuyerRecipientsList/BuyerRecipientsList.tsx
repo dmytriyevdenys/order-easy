@@ -7,8 +7,8 @@ type BuyerRecipientsListProps = {
 export const BuyerRecipientsList: React.FC<BuyerRecipientsListProps> = ({ recipients }) => {
     return (
         <>
-        {recipients?.map(recipient => (
-            <BuyerRecipientsListElement key={recipient.id} {...recipient}/>
+        {recipients?.map((recipient, index) => (
+            <BuyerRecipientsListElement key={recipient.id} recipient={recipient} checked={index === 0}/>
         ))}
         </>
     )

@@ -9,9 +9,11 @@ import { useState } from "react";
 
 type AddressListElementProps = {
   address: TWarehouse;
+  checked?: boolean;
 };
 export const AddressListElement: React.FC<AddressListElementProps> = ({
   address,
+  checked,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const searchSettlementProps = useSearchSettlements(address);
@@ -19,7 +21,8 @@ export const AddressListElement: React.FC<AddressListElementProps> = ({
     searchSettlementProps.settlement?.Ref || "",
     address
   );
-  const text = `${address.CityDescription}, відділення № ${address.Number}`;
+  const text = `${searchSettlementProps.settlement?.cityName}, відділення № ${searchWarehouseProps.warehouse?.Number}`;
+
   return (
     <>
       <ListElementBlockLabel
@@ -28,8 +31,12 @@ export const AddressListElement: React.FC<AddressListElementProps> = ({
         cancel={() => {}}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
+        checked={checked}
         editElement={
-          <EditElementBlockLabel toConfirm={() => {}} cancel={() => setIsEditing(false)}>
+          <EditElementBlockLabel
+            toConfirm={() => setIsEditing(false)}
+            cancel={() => setIsEditing(false)}
+          >
             <div
               style={{ display: "flex", flexDirection: "column", gap: "5px" }}
             >

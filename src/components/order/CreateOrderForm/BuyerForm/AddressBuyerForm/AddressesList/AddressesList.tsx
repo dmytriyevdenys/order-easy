@@ -8,8 +8,8 @@ type AddressListProps = {
 export const AddressesList: React.FC<AddressListProps> = (props) => {
   return (
     <div className={s.container}>
-      {props.addresses?.map((address) => (
-        <AddressListElement key={address.id} address={address} {...props} />
+      {props.addresses?.map((address, index) => (
+        <AddressListElement key={address.id} address={address} {...props} checked={index === 0}/>
       ))}
     </div>
   );

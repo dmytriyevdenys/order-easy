@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import s from "./PaymentBlock.module.scss";
+import { Radio } from "components/shared/ui/Radio/Radio";
+import { useRadioGroup } from "utils/useRadioGroup";
 
 type PaymentBlockProps = {
   textBlock: string;
@@ -12,18 +14,13 @@ export const PaymentOption: React.FC<{
 }> = ({ label, checked, onChange }) => {
   return (
     <div className={s.payment_block}>
-      <label>{label}</label>
-      <input type="radio" checked={checked} onChange={onChange} />
+      <Radio colorDefault label={label} checked={checked} onChange={onChange} />
     </div>
   );
 };
 
 export const PaymentBlock: React.FC<PaymentBlockProps> = ({ textBlock }) => {
-  const [selectedOption, setSelectedOption] = useState("recipient"); 
-
-  const handleOptionChange = (option: string) => {
-    setSelectedOption(option);
-  };
+const {selectedOption, handleChange} = useRadioGroup('recipient');
 
   return (
     <div className={s.form_of_payments}>
@@ -32,12 +29,12 @@ export const PaymentBlock: React.FC<PaymentBlockProps> = ({ textBlock }) => {
         <PaymentOption
           label="Отримувач"
           checked={selectedOption === "recipient"}
-          onChange={() => handleOptionChange("recipient")}
+          onChange={() => handleChange("recipient")}
         />
         <PaymentOption
           label="Відправник"
           checked={selectedOption === "sender"}
-          onChange={() => handleOptionChange("sender")}
+          onChange={() => handleChange("sender")}
         />
       </div>
     </div>
