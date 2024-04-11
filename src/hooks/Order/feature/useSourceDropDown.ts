@@ -9,7 +9,7 @@ export const useSourceDropDown= () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [source_id, setSourceId] = useState<number | null>(null);
 
-  const handleShowDropDown = () => {
+  const handleShowDropDown = () => {    
     setShowDropDown((prev) => !prev);
   };
 
@@ -27,8 +27,7 @@ export const useSourceDropDown= () => {
     setSourceName(source.name);
     setSourceId(source.id);
     setSearchTerm('');
-  };
-
+  };  
   return {
     showDropDown,
     handleShowDropDown,

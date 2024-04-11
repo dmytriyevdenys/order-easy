@@ -16,7 +16,6 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
   sourceName,
   filteredData,
 }) => {
-
   return (
     <div className={s.container}>
       <Input

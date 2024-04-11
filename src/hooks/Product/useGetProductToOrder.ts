@@ -5,6 +5,6 @@ export const useGetProductsToOrder = (search?: string) => {
     
     return useQuery({
         queryKey: ['products', search],
-        queryFn: () =>  productService.getProduct(search),
+        queryFn: () =>  productService.getProduct(search),        
     })
 }

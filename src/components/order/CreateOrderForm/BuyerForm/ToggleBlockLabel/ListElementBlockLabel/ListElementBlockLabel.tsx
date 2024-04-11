@@ -5,6 +5,8 @@ import { EditButton } from "components/shared/ui/Buttons/EditButton/EditButton";
 import { CloseButton } from "components/shared/ui/Buttons/CloseButton/CloseButton";
 import { CopyButton } from "components/shared/ui/Buttons/CopyButton/CopyButton";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
+import { useProductManagment } from "hooks/Product/feature/useProductManagment";
+import { useActiveOverlay } from "utils/useActiveOverlay";
 
 type ListElementBlockLabelProps = {
   text: string;
@@ -24,12 +26,14 @@ export const ListElementBlockLabel: React.FC<ListElementBlockLabelProps> = ({
   isEditing,
   checked
 }) => {
-  const containerClass = isEditing
-  ? s.active
-  : "";
+ useActiveOverlay(Boolean(isEditing));
+
+
+  const handleEditing = () => {
+    setIsEditing && setIsEditing(prev => !prev);
+  }
   return (
-    <div className={`${s.container} ${containerClass}`}>
-       <div className={s.overlay}></div>
+    <div className={s.container}>
       <div className={s.block}>
         <div className={s.info_block}>
           <Radio label={text} id={text} colorDefault checked={checked}/>
@@ -38,7 +42,7 @@ export const ListElementBlockLabel: React.FC<ListElementBlockLabelProps> = ({
         <div className={s.icons}>
           <EditButton
             isActive={isEditing}
-            onClick={() => setIsEditing && setIsEditing((prev) => !prev)}
+            onClick={handleEditing}
           />
           <CloseButton toConfirm={toConfirm} cancel={cancel} />
         </div>

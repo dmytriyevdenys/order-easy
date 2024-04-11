@@ -24,7 +24,7 @@ export const Tags: React.FC<TagsProps> = ({ tags }) => {
     const updatedTags = tagsInList.filter((tag) => tag.id !== id);
     setTagsInList(updatedTags);
   };
-  const handleOnClick = () => {
+  const handleOnClick = () => {    
     setIsOpen((prev) => !prev);
     !isOpen && getTags();
   };

@@ -20,6 +20,7 @@ import { Tags } from "../Tags/Tags";
 import { TOrder } from "interfaces/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
 import { TBuyer } from "interfaces/buyer/buyer.type";
+import { useActiveOverlay } from "utils/useActiveOverlay";
 
 type FormProps = {
   id?: number;
@@ -49,7 +50,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
   const paymentMethodDropDownProps = usePaymentMethod(
     addProductsDropDownProps.totalPrice
   );
-
+  const {isActiveOverlay} = useActiveOverlay(addProductsDropDownProps.buttonClicked);
   const {
     register,
     handleSubmit,
@@ -62,27 +63,24 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
     const { source_id } = sourceDropDownProps;
     const newData = { ...data, products, totalPrice, source_id,};
   };
-  const containerClass = (addProductsDropDownProps.buttonClicked)
-    ? s.active_add_product
+  const containerClass = (isActiveOverlay)
+    ? s.active_overlay
     : "";
+    
   return (
     <div className={`${s.container} ${containerClass}`}>
       <ResizeContainer minWidth={300} maxWidth={500} width="390" side="right">
         <div className={s.overlay}></div>
-        <div className={s.wrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+            <div className={s.elements_form}>
             <AddProductsDropDown {...addProductsDropDownProps} />
             <div className={s.source_tag_container}>
-              <div>
                 <SourceDropDown {...sourceDropDownProps} />
-              </div>
               <div className={s.tags_container}>
                 <Tags />
               </div>
             </div>
-            <div>
               <StatusDropDown />
-            </div>
             <AbstractFormComponent
               label="Менеджер"
               Component={<ManagerDropDown />}
@@ -123,24 +121,24 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 />
               }
             />
-          </form>
-          <div className={s.buttons_container}>
+            </div>
+             <div className={s.buttons_container}>
               <Button
                 variant="default"
                 color="secondary"
-                disabled={addProductsDropDownProps.buttonClicked}
+                disabled={!!isActiveOverlay}
               >
                 Відміна
               </Button>
               <Button
                 variant="default"
                 color="primary"
-                disabled={addProductsDropDownProps.buttonClicked}
+                disabled={!!isActiveOverlay}
               >
                 Зберегти
               </Button>
             </div>
-        </div>
+          </form>
       </ResizeContainer>
     </div>
   );

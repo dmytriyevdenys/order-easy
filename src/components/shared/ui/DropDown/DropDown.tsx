@@ -2,8 +2,8 @@ import React, { HTMLAttributes, ReactNode, useEffect, useState } from "react";
 import s from "./DropDown.module.scss";
 import { Button } from "../Buttons/Button/Button";
 import { Input } from "../Input/Input";
-import { useOnClickOutside } from "../../../../utils/useClickOutside";
-import { useElementPosition } from "../../../../utils/useElementPosition";
+import { useOnClickOutside } from "utils/useClickOutside";
+import { useElementPosition } from "utils/useElementPosition";
 import { useKeyPress } from "utils/useKeyPress";
 
 type DropDownProps = HTMLAttributes<HTMLDivElement> & {
