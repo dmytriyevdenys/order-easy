@@ -82,7 +82,7 @@ const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClic
             </div>
             <div className={s.source_tag_container}>
               <div>
-                <SourceDropDown {...sourceDropDownProps} />
+                <SourceDropDown {...sourceDropDo wnProps} />
               </div>
               <div className={s.tags_container}>
                 <Tags />
