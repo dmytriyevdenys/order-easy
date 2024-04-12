@@ -29,8 +29,13 @@ export const ProductsList: React.FC<ProductsListProps> = ({
       });
     }
   }, [products, isActiveDropDown]);
+  const amountProducts = products.reduce((total, product) => {
+    total += product.quantity || 0
+    return total;
+  }, 0)
   return (
     <div className={containerClass} ref={containerRef}>
+      {products.length > 0 && <div className={s.amount_products}>{amountProducts}</div>}
       {products.map((product, index) => (
         <div key={index} >
           <ProductListItem product={product} removeProduct={removeProduct} onProductClick={onProductClick} />

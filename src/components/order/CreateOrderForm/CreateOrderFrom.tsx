@@ -21,6 +21,7 @@ import { TOrder } from "interfaces/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
 import { TBuyer } from "interfaces/buyer/buyer.type";
 import { useActiveOverlay } from "utils/useActiveOverlay";
+import { BackButton } from "components/shared/ui/Buttons/BackButton/BackButton";
 
 type FormProps = {
   id?: number;
@@ -50,7 +51,8 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
   const paymentMethodDropDownProps = usePaymentMethod(
     addProductsDropDownProps.totalPrice
   );
-  const {isActiveOverlay} = useActiveOverlay(addProductsDropDownProps.buttonClicked);
+
+const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClicked)
   const {
     register,
     handleSubmit,
@@ -63,24 +65,32 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
     const { source_id } = sourceDropDownProps;
     const newData = { ...data, products, totalPrice, source_id,};
   };
-  const containerClass = (isActiveOverlay)
-    ? s.active_overlay
+  const containerClass = (addProductsDropDownProps.buttonClicked)
+    ? s.active_add_product
     : "";
-    
+    const productsContainerClass = addProductsDropDownProps.products.length && s.active;
   return (
     <div className={`${s.container} ${containerClass}`}>
-      <ResizeContainer minWidth={300} maxWidth={500} width="390" side="right">
+      <ResizeContainer minWidth={370} maxWidth={500} width="390" side="right">
         <div className={s.overlay}></div>
+        <div className={s.wrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-            <div className={s.elements_form}>
+          <div className={s.form_elements}>
+            <div className={`${s.add_products_container} ${productsContainerClass}`}>
+              <BackButton/>
             <AddProductsDropDown {...addProductsDropDownProps} />
+            </div>
             <div className={s.source_tag_container}>
+              <div>
                 <SourceDropDown {...sourceDropDownProps} />
+              </div>
               <div className={s.tags_container}>
                 <Tags />
               </div>
             </div>
+            <div>
               <StatusDropDown />
+            </div>
             <AbstractFormComponent
               label="Менеджер"
               Component={<ManagerDropDown />}
@@ -121,7 +131,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
                 />
               }
             />
-            </div>
+                </div>
              <div className={s.buttons_container}>
               <Button
                 variant="default"
@@ -139,6 +149,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
               </Button>
             </div>
           </form>
+        </div>
       </ResizeContainer>
     </div>
   );

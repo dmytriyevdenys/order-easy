@@ -53,7 +53,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
           showLeftIconButton
           showRightIconButton
           show={buttonClicked}
-          listWidth="100%"
+          listWidth="107%"
           closeDropDown={() => setButtonClicked(false)}
         >
           {selectedProduct && (
@@ -85,6 +85,8 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
               ))}
           </div>
           <div className={s.buttons_container}>
+            <Button variant='addSmall' color='primary' leftElement style={{width: 'max-content'}}>Разовий товар</Button>
+            <div className={s.buttons_primary}>
             <Button
               variant="default"
               color="secondary"
@@ -101,6 +103,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
             >
               Підтвердити
             </Button>
+            </div>
           </div>
         </DropDown>
       </div>

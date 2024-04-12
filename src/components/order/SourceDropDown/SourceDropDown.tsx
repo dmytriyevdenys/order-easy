@@ -35,7 +35,6 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
         scrollHeight='300'
       >
         {" "}
-        <div>
           {filteredData?.map((source) => (
             <DropDownItem
               key={source.id}
@@ -43,7 +42,6 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
               onClick={() => handleSetSource(source)}
             />
           ))}
-        </div>
       </DropDown>
     </div>
   );

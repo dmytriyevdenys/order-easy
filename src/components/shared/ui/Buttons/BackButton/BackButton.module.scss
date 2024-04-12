@@ -1,0 +1,12 @@
+.container {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill: #42526E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        fill: #0052CC;
+    }
+}

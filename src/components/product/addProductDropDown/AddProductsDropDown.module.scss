@@ -17,10 +17,16 @@
 .buttons_container {
     display: flex;
     padding: 16px 8px;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
     border-top: 1px solid #DFE1E6;
+
+    .buttons_primary {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+    }
 
 }
 .content_wrapper {
