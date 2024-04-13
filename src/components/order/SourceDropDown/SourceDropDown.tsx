@@ -34,7 +34,6 @@ export const SourceDropDown: React.FC<SourceDropDownProps> = ({
         listWidth="100%"
         scrollHeight='300'
       >
-        {" "}
           {filteredData?.map((source) => (
             <DropDownItem
               key={source.id}

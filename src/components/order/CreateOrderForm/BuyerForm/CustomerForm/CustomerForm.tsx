@@ -1,5 +1,4 @@
 import { TCustomer } from "interfaces/buyer/buyer.type";
-import s from "./CustomerForm.module.scss";
 import { AbstractFormComponent } from "components/order/AbstractFormComponent/AbstractFormComponent";
 import { Input } from "components/shared/ui/Input/Input";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
@@ -8,10 +7,14 @@ import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDow
 import { useState } from "react";
 import { useDebounce } from "utils/useDebounce";
 
-export const CustomerForm: React.FC<Partial<TCustomer>> = ({
+type CustomerFormProps = Partial<TCustomer> & {
+  autoFocus?: boolean;
+}
+export const CustomerForm: React.FC<CustomerFormProps> = ({
   full_name,
   phones,
   email,
+  autoFocus
 }) => {
   const [value, setValue] = useState<string>(full_name || "");
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
@@ -24,7 +27,7 @@ export const CustomerForm: React.FC<Partial<TCustomer>> = ({
   };
   
   return (
-    <div className={s.container}>
+    <div  style={{backgroundColor: '#ffff'}}>
       <AbstractFormComponent
         label="ПІБ"
         Component={
@@ -33,6 +36,7 @@ export const CustomerForm: React.FC<Partial<TCustomer>> = ({
               variant="default"
               value={value}
               onChange={handleOnChange}
+              autoFocus={autoFocus}
             />
             <DropDown
               show={showDropDown}

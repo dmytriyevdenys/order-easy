@@ -29,17 +29,14 @@ export const StatusDropDown: React.FC = () => {
         listWidth="100%"
         scrollHeight="300"
       >
-        <div className={s.status_list}>
           {data?.map((status) => (
-            <div key={status.id} onClick={() => setStatus(status)}>
               <StatusItem
                 key={status.id}
                 name={status.name}
                 color={status.color}
+                onClick={() => setStatus(status)}
               />
-            </div>
           ))}
-        </div>
       </DropDown>
     </div>
   );

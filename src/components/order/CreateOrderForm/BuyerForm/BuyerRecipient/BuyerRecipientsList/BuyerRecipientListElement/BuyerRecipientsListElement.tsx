@@ -25,7 +25,7 @@ export const BuyerRecipientsListElement: React.FC<BuyerRecipientsListElementProp
         editElement={
           <EditElementBlockLabel toConfirm={() => setIsEditing(false)} cancel={() => setIsEditing(false)}>
             <div className={s.inputs}>
-              <Input variant="default" value={recipient.full_name} />
+              <Input variant="default" value={recipient.full_name} autoFocus />
               <Input variant="default" value={recipient.phones[0]} />
             </div>
           </EditElementBlockLabel>

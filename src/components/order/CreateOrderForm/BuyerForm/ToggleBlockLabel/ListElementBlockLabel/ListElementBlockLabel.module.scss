@@ -1,7 +1,12 @@
 .container {
     display: flex;
+    background-color: #FFFFFF;
     flex-direction: column;
     position: relative;
+    &.hover {
+        background-color: #DEEBFF
+    }
+
     .block {
         display: flex;
     align-items: center;
@@ -9,7 +14,6 @@
     min-height: 32px;
     padding: 0 5px;
     border-radius: 2px;
-
     }
     .info_block {
         display: flex;
@@ -17,21 +21,9 @@
         gap: 5px;
     }
 
-    .copy_icon {
-        display: none;
-    }
-}
-
-.container:hover {
-    background-color: #DEEBFF;
-}
-
-.container:hover .icons {
-    display: flex;
-}
-
 .icons {
-    display: none;
+    display: flex;
     align-items: center;
     gap: 5px;
+}
 }

@@ -71,7 +71,7 @@ const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClic
     const productsContainerClass = addProductsDropDownProps.products.length && s.active;
   return (
     <div className={`${s.container} ${containerClass}`}>
-      <ResizeContainer minWidth={370} maxWidth={500} width="390" side="right">
+      <ResizeContainer minWidth={370} maxWidth={500} width="440" side="right">
         <div className={s.overlay}></div>
         <div className={s.wrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
@@ -81,16 +81,12 @@ const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClic
             <AddProductsDropDown {...addProductsDropDownProps} />
             </div>
             <div className={s.source_tag_container}>
-              <div>
                 <SourceDropDown {...sourceDropDownProps} />
-              </div>
               <div className={s.tags_container}>
                 <Tags />
               </div>
             </div>
-            <div>
-              <StatusDropDown />
-            </div>
+            <StatusDropDown />
             <AbstractFormComponent
               label="Менеджер"
               Component={<ManagerDropDown />}

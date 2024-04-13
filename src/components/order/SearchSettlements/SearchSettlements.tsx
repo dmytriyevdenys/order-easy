@@ -34,7 +34,7 @@ export const SearchSettlements: React.FC<SearchSettlementsProps> = ({
         show={showDropDown}
         closeDropDown={() => setShowDropDown(false)}
         closeToClickElement
-        scrollHeight="300"
+        scrollHeight="150"
         below
         listWidth="100%"
       >

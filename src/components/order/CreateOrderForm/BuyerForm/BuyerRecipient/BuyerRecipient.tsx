@@ -12,7 +12,7 @@ export const BuyerRecipient: React.FC<BuyerRecipientProps> = ({
   return (
     <div>
       <ToggleBlockLabel
-        label="Інший отримувач"
+        label= "Отримувач"
         addButton
         addElement={<CustomerForm />}
         listElements={<BuyerRecipientsList recipients={recipients} />}

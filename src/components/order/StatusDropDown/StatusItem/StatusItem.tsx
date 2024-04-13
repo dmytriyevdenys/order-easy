@@ -1,8 +1,7 @@
-import { TStatus } from "interfaces/order/status.type"
 import s from "./StatusItem.module.scss"
-import { LiHTMLAttributes } from "react"
+import { HtmlHTMLAttributes } from "react"
 
-type StatusItemProps =   {
+type StatusItemProps = HtmlHTMLAttributes<HTMLDivElement> & {
     name: string;
     color: string;
 }

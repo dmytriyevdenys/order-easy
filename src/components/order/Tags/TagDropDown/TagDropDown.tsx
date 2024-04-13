@@ -20,16 +20,16 @@ export const TagDropDown: React.FC<TagDropDownProps> = ({
   return (
     <div className={s.container}>
       <div className={s.tag_button_container}></div>
-      {isOpen && (
         <DropDown
           listWidth={listWidth}
           show={isOpen}
           closeDropDown={() => {
             isOpen && closeDropDown(false);
           }}
+          position={{top:10,left:150}}
         >
           <div className={s.tags}>
-            {isOpen &&
+            {
               tags.map((tag) => (
                 <div key={tag.id} onClick={() => addTag(tag)}>
                   <TagItem
@@ -42,7 +42,6 @@ export const TagDropDown: React.FC<TagDropDownProps> = ({
               ))}
           </div>
         </DropDown>
-      )}
     </div>
   );
 };

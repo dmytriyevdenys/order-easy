@@ -5,6 +5,7 @@ import { Input } from "../Input/Input";
 import { useOnClickOutside } from "utils/useClickOutside";
 import { useElementPosition } from "utils/useElementPosition";
 import { useKeyPress } from "utils/useKeyPress";
+import { useCalculatePosition } from "utils/useCalculatePosition";
 
 type DropDownProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
@@ -60,6 +61,10 @@ export const DropDown: React.FC<DropDownProps> = ({
       }
     },
   });
+  const { calculatePosition, positionState } = useCalculatePosition(
+    containerRef,
+    { top: position?.top || 0, left: position?.left || 0 }
+  );
 
   useEffect(() => {
     if (show === false) setShowDropDown(false);
@@ -68,18 +73,16 @@ export const DropDown: React.FC<DropDownProps> = ({
   const listClassName = elementPosition === "above" ? s.above : s.below;
   const scrollClassName = scrollHeight && s.scroll;
   useKeyPress("Escape", () => {
-   closeDropDown && closeDropDown();
+    closeDropDown && closeDropDown();
     setShowDropDown(false);
   });
-  const { top, left } = position || {};
+
+  useEffect(() => {
+    position && calculatePosition();
+  }, [show, showDropDown, position, calculatePosition]);
 
   return (
-    <div
-      className={s.container}
-      ref={containerRef}
-      {...props}
-      style={position && { position: "absolute", top, left }}
-    >
+    <div className={s.container} ref={containerRef} {...props}>
       <div className={s.drop_down_button}>
         {showElement === "button" && (
           <Button
@@ -113,7 +116,15 @@ export const DropDown: React.FC<DropDownProps> = ({
         <ul
           className={`${s.list} ${!below && listClassName} ${scrollClassName}`}
           onClick={() => closeToClickElement && setShowDropDown(false)}
-          style={{ width: listWidth, maxHeight: scrollHeight }}
+          style={{
+            width: listWidth,
+            maxHeight: scrollHeight,
+            ...(position && {
+              top: `${positionState.top}px`,
+              left: `${positionState.left}px`,
+              position: 'fixed'
+            }),
+          }}
         >
           {children}
         </ul>

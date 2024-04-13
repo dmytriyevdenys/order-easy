@@ -38,7 +38,7 @@ export const AddressListElement: React.FC<AddressListElementProps> = ({
             cancel={() => setIsEditing(false)}
           >
             <div
-              style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "5px", }}
             >
               <SearchSettlements {...searchSettlementProps} />
               <SearchWarehouse {...searchWarehouseProps} />

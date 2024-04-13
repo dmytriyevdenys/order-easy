@@ -12,7 +12,7 @@ export const useProductManagment = (product?: TProduct[]) => {
   const debouncedSearch = useDebounce(search, 500);
   const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null);
   const [newProduct, setNewProduct] = useState<TProduct | null>(null);
-  
+  const [isAddSingleProduct, setIsAddSingleProduct] = useState(false)
 
   const { data: dataProducts } = useGetProductsToOrder(debouncedSearch);
 
@@ -99,8 +99,11 @@ export const useProductManagment = (product?: TProduct[]) => {
     setSelectedProduct(product);
     setButtonClicked(true);
     setNewProduct(null)
-
   };
+
+  const closeForm = () => {
+    setIsAddSingleProduct(false);
+  }
 
   useKeyPress('Escape', () => setButtonClicked(false));
   useKeyPress('Enter', toConfirm);
@@ -121,6 +124,8 @@ export const useProductManagment = (product?: TProduct[]) => {
     toConfirm,
     handleProductClick,
     setButtonClicked,
+    setIsAddSingleProduct,
+    closeForm,
     dataProducts,
     products,
     buttonClicked,
@@ -129,6 +134,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     search,
     addedProductsIds,
     totalPrice,
-    newProduct
+    newProduct,
+    isAddSingleProduct
   };
 };

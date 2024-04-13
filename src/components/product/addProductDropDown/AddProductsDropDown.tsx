@@ -5,6 +5,7 @@ import s from "./AddProductsDropDown.module.scss";
 import { Input } from "../../shared/ui/Input/Input";
 import { ProductsList } from "../productsList/ProductsList";
 import { useProductManagment } from "hooks/Product/feature/useProductManagment";
+import { AddSingleProductForm } from "./AddSingleProductForm/AddSingleProductForm";
 
 type AddProductsDropDownProps = ReturnType<typeof useProductManagment>;
 
@@ -18,6 +19,9 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
   handleProductClick,
   setButtonClicked,
   setSearch,
+  closeForm,
+  setIsAddSingleProduct,
+  isAddSingleProduct,
   selectedProduct,
   search,
   addedProductsIds,
@@ -55,7 +59,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
           show={buttonClicked}
           listWidth="107%"
           closeDropDown={() => setButtonClicked(false)}
-        >
+        > {!isAddSingleProduct && <div>
           {selectedProduct && (
             <ProductDropDownItem
               product={selectedProduct}
@@ -63,7 +67,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
               addedProductsIds={[selectedProduct.id]}
             />
           )}
-          {buttonClicked && !selectedProduct && (
+          {(buttonClicked && !selectedProduct && !isAddSingleProduct) && (
             <Input
               variant="search"
               value={search}
@@ -85,26 +89,36 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
               ))}
           </div>
           <div className={s.buttons_container}>
-            <Button variant='addSmall' color='primary' leftElement style={{width: 'max-content'}}>Разовий товар</Button>
-            <div className={s.buttons_primary}>
             <Button
-              variant="default"
-              color="secondary"
-              style={{ backgroundColor: "white", color: "#7A869A" }}
-              onClick={cancel}
-            >
-              Скасувати все
-            </Button>
-            <Button
-              variant="default"
+              variant="addSmall"
               color="primary"
-              disabled={!products.length}
-              onClick={toConfirm}
+              leftElement
+              style={{ width: "max-content" }}
+              onClick={() => setIsAddSingleProduct(true)}
             >
-              Підтвердити
+              Разовий товар
             </Button>
+            <div className={s.buttons_primary}>
+              <Button
+                variant="default"
+                color="secondary"
+                style={{ backgroundColor: "white", color: "#7A869A" }}
+                onClick={cancel}
+              >
+                Скасувати все
+              </Button>
+              <Button
+                variant="default"
+                color="primary"
+                disabled={!products.length}
+                onClick={toConfirm}
+              >
+                Підтвердити
+              </Button>
             </div>
           </div>
+          </div>}
+          {isAddSingleProduct && <AddSingleProductForm addProduct={addProduct} closeForm={closeForm}/>}
         </DropDown>
       </div>
     </div>

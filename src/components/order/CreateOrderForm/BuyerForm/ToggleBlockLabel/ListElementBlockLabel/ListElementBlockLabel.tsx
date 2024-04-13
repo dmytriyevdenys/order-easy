@@ -1,12 +1,11 @@
 import { Radio } from "components/shared/ui/Radio/Radio";
 import s from "./ListElementBlockLabel.module.scss";
 import { EditButton } from "components/shared/ui/Buttons/EditButton/EditButton";
-
 import { CloseButton } from "components/shared/ui/Buttons/CloseButton/CloseButton";
 import { CopyButton } from "components/shared/ui/Buttons/CopyButton/CopyButton";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
-import { useProductManagment } from "hooks/Product/feature/useProductManagment";
 import { useActiveOverlay } from "utils/useActiveOverlay";
+import { useState } from "react";
 
 type ListElementBlockLabelProps = {
   text: string;
@@ -24,37 +23,64 @@ export const ListElementBlockLabel: React.FC<ListElementBlockLabelProps> = ({
   editElement,
   setIsEditing,
   isEditing,
-  checked
+  checked,
 }) => {
- useActiveOverlay(Boolean(isEditing));
-
+  const [isHover, setIsHover] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  useActiveOverlay(Boolean(isEditing));
 
   const handleEditing = () => {
-    setIsEditing && setIsEditing(prev => !prev);
-  }
+    setIsEditing && setIsEditing((prev) => !prev);
+  };
+
+  const handleOnMouseLeave = () => {
+    if (!buttonClicked && !isEditing) {
+      setButtonClicked(false);
+      setIsHover(false);
+    }
+  };
+
+  const handleButtonClick = (button: "edit" | "close") => {
+    setButtonClicked((prev) => !prev);
+    setIsHover(true);
+    button === "edit" && handleEditing();
+  };
+  const containerClass = isHover && s.hover;
+  console.log(buttonClicked);
+  
   return (
-    <div className={s.container}>
+    <div
+      className={`${s.container} ${containerClass}`}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={handleOnMouseLeave}
+    >
       <div className={s.block}>
         <div className={s.info_block}>
-          <Radio label={text} id={text} colorDefault checked={checked}/>
-          <CopyButton copyValue={text} className={s.icons} />
+          <Radio label={text} id={text} colorDefault checked={checked} />
+          {isHover && <CopyButton copyValue={text} className={s.icons} />}
         </div>
-        <div className={s.icons}>
-          <EditButton
-            isActive={isEditing}
-            onClick={handleEditing}
-          />
-          <CloseButton toConfirm={toConfirm} cancel={cancel} />
-        </div>
+        {isHover && (
+          <div className={s.icons}>
+            <EditButton
+              isActive={isEditing}
+              onClick={() => handleButtonClick("edit")}
+            />
+            <CloseButton
+              toConfirm={() => setIsHover(false)}
+              cancel={() => setIsHover(false)}
+              onClick={() => handleButtonClick("close")}
+            />
+          </div>
+        )}
       </div>
       {isEditing && (
         <DropDown
           closeDropDown={() => setIsEditing && setIsEditing(false)}
           show={isEditing}
           below
-          listWidth="90%"
+          listWidth="300px"
           notCloseClickToOutside={true}
-          position={{ top: -10, left: -45 }}
+          position={{ top: -40, left: 0 }}
         >
           {editElement}
         </DropDown>

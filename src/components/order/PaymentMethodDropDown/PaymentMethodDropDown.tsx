@@ -16,8 +16,9 @@ export const PaymentMethodDropDown: React.FC<PaymentMethodDropDownProps> = ({
         value={paymentMethod.label}
         closeToClickElement
         below
-        listWidth="100%"
+        listWidth="250"
         readonlyInput
+        position={{top: 0, left: 0}}
       >
         {paymentMethods.map((method, index) => (
           <DropDownItem
