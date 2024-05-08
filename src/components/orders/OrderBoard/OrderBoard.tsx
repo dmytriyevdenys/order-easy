@@ -62,7 +62,7 @@ export const OrderBoard: React.FC = () => {
     !isDragMove  && handleNavigate(Number(activeDragOrder?.id));
   };
 
-  function hanldeDragStart(e: DragStartEvent) {
+  const hanldeDragStart = (e: DragStartEvent) => {
     if (e.active.data) {
       const draggedOrder = e.active.data?.current as TOrderSmall ;
       setActiveDragOrder(draggedOrder);

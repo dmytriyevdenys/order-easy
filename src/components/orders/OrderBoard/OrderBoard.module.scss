@@ -3,7 +3,7 @@
     height: 100%;
     padding: 0 40px 0 40px;
     display: flex;
-    overflow: auto;
+    overflow-y: scroll;
     @extend %custom-scrollbar;
     gap: 20px;
 }

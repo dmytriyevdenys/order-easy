@@ -2,10 +2,7 @@
 @import "../../../styles/templates.scss";
 
 .container { 
-    font-family: $font-family-ligth-compact;
-    font-size: 14px;
-    font-weight: 100;
-    color: #0052CC;
+  
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -20,12 +17,6 @@
       @extend %custom-scrollbar;
     }
 
-    .product_item { 
-      display: flex;
-      padding-left: 2px;
-      border-radius: 3px;
-      background-color: #F4F5F7;  
-    }
     .amount_products {
       font-size: 13px;
       color: #FFFFFF;

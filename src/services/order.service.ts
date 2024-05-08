@@ -32,12 +32,16 @@ class OrderService {
         return sources.data;
     }
 
-    async getStatuses () {
-        const statuses = await api.get<TStatus[]>(`${this.path}status`, {
-            params: {id: '1,2,3,4,5,6,7'}
-        });
+    async getStatuses(all?: boolean) {
+        const params: { id: string; allStatuses?: boolean } = { id: '1,2,3,4,5,6,7' };
+        if (all !== undefined) {
+            params.allStatuses = all;
+        }
+    
+        const statuses = await api.get<TStatus[]>(`${this.path}status`, { params });
         return statuses.data;
     }
+    
 
     async getUsers () { 
         const users = await api.get<TUser[]>('user');

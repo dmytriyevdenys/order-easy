@@ -1,9 +1,15 @@
+@import "../../../../styles/global.scss";
+
 .product_item { 
     display: flex;
     cursor:default;
     padding-left: 2px;
     border-radius: 3px;
-    background-color: #F4F5F7;  
+    background-color: #F4F5F7;
+    font-family: $font-family-ligth-compact;
+    font-size: 14px;
+    font-weight: 100;
+    color: #0052CC;
   }
 
   .update_product {

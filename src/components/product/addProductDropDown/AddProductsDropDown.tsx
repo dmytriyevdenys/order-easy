@@ -21,6 +21,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
   setSearch,
   closeForm,
   setIsAddSingleProduct,
+  setProducts,
   isAddSingleProduct,
   selectedProduct,
   search,
@@ -33,6 +34,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
     <div className={s.add_products_container}>
       <div className={s.content_wrapper}>
         <ProductsList
+        setProducts={setProducts}
           products={products}
           removeProduct={removeProduct}
           updateProduct={updateProduct}

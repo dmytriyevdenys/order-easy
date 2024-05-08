@@ -33,7 +33,7 @@ export const AddSingleProductForm: React.FC<AddSingleProductFormProps> = ({ addP
             <h2>Стоврення разового товару</h2>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}> 
                 <AbstractFormComponent label="Артикул " Component={<Input variant='default' {...register('sku')}/>}/>
-                <AbstractFormComponent label="Назва " Component={<Input variant='default' {...register('name')}/>}/>
+                <AbstractFormComponent label="Назва " Component={<Input variant='default' autoFocus {...register('name')}/>}/>
                 <AbstractFormComponent label="Ціна " Component={<Input variant='grivnja' {...register('price')}/>}/>
                 <AbstractFormComponent label="Кількість " Component={<Input variant='default' value={1}{...register('quantity')}/>}/>
                 <AbstractFormComponent label="Вага " Component={<Input variant='default' {...register('weight')}/>}/>

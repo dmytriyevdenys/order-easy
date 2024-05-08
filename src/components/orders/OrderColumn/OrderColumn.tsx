@@ -4,6 +4,7 @@ import { OrderColumnHead } from "./OrderColumnHead/OrderColumnHead";
 import { OrderSmall } from "../OrderSmall/OrderSmall";
 import { useDroppable } from "@dnd-kit/core";
 import { TOrderSmall } from "interfaces/order/order-small.type";
+import {  useRef } from "react";
 
 type OrderColumnProps = {
   status: TStatus;
@@ -15,6 +16,8 @@ export const OrderColumn: React.FC<OrderColumnProps> = (props) => {
   const totalSum = props?.orders?.length
     ? props.orders.reduce((sum, order) => sum + (order?.total_price || 0), 0)
     : 0;
+    const containerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className={s.container} ref={setNodeRef}>
       <OrderColumnHead
@@ -22,7 +25,7 @@ export const OrderColumn: React.FC<OrderColumnProps> = (props) => {
         amount={props.orders.length}
         totalSum={totalSum || 0}
       />
-      <div className={s.orders_container}>
+      <div className={s.orders_container} ref={containerRef}>
         {props.orders !== null &&
           props.orders?.map((order) => (
             <div key={order.id}>

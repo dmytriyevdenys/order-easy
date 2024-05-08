@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TProduct } from "../../../interfaces/products/products.type";
 import { useDebounce } from "../../../utils/useDebounce";
 import { useGetProductsToOrder } from "../useGetProductToOrder";
 import { useKeyPress } from "utils/useKeyPress";
 
 export const useProductManagment = (product?: TProduct[]) => {
-  const [products, setProducts] = useState<TProduct[]>(product || []);
+  const [products, setProducts] = useState<TProduct[]>(() =>
+    product
+      ? product.map((productItem) => ({
+          ...productItem,
+          indexId: product.findIndex((item) => item.id === productItem.id) + 1,
+        }))
+      : []
+  );
   const [buttonClicked, setButtonClicked] = useState(false);
   const [addedProductsIds, setAddedProductsIds] = useState<number[]>([]);
   const [search, setSearch] = useState<string>("");
   const debouncedSearch = useDebounce(search, 500);
   const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null);
   const [newProduct, setNewProduct] = useState<TProduct | null>(null);
-  const [isAddSingleProduct, setIsAddSingleProduct] = useState(false)
+  const [isAddSingleProduct, setIsAddSingleProduct] = useState(false);
 
   const { data: dataProducts } = useGetProductsToOrder(debouncedSearch);
-
   const addProduct = (product: TProduct) => {
     setProducts((prevProduct) => [
       ...prevProduct,
@@ -23,7 +29,6 @@ export const useProductManagment = (product?: TProduct[]) => {
     ]);
     setNewProduct(product);
     setAddedProductsIds((prevIds) => [...prevIds, product.id]);
-
   };
   const removeProduct = (removedProduct: TProduct) => {
     const updatedProducts = products.filter(
@@ -34,7 +39,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     );
     setProducts(updatedProducts);
     setAddedProductsIds(updatedIds);
-    setNewProduct(removedProduct)
+    setNewProduct(removedProduct);
   };
 
   const removeCheckProduct = (productId: number) => {
@@ -53,11 +58,9 @@ export const useProductManagment = (product?: TProduct[]) => {
       setAddedProductsIds(updatedIds);
     }
     setNewProduct(() => {
-      
-      const product = products.find(product => product.id === productId);
-      return product || null
-      })
-
+      const product = products.find((product) => product.id === productId);
+      return product || null;
+    });
   };
 
   const updateProduct = (updatedProduct: TProduct) => {
@@ -73,8 +76,7 @@ export const useProductManagment = (product?: TProduct[]) => {
       updatedProducts[actualIndex] = updatedProduct;
       setProducts(updatedProducts);
     }
-    setNewProduct(updatedProduct)
-
+    setNewProduct(updatedProduct);
   };
 
   const cancel = () => {
@@ -83,7 +85,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     setSelectedProduct(null);
     setSearch("");
     setButtonClicked(false);
-    setNewProduct(null)
+    setNewProduct(null);
   };
 
   const toConfirm = () => {
@@ -91,29 +93,27 @@ export const useProductManagment = (product?: TProduct[]) => {
     setSearch("");
     setSelectedProduct(null);
     setButtonClicked(false);
-    setNewProduct(null)
-
+    setNewProduct(null);
   };
 
   const handleProductClick = (product: TProduct) => {
     setSelectedProduct(product);
     setButtonClicked(true);
-    setNewProduct(null)
+    setNewProduct(null);
   };
 
   const closeForm = () => {
     setIsAddSingleProduct(false);
-  }
+  };
 
-  useKeyPress('Escape', () => setButtonClicked(false));
-  useKeyPress('Enter', toConfirm);
-  useKeyPress('Space', () => setButtonClicked(true));
- 
+  useKeyPress("Escape", () => setButtonClicked(false));
+  useKeyPress("Enter", toConfirm);
+  useKeyPress("Space", () => setButtonClicked(true));
 
   const totalPrice = products.reduce((total, product) => {
-    const productTotal = product.price * (product.quantity || 1); 
+    const productTotal = product.price * (product.quantity || 1);
     return total + productTotal;
-  }, 0);  
+  }, 0);
 
   return {
     addProduct,
@@ -126,6 +126,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     setButtonClicked,
     setIsAddSingleProduct,
     closeForm,
+    setProducts,
     dataProducts,
     products,
     buttonClicked,
@@ -135,6 +136,6 @@ export const useProductManagment = (product?: TProduct[]) => {
     addedProductsIds,
     totalPrice,
     newProduct,
-    isAddSingleProduct
+    isAddSingleProduct,
   };
 };

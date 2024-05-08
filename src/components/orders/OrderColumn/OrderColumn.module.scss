@@ -13,7 +13,7 @@
         gap: 10px;
         max-height: 70vh;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y:unset;
         @extend %custom-scrollbar;
     }
 }
