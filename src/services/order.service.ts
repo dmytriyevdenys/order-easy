@@ -33,9 +33,9 @@ class OrderService {
     }
 
     async getStatuses(all?: boolean) {
-        const params: { id: string; allStatuses?: boolean } = { id: '1,2,3,4,5,6,7' };
+        const params: { id: string; all?: boolean } = { id: '1,2,3,4,5,6,7' };
         if (all !== undefined) {
-            params.allStatuses = all;
+            params.all = all;
         }
     
         const statuses = await api.get<TStatus[]>(`${this.path}status`, { params });
