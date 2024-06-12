@@ -1,6 +1,7 @@
 import { TProduct } from "interfaces/products/products.type";
 import { TStatus } from "./status.type";
 import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TPaymentMethod } from "./paymentMethod/payment-method.type";
 
 export type TOrder = {
     id: number; 
@@ -14,7 +15,7 @@ export type TOrder = {
     products:TProduct[];
     totalPrice: number;
     additionalnformation: string;
-    payments: any;
+    payment: TPaymentMethod;
     buyer: TBuyer;
     notes:string[];
     created_at: Date,

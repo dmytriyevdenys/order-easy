@@ -5,10 +5,13 @@ import { useState } from "react";
 import { TStatus } from "interfaces/order/status.type";
 import { StatusItem } from "./StatusItem/StatusItem";
 
-export const StatusDropDown: React.FC = () => {
+type StatusDropDownProps = {
+  currentStatus?: TStatus;
+}
+export const StatusDropDown: React.FC<StatusDropDownProps> = ({ currentStatus }) => {
   const { data } = useGetStatuses({all: true});
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<TStatus>(data[0]);
+  const [status, setStatus] = useState<TStatus>(currentStatus || data[0]);
 
   const handleOpenDropDown = () => {
    setIsOpen(prev => !prev)

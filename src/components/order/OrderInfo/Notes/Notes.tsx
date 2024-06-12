@@ -11,8 +11,7 @@ type NotesProps = {
     deleteNote: (index: number) => void;
     noteChange: (index: number, text: string) => void;
 }
-export const Notes: React.FC<NotesProps> = ({notes, newNote, addNewNote, setNewNote, filterNonEmptyNotes, noteChange, deleteNote}) => { 
-   
+export const Notes: React.FC<NotesProps> = ({notes, newNote, addNewNote, setNewNote, filterNonEmptyNotes, noteChange, deleteNote}) => {    
     return (
         <div className={s.container} >
           <label className={s.label_notes}>Нотатки</label>

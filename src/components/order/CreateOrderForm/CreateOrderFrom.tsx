@@ -33,15 +33,15 @@ type FormProps = {
   products?: TProduct[];
   totalPrice?: number;
   additionalnformation?: string;
-  payments?: any;
+  payment?: any;
   buyer?: TBuyer;
   notes?: string[];
 };
 type CreateOrderFormProps = {
-  order?: TOrder
+  order?: TOrder;
 };
-export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
-  const addProductsDropDownProps = useProductManagment(order?.products); 
+export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({ order }) => {
+  const addProductsDropDownProps = useProductManagment(order?.products);
   const sourceDropDownProps = useSourceDropDown();
   const searchSettlementsProps = useSearchSettlements();
   const { settlement } = searchSettlementsProps;
@@ -49,10 +49,13 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({order}) => {
     settlement ? settlement.Ref : ""
   );
   const paymentMethodDropDownProps = usePaymentMethod(
-    addProductsDropDownProps.totalPrice
+    addProductsDropDownProps.totalPrice,
+    order?.payment
   );
 
-const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClicked)
+  const { isActiveOverlay } = useActiveOverlay(
+    addProductsDropDownProps.buttonClicked
+  );
   const {
     register,
     handleSubmit,
@@ -63,72 +66,81 @@ const { isActiveOverlay } = useActiveOverlay(addProductsDropDownProps.buttonClic
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     const { products, totalPrice } = addProductsDropDownProps;
     const { source_id } = sourceDropDownProps;
-    const newData = { ...data, products, totalPrice, source_id,};
+    const newData = { ...data, products, totalPrice, source_id };
   };
-  const containerClass = (addProductsDropDownProps.buttonClicked)
+  const containerClass = addProductsDropDownProps.buttonClicked
     ? s.active_add_product
     : "";
-    const productsContainerClass = addProductsDropDownProps.products.length && s.active;
+  const productsContainerClass =
+    addProductsDropDownProps.products.length && s.active;
   return (
     <div className={`${s.container} ${containerClass}`}>
       <ResizeContainer minWidth={370} maxWidth={500} width="440" side="right">
         <div className={s.overlay}></div>
         <div className={s.wrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-          <div className={s.form_elements}>
-            <div className={`${s.add_products_container} ${productsContainerClass}`}>
-              <BackButton/>
-            <AddProductsDropDown {...addProductsDropDownProps} />
-            </div>
-            <div className={s.source_tag_container}>
-                <SourceDropDown {...sourceDropDownProps} />
-              <div className={s.tags_container}>
-                <Tags />
+            <div className={s.form_elements}>
+              <div
+                className={`${s.add_products_container} ${productsContainerClass}`}
+              >
+                <BackButton />
+                <AddProductsDropDown {...addProductsDropDownProps} />
               </div>
-            </div>
-            <StatusDropDown />
-            <AbstractFormComponent
-              label="Менеджер"
-              Component={<ManagerDropDown />}
-            />
-            <AbstractFormComponent
-              label="Сума"
-              Component={
-                <Input
-                  variant="grivnja"
-                  type="number"
-                  value={addProductsDropDownProps.totalPrice}
-                  onChange={(e) => e.target.value}
-                />
-              }
-            />
-            <BuyerForm
-              buyer={order?.buyer}
-              searchSettlementProps={searchSettlementsProps}
-              searchWarehouseProps={searchWarehouseProps}
-            />
-            <AbstractFormComponent
-              label="Спосіб оплати"
-              Component={
-                <PaymentMethodDropDown {...paymentMethodDropDownProps} />
-              }
-            />
-            {paymentMethodDropDownProps.paymentMethod.label === "Аванс" && (
-              <AbstractFormComponent
-                label="Сума авансу"
-                Component={<Input variant="grivnja" autoFocus />}
-              />
-            )}
-            <AbstractFormComponent
-              label="Додат.інформ"
-              Component={
-                <AdditionalInformation
-                  products={addProductsDropDownProps.products}
-                />
-              }
-            />
+              <div className={s.source_tag_container}>
+                <SourceDropDown {...sourceDropDownProps} />
+                <div className={s.tags_container}>
+                  <Tags />
                 </div>
-             <div className={s.buttons_container}>
+              </div>
+              <StatusDropDown currentStatus={order?.status} />
+              <AbstractFormComponent
+                label="Менеджер"
+                Component={<ManagerDropDown />}
+              />
+              <AbstractFormComponent
+                label="Сума"
+                Component={
+                  <Input
+                    variant="grivnja"
+                    type="number"
+                    value={addProductsDropDownProps.totalPrice}
+                    onChange={(e) => e.target.value}
+                  />
+                }
+              />
+              <BuyerForm
+                buyer={order?.buyer}
+                searchSettlementProps={searchSettlementsProps}
+                searchWarehouseProps={searchWarehouseProps}
+              />
+              <AbstractFormComponent
+                label="Спосіб оплати"
+                Component={
+                  <PaymentMethodDropDown {...paymentMethodDropDownProps} />
+                }
+              />
+              {paymentMethodDropDownProps.paymentMethod.label === "Аванс" && (
+                <AbstractFormComponent
+                  label="Сума авансу"
+                  Component={
+                    <Input
+                      variant="grivnja"
+                      autoFocus={paymentMethodDropDownProps.paymentMethod.value === 0}
+                      value={paymentMethodDropDownProps.paymentMethod.value}
+                    />
+                  }
+                />
+              )}
+              <AbstractFormComponent
+                label="Додат.інформ"
+                Component={
+                  <AdditionalInformation
+                    products={addProductsDropDownProps.products}
+                  />
+                }
+              />
+            </div>
+            <div className={s.buttons_container}>
               <Button
                 variant="default"
                 color="secondary"

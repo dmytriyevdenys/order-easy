@@ -5,12 +5,17 @@ import { ReactComponent as NoteIcon } from "assets/icons/orderIcons/NoteIcon.svg
 import { ReactComponent as RecentIcon } from "assets/icons/orderIcons/RecentIcon.svg";
 import { Notes } from "./Notes/Notes";
 import { Tasks } from "./Tasks/Tasks";
+import { useQueryClient } from "@tanstack/react-query";
+import { TOrder } from "interfaces/order/order.type";
 
 type OrderInfoProps = {
-  notes?: string[];
+  orderId: number | undefined;
 };
 
-export const OrderInfo: React.FC<OrderInfoProps> = ({ notes }) => {
+export const OrderInfo: React.FC<OrderInfoProps> = ({ orderId }) => {  
+  const client = useQueryClient();
+  const order  = client.getQueryData(['order',orderId ]) as TOrder;
+  const notes = order?.notes;  
   const buttons = [
     { id: "notes", text: "Записи", icon: <NoteIcon /> },
     { id: "history", text: "Історія змін", icon: <RecentIcon /> },

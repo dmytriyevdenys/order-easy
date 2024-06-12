@@ -9,4 +9,5 @@ export type TProduct = {
     createdAt: Date;
     updatedAt: Date;
     indexId: number;
+    comment: string;
 }
