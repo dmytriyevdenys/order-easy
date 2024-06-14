@@ -136,6 +136,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({ order }) => {
                 Component={
                   <AdditionalInformation
                     products={addProductsDropDownProps.products}
+                    additionalInformation={order?.additionalnformation}
                   />
                 }
               />

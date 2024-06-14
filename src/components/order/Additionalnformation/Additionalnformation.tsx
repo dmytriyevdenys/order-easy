@@ -13,63 +13,59 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
   products,
   additionalInformation,
 }) => {
-  const [productsString, setProductsString] = useState<string>("");
-  const [value, setValue] = useState<string>(additionalInformation || "");
-  const [inputText, setInputText] = useState<string>(
-    additionalInformation || ""
-  );
+  const [value, setValue] = useState<string>("");
 
   const [isActive, setIsActive] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const initialProductsRef = useRef<Set<string>>(new Set());
 
   const { height } = useTextAreaHeight({
     textareaRef,
     containerRef,
     isActive,
-    text: inputText,
+    text: value,
   });
 
-  const updateValue = (products: string, inputText: string) => {
-    setValue(`${products} ${inputText}`);
-  };
-  const productsText = products && products
-    .map((product) =>
-      product.quantity && product.quantity > 1
-        ? `${product.name}-${product.quantity}шт`
-        : product.name
-    )
-    .join(", ");
-
   useEffect(() => {
-    setProductsString(productsText || '');
     if (additionalInformation) {
       setValue(additionalInformation);
-    } else {
-      updateValue(productsString, inputText);
     }
-  }, [products, additionalInformation, productsString]);
+  }, [additionalInformation]);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      const newProductsText = products
+        .map((product) =>
+          product.quantity && product.quantity > 1
+            ? `${product.name}-${product.quantity}шт`
+            : product.name
+        )
+        .join(", ");
+      
+      setValue(prevValue => {
+        if (!prevValue.trim()) {
+          return newProductsText;
+        } else {
+          const prevProductsText = Array.from(initialProductsRef.current).join(", ");
+          return `${prevValue}, ${newProductsText.replace(prevProductsText, "")}`;
+        }
+      });
+      
+      products.forEach(product => initialProductsRef.current.add(product.name));
+    }
+  }, [products]);
 
   const handleContainerBlur = () => {
-    setIsActive((prev) => !prev);
+    setIsActive(false);
   };
 
   const handleContainerClick = () => {
     setIsActive(true);
   };
 
-  const getDifference = (prev: string, current: string) => {
-    const currentWords = current.split(" ");
-    const prevWords = prev.split(" ");
-    const newWords = currentWords.filter((word) => !prevWords.includes(word));
-    return newWords;
-  };
-
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    const newInputText = getDifference(productsString, newValue).join(" ");
-    setInputText(newInputText);
-    setValue(newValue);
+    setValue(e.target.value);
   };
 
   return (
@@ -83,7 +79,7 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
         <Textarea
           value={value}
           ref={textareaRef}
-          onChange={(e) => handleOnChange(e)}
+          onChange={handleOnChange}
           autoFocus
           style={{ height, padding: '2px' }}
         />

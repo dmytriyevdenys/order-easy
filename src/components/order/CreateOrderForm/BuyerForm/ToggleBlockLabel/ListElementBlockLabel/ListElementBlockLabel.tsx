@@ -45,9 +45,7 @@ export const ListElementBlockLabel: React.FC<ListElementBlockLabelProps> = ({
     setIsHover(true);
     button === "edit" && handleEditing();
   };
-  const containerClass = isHover && s.hover;
-  console.log(buttonClicked);
-  
+  const containerClass = isHover && s.hover;  
   return (
     <div
       className={`${s.container} ${containerClass}`}

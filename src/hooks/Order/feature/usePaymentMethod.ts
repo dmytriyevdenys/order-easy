@@ -9,8 +9,6 @@ export const usePaymentMethod = (totalPrice: number, currentPaymentMethod?: TPay
     ];
     
     const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>(currentPaymentMethod || { label: 'Наложка', value: 0 });
-    console.log(currentPaymentMethod);
-
     return {
         paymentMethods,
         paymentMethod,
