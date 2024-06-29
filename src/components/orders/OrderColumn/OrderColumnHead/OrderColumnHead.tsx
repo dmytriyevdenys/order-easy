@@ -1,4 +1,4 @@
-import { TStatus } from "interfaces/order/status.type";
+import { TStatus } from "types/order/status.type";
 import s from "./OrderColumnHead.module.scss"
 
 type OrderColumnHeadProps = {

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {  AxiosError } from "axios";
-import { ExtendedAxiosError } from "interfaces/axios-error.interface";
+import { ExtendedAxiosError } from "types/axios-error.interface";
 import { LocalStorageManager } from "local-storage";
 import { authService } from "services/auth.service"
 

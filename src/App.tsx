@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 import { LOGIN_ROUTE } from "constans/routes";
 import { LocalStorageManager } from "local-storage";
 import { useRefreshToken } from "hooks/Auth/useRefreshToken";
+import { orderService } from "services/order.service";
 
 export const App: React.FC = () => {
   const localStorage = new LocalStorageManager<string>('token');
@@ -35,6 +36,7 @@ export const App: React.FC = () => {
       retry: 2
     }
   });
+  client.prefetchQuery(['statuses'], () => orderService.getStatuses(true));
 
   return (
     <div className={s.container}>

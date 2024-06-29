@@ -1,6 +1,6 @@
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import { TStatus } from "./status.type";
-import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TBuyer } from "types/buyer/buyer.type";
 import { TPaymentMethod } from "./paymentMethod/payment-method.type";
 
 export type TOrder = {

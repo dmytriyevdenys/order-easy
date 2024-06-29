@@ -1,4 +1,4 @@
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import s from "./ProductsList.module.scss";
 import { ProductListItem } from "./ProductListItem/ProductListItem";
 import { useEffect, useRef, useState } from "react";

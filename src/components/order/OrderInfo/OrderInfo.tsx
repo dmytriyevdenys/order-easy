@@ -6,7 +6,7 @@ import { ReactComponent as RecentIcon } from "assets/icons/orderIcons/RecentIcon
 import { Notes } from "./Notes/Notes";
 import { Tasks } from "./Tasks/Tasks";
 import { useQueryClient } from "@tanstack/react-query";
-import { TOrder } from "interfaces/order/order.type";
+import { TOrder } from "types/order/order.type";
 
 type OrderInfoProps = {
   orderId: number | undefined;

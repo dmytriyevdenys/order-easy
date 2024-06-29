@@ -4,7 +4,7 @@ import { useGetManagers } from "hooks/Order/useGetManagers"
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { TUser } from "interfaces/user/user.type";
+import { TUser } from "types/user/user.type";
 
 type TManager = { 
     manager_id: number;

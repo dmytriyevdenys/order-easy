@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import s from "./Pagination.module.scss"
 import { PaginationItem } from "./PaginationItem/PaginationItem";
-import { TPaginationProps } from "../../interfaces/pagination.type";
+import { TPaginationProps } from "../../types/pagination.type";
 import { DropDownPerPage } from "./DropDownPerPage/DropDownPerPage";
 
 

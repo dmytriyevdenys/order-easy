@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { packerService } from "services/packer.service";
-import { IntDoc } from "interfaces/int-doc.type";
+import { IntDoc } from "types/int-doc.type";
 import {
   ApiResponsePagination,
-} from "interfaces/api-response.interface";
+} from "types/api-response.interface";
 import { handleAxiosError } from "utils/axiosError";
 
 export const useAddIntDoc = (packerId: number, intDocNumber: string) => {

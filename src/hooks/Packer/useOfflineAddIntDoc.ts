@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { IntDoc } from "../../interfaces/int-doc.type";
+import { IntDoc } from "../../types/int-doc.type";
 import { LocalStorageManager } from "../../local-storage";
-import { ApiResponse } from "../../interfaces/api-response.interface";
+import { ApiResponse } from "../../types/api-response.interface";
 
 export const useOfflineAddIntDoc = (packerId: number, intDocNumber: string) => {
   const localStorage = new LocalStorageManager<IntDoc>(packerId.toString());

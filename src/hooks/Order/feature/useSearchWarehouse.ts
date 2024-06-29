@@ -1,4 +1,4 @@
-import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
+import { TWarehouse } from "types/order/addresses/api/warehouse.type";
 import { useState } from "react"
 import { useDebounce } from "utils/useDebounce";
 import { useGetWarehouse } from "../addresses/useGetWarehouse";

@@ -1,4 +1,4 @@
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import { ReactComponent as CloseIcon } from "assets/icons/orderIcons/close.svg";
 import s from "./ProductListItem.module.scss";
 import { useSortable } from "@dnd-kit/sortable";

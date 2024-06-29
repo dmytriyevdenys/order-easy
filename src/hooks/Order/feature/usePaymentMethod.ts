@@ -1,14 +1,11 @@
-import { TPaymentMethod } from "interfaces/order/paymentMethod/payment-method.type";
+import { TPaymentMethod } from "types/order/paymentMethod/payment-method.type";
 import { useState } from "react";
+import { useGetPaymentMethods } from "../useGetPaymentMethods";
 
-export const usePaymentMethod = (totalPrice: number, currentPaymentMethod?: TPaymentMethod) => {
-    const paymentMethods: TPaymentMethod[] = [
-        { label: 'На карту', value: totalPrice || 0 },
-        { label: 'Наложка', value: 0 },
-        { label: 'Аванс', value: 0 }
-    ];
+export const usePaymentMethod = (totalPrice: number, currentPaymentMethod: TPaymentMethod) => {
+    const { data: paymentMethods } = useGetPaymentMethods();
+    const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>(currentPaymentMethod);
     
-    const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>(currentPaymentMethod || { label: 'Наложка', value: 0 });
     return {
         paymentMethods,
         paymentMethod,

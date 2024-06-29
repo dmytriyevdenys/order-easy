@@ -4,7 +4,7 @@ import { AbstractFormComponent } from "components/order/AbstractFormComponent/Ab
 import { SearchSettlements } from "components/order/SearchSettlements/SearchSettlements";
 import { SearchWarehouse } from "components/order/SearchWarehouse/SearchWarehouse";
 import { Radio } from "components/shared/ui/Radio/Radio";
-import { TAdressesProps } from "interfaces/order/addresses/adresses-props.type";
+import { TAdressesProps } from "types/order/addresses/adresses-props.type";
 import { useRadioGroup } from "utils/useRadioGroup";
 
 type AddressBlockProps = TAdressesProps;

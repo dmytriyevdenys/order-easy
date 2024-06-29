@@ -1,10 +1,10 @@
 import s from "./BuyerForm.module.scss";
-import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TBuyer } from "types/buyer/buyer.type";
 import { BlockLabel } from "./BlockLabel/BlockLabel";
 import { AddressBuyerForm } from "./AddressBuyerForm/AddressBuyerForm";
 import { BuyerRecipient } from "./BuyerRecipient/BuyerRecipient";
 import { CustomerForm } from "./CustomerForm/CustomerForm";
-import { TAdressesProps } from "interfaces/order/addresses/adresses-props.type";
+import { TAdressesProps } from "types/order/addresses/adresses-props.type";
 
 type BuyerFormProps = TAdressesProps & {
   buyer?: TBuyer;

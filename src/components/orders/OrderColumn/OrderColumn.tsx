@@ -1,9 +1,9 @@
-import { TStatus } from "interfaces/order/status.type";
+import { TStatus } from "types/order/status.type";
 import s from "./OrderColumn.module.scss";
 import { OrderColumnHead } from "./OrderColumnHead/OrderColumnHead";
 import { OrderSmall } from "../OrderSmall/OrderSmall";
 import { useDroppable } from "@dnd-kit/core";
-import { TOrderSmall } from "interfaces/order/order-small.type";
+import { TOrderSmall } from "types/order/order-small.type";
 import {  useRef } from "react";
 
 type OrderColumnProps = {

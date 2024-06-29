@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IPacker } from "../../../interfaces/packer.interface";
+import { IPacker } from "../../../types/packer.interface";
 import { Button } from "../../shared/ui/Buttons/Button/Button";
 import { DropDownItem } from "../../shared/ui/DropDown/DropDownItem/DropDownItem";
 import s from "./DropDownPacker.module.scss";

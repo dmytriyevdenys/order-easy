@@ -1,7 +1,7 @@
 import s from "./TagDropDown.module.scss";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
 import { TagItem } from "./TagItem/TagItem";
-import { TTag } from "interfaces/order/tag.type";
+import { TTag } from "types/order/tag.type";
 
 type TagDropDownProps = {
   addTag: (newTag: TTag) => void;

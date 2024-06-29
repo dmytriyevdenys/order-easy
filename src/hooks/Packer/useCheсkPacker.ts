@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { packerService } from "../../services/packer.service"
 import { AxiosError } from "axios";
-import { ExtendedAxiosError } from "../../interfaces/axios-error.interface";
+import { ExtendedAxiosError } from "../../types/axios-error.interface";
 import { LocalStorageManager } from "local-storage";
-import { IPacker } from "interfaces/packer.interface";
+import { IPacker } from "types/packer.interface";
 
 export const useCheckPacker  = (packerId: number, password: {password: string}) => {
   const localStorage = new LocalStorageManager<IPacker>('packer');

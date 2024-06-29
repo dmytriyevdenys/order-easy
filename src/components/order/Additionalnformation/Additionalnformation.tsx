@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState, useRef } from "react";
 import s from "./Additionalnformation.module.scss";
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import { Textarea } from "components/shared/ui/Textarea/Textarea";
 import { useTextAreaHeight } from "utils/useTextareaHeight";
 

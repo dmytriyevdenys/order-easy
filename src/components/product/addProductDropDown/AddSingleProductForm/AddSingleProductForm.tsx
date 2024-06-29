@@ -2,7 +2,7 @@ import { AbstractFormComponent } from "components/order/AbstractFormComponent/Ab
 import s from "./AddSingleProductForm.module.scss";
 import { Input } from "components/shared/ui/Input/Input";
 import { Button } from "components/shared/ui/Buttons/Button/Button";
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type AddSingleProductFormProps = {

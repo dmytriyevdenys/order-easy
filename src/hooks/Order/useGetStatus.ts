@@ -14,6 +14,8 @@ export const useGetStatuses = (filter?: StatusFilter) => {
             alias: 'new',
             color: '#36B441',
             is_active: true
-          }]
+          }],
+          staleTime: 1000 * 60 * 10,
+          cacheTime: 1000 * 60 * 60
     })
 }

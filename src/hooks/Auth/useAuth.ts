@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { LOGIN_ROUTE } from "constans/routes";
-import { ExtendedAxiosError } from "interfaces/axios-error.interface";
+import { ExtendedAxiosError } from "types/axios-error.interface";
 import { useNavigate } from "react-router-dom";
 import { authService } from "services/auth.service"
 

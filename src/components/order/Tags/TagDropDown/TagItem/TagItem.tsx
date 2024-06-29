@@ -1,4 +1,4 @@
-import { TTag } from "interfaces/order/tag.type";
+import { TTag } from "types/order/tag.type";
 import { ReactComponent as CloseIcon } from "assets/icons/orderIcons/close.svg";
 import s from "./TagItem.module.scss";
 

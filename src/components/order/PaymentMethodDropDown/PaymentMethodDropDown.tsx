@@ -1,9 +1,8 @@
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
 import { usePaymentMethod } from "../../../hooks/Order/feature/usePaymentMethod";
-import { TPaymentMethod } from "interfaces/order/paymentMethod/payment-method.type";
-import { AbstractFormComponent } from "../AbstractFormComponent/AbstractFormComponent";
-import { Input } from "components/shared/ui/Input/Input";
+import { TPaymentMethod } from "types/order/paymentMethod/payment-method.type";
+
 
 type PaymentMethodDropDownProps = ReturnType<typeof usePaymentMethod> & {
   paymentMethod?: TPaymentMethod;
@@ -14,6 +13,7 @@ export const PaymentMethodDropDown: React.FC<PaymentMethodDropDownProps> = ({
   paymentMethods,
   setPaymentMethod,
 }) => {
+  
   return (
     <>
       <DropDown
@@ -25,7 +25,7 @@ export const PaymentMethodDropDown: React.FC<PaymentMethodDropDownProps> = ({
         readonlyInput
         position={{top: 0, left: 0}}
       >
-        {paymentMethods.map((method, index) => (
+        { paymentMethods?.map((method, index) => (
           <DropDownItem
             key={index}
             data={method.label}

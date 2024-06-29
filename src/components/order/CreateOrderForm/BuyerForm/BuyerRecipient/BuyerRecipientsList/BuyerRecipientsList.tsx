@@ -1,4 +1,4 @@
-import { TCustomer } from "interfaces/buyer/buyer.type"
+import { TCustomer } from "types/buyer/buyer.type"
 import { BuyerRecipientsListElement } from "./BuyerRecipientListElement/BuyerRecipientsListElement"
 
 type BuyerRecipientsListProps = {

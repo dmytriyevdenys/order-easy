@@ -1,6 +1,6 @@
 
-import { ApiResponse } from '../interfaces/api-response.interface';
-import { TProduct } from '../interfaces/products/products.type';
+import { ApiResponse } from '../types/api-response.interface';
+import { TProduct } from '../types/products/products.type';
 import { api } from './api/axiosConfig';
 class ProductService  {
     private productPath = 'product';

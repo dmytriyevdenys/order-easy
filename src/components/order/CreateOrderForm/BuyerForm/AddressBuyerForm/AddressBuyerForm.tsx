@@ -1,9 +1,9 @@
-import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
+import { TWarehouse } from "types/order/addresses/api/warehouse.type";
 import s from "./AddressBuyerForm.module.scss";
 import { AddressBlock } from "./AddressBlock/AddressBlock";
 import { ToggleBlockLabel } from "../ToggleBlockLabel/ToggleBlockLabel";
 import { AddressesList } from "./AddressesList/AddressesList";
-import { TAdressesProps } from "interfaces/order/addresses/adresses-props.type";
+import { TAdressesProps } from "types/order/addresses/adresses-props.type";
 
 type AddressBuyerFormProps = TAdressesProps & {
   addresses?: TWarehouse[];

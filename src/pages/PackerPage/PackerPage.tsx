@@ -4,7 +4,7 @@ import useOnlineStatus from "hooks/Packer/useOnlineStatus";
 import { useAddIntDoc } from "hooks/Packer/useAddIntDoc";
 import { useOfflineAddIntDoc } from "hooks/Packer/useOfflineAddIntDoc";
 import { useSyncWithServer } from "hooks/Packer/useSyncWithServer";
-import { IPacker } from "interfaces/packer.interface";
+import { IPacker } from "types/packer.interface";
 import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { ErrorToast } from "components/shared/ErrorToast";
 import { PackerTable } from "components/packer/PackerTable/PackerTable";

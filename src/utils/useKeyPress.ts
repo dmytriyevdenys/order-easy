@@ -1,4 +1,4 @@
-import { SupportedKeys } from "interfaces/supported-keys";
+import { SupportedKeys } from "types/supported-keys";
 import { MouseEventHandler, useCallback, useEffect } from "react";
 
 type KeyHandler = (event: KeyboardEvent | MouseEventHandler) => void;

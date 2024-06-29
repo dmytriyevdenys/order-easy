@@ -1,5 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { TOrderSmall } from "interfaces/order/order-small.type";
+import { useQuery } from "@tanstack/react-query"
 import { orderService } from "services/order.service"
 
 export const useGetOrderByStatus = (statuses: number[]) => {

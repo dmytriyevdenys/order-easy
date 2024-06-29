@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDebounce } from "utils/useDebounce";
 import { useGetCity } from "../addresses/useGetCity";
-import { TCity } from "interfaces/order/addresses/api/city.type";
-import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
+import { TCity } from "types/order/addresses/api/city.type";
+import { TWarehouse } from "types/order/addresses/api/warehouse.type";
 
 export const useSearchSettlements = (address?: TWarehouse) => {
   const city: TCity = {

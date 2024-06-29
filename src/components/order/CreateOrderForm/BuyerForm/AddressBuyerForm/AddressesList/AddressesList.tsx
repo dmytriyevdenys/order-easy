@@ -1,4 +1,4 @@
-import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
+import { TWarehouse } from "types/order/addresses/api/warehouse.type";
 import s from "./AddressesList.module.scss";
 import { AddressListElement } from "./AddressListElement/AddressListElement";
 

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { TUpdateOrder } from "interfaces/order/update-order.type";
+import { TUpdateOrder } from "types/order/update-order.type";
 import { orderService } from "services/order.service";
 import { handleAxiosError } from "utils/axiosError";
 

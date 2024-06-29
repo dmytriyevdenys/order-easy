@@ -1,5 +1,5 @@
-import { TSignIn } from "interfaces/auth/sign-in.type";
-import { TUser } from "interfaces/user/user.type";
+import { TSignIn } from "types/auth/sign-in.type";
+import { TUser } from "types/user/user.type";
 import { api } from "./api/axiosConfig";
 
 class AuthService { 

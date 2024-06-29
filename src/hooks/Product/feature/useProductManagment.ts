@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TProduct } from "../../../interfaces/products/products.type";
+import { TProduct } from "../../../types/products/products.type";
 import { useDebounce } from "../../../utils/useDebounce";
 import { useGetProductsToOrder } from "../useGetProductToOrder";
 import { useKeyPress } from "utils/useKeyPress";

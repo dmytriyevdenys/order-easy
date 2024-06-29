@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { packerService } from "../../services/packer.service";
-import { ApiResponse } from "../../interfaces/api-response.interface";
-import { IPacker } from "../../interfaces/packer.interface";
-import { ExtendedAxiosError } from "../../interfaces/axios-error.interface";
+import { ApiResponse } from "../../types/api-response.interface";
+import { IPacker } from "../../types/packer.interface";
+import { ExtendedAxiosError } from "../../types/axios-error.interface";
 import { Axios } from "axios";
 
 type AddPackerProps = { 

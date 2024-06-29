@@ -1,5 +1,5 @@
 import s from "./BuyerRecipientsListElement.module.scss";
-import { TCustomer } from "interfaces/buyer/buyer.type";
+import { TCustomer } from "types/buyer/buyer.type";
 import { ListElementBlockLabel } from "../../../ToggleBlockLabel/ListElementBlockLabel/ListElementBlockLabel";
 import { Input } from "components/shared/ui/Input/Input";
 import { EditElementBlockLabel } from "../../../ToggleBlockLabel/EditElementBlockLabel/EditElementBlockLabel";

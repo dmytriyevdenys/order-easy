@@ -1,4 +1,4 @@
-import { TWarehouse } from "interfaces/order/addresses/api/warehouse.type";
+import { TWarehouse } from "types/order/addresses/api/warehouse.type";
 import { ListElementBlockLabel } from "../../../ToggleBlockLabel/ListElementBlockLabel/ListElementBlockLabel";
 import { EditElementBlockLabel } from "../../../ToggleBlockLabel/EditElementBlockLabel/EditElementBlockLabel";
 import { SearchSettlements } from "components/order/SearchSettlements/SearchSettlements";

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LocalStorageManager } from "../../local-storage";
 import { packerService } from "../../services/packer.service";
-import { IntDoc } from "../../interfaces/int-doc.type";
+import { IntDoc } from "../../types/int-doc.type";
 
 export const useSyncWithServer = (isOnline: boolean, packerId: number) => {
   const localStorage = new LocalStorageManager<IntDoc>(packerId.toString());

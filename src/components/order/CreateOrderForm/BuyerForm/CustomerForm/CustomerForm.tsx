@@ -1,4 +1,4 @@
-import { TCustomer } from "interfaces/buyer/buyer.type";
+import { TCustomer } from "types/buyer/buyer.type";
 import { AbstractFormComponent } from "components/order/AbstractFormComponent/AbstractFormComponent";
 import { Input } from "components/shared/ui/Input/Input";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";

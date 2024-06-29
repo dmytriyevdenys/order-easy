@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { IntDoc } from "../../interfaces/int-doc.type";
-import { ApiResponse } from "../../interfaces/api-response.interface";
+import { IntDoc } from "../../types/int-doc.type";
+import { ApiResponse } from "../../types/api-response.interface";
 import { useCallback, useEffect } from "react";
 
 export const useSseIntDoc = (options: { limit?: number; page?: number }) => {

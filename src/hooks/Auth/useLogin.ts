@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Axios } from "axios";
-import { TSignIn } from "interfaces/auth/sign-in.type";
-import { ExtendedAxiosError } from "interfaces/axios-error.interface";
+import { TSignIn } from "types/auth/sign-in.type";
+import { ExtendedAxiosError } from "types/axios-error.interface";
 import { LocalStorageManager } from "local-storage";
 import { authService } from "services/auth.service";
 

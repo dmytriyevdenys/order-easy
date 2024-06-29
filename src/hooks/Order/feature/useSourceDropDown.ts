@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useGetSources } from "../useGetSource";
-import { OrderAssociations } from "../../../interfaces/order/order-associations";
+import { TOrderAssociations } from "../../../types/order/order-associations";
 
 export const useSourceDropDown= () => {
     const { data } = useGetSources();
@@ -23,7 +23,7 @@ export const useSourceDropDown= () => {
     setSourceName(value);
   };
 
-  const handleSetSource = (source: OrderAssociations) => {
+  const handleSetSource = (source: TOrderAssociations) => {
     setSourceName(source.name);
     setSourceId(source.id);
     setSearchTerm('');

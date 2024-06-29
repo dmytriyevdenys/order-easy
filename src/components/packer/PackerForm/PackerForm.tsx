@@ -4,7 +4,7 @@ import { Input } from "../../shared/ui/Input/Input";
 import s from "./PackerFrom.module.scss";
 import { useCheckPacker } from "../../../hooks/Packer/useCheсkPacker";
 import { useState } from "react";
-import { IPacker } from "../../../interfaces/packer.interface";
+import { IPacker } from "../../../types/packer.interface";
 import { useAddPacker } from "../../../hooks/Packer/useAddPacker";
 
 type InputProps = {

@@ -1,10 +1,12 @@
-import { OrderAssociations } from "../interfaces/order/order-associations";
-import { TUser } from "interfaces/user/user.type";
+import { TOrderAssociations } from "../types/order/order-associations";
+import { TUser } from "types/user/user.type";
 import { api } from "./api/axiosConfig";
-import { TTag } from "interfaces/order/tag.type";
-import { TStatus } from "interfaces/order/status.type";
-import { TOrderByStatus } from "interfaces/order/order-small.type";
-import { TOrder } from "interfaces/order/order.type";
+import { TTag } from "types/order/tag.type";
+import { TStatus } from "types/order/status.type";
+import { TOrderByStatus } from "types/order/order-small.type";
+import { TOrder } from "types/order/order.type";
+import { TPaymentMethod } from "types/order/paymentMethod/payment-method.type";
+import { ApiResponse } from '../types/api-response.interface';
 
 class OrderService {
     private path = 'order/';
@@ -28,7 +30,7 @@ class OrderService {
     }
     
     async getSources() {
-        const sources = await api.get<OrderAssociations[]>(`${this.path}source`);
+        const sources = await api.get<TOrderAssociations[]>(`${this.path}source`);
         return sources.data;
     }
 
@@ -51,6 +53,11 @@ class OrderService {
     async getTags () {
         const tags = await api.get<TTag[]>(`${this.path}tag`);
         return tags.data;
+    }
+
+    async getPaymentMethods () { 
+        const paymentMethods = await api.get<ApiResponse<TPaymentMethod[]>>(`${this.path}payment`);
+        return paymentMethods.data;
     }
 
 }

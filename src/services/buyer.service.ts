@@ -1,4 +1,4 @@
-import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TBuyer } from "types/buyer/buyer.type";
 import { api } from "./api/axiosConfig";
 
 class BuyerService { 

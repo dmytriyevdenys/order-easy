@@ -1,7 +1,7 @@
 import { useDraggable } from "@dnd-kit/core";
 import s from "./OrderSmall.module.scss"
 import { useState } from "react";
-import { TOrderSmall } from "interfaces/order/order-small.type";
+import { TOrderSmall } from "types/order/order-small.type";
 
 type OrderSmallProps = TOrderSmall & {
     color: string;

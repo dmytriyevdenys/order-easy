@@ -1,10 +1,10 @@
-import { IPacker } from "../interfaces/packer.interface";
+import { IPacker } from "../types/packer.interface";
 import {
   ApiResponse,
   ApiResponsePagination,
-} from "../interfaces/api-response.interface";
-import { IntDoc } from "../interfaces/int-doc.type";
-import { TScanIntDoc } from "../interfaces/packer/scan-int-doc.type";
+} from "../types/api-response.interface";
+import { IntDoc } from "../types/int-doc.type";
+import { TScanIntDoc } from "../types/packer/scan-int-doc.type";
 import { api } from "./api/axiosConfig";
 
 class PackerService {

@@ -11,10 +11,10 @@ import {
 import { useState } from "react";
 import { OrderSmall } from "../OrderSmall/OrderSmall";
 import { useGetOrderByStatus } from "hooks/Order/useGetOrderByStatus";
-import { TOrderByStatus, TOrderSmall } from "interfaces/order/order-small.type";
+import { TOrderByStatus, TOrderSmall } from "types/order/order-small.type";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUpdateOrder } from "hooks/Order/useUpdateOrder";
-import { TUpdateOrder } from "interfaces/order/update-order.type";
+import { TUpdateOrder } from "types/order/update-order.type";
 import { ErrorToast } from "components/shared/ErrorToast";
 import { useNavigate } from "react-router-dom";
 import { ORDER_ROUTE } from "constans/routes";

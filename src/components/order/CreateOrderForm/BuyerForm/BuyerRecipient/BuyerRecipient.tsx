@@ -1,4 +1,4 @@
-import { TCustomer } from "interfaces/buyer/buyer.type";
+import { TCustomer } from "types/buyer/buyer.type";
 import { CustomerForm } from "../CustomerForm/CustomerForm";
 import { ToggleBlockLabel } from "../ToggleBlockLabel/ToggleBlockLabel";
 import { BuyerRecipientsList } from "./BuyerRecipientsList/BuyerRecipientsList";

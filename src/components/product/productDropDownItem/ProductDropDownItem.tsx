@@ -4,7 +4,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { TProduct } from "../../../interfaces/products/products.type";
+import { TProduct } from "../../../types/products/products.type";
 import s from "./ProductDropDownItem.module.scss";
 import { Input } from "../../shared/ui/Input/Input";
 

@@ -1,5 +1,5 @@
 import s from "./Tags.module.scss";
-import { TTag } from "interfaces/order/tag.type";
+import { TTag } from "types/order/tag.type";
 import { useRef, useState } from "react";
 import { TagItem } from "./TagDropDown/TagItem/TagItem";
 import { TagDropDown } from "./TagDropDown/TagDropDown";

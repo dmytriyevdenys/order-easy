@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./CreateOrder.module.scss";
 import { AddProductsDropDown } from "components/product/addProductDropDown/AddProductsDropDown";
 import { useProductManagment } from "hooks/Product/feature/useProductManagment";
-import { TProduct } from "interfaces/products/products.type";
+import { TProduct } from "types/products/products.type";
 import { SourceDropDown } from "../SourceDropDown/SourceDropDown";
 import { useSourceDropDown } from "hooks/Order/feature/useSourceDropDown";
 import { ManagerDropDown } from "../ManagerDropDown/ManagerDropDown";
@@ -17,9 +17,9 @@ import { AdditionalInformation } from "../Additionalnformation/Additionalnformat
 import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { ResizeContainer } from "components/shared/Resize";
 import { Tags } from "../Tags/Tags";
-import { TOrder } from "interfaces/order/order.type";
+import { TOrder } from "types/order/order.type";
 import { BuyerForm } from "./BuyerForm/BuyerForm";
-import { TBuyer } from "interfaces/buyer/buyer.type";
+import { TBuyer } from "types/buyer/buyer.type";
 import { useActiveOverlay } from "utils/useActiveOverlay";
 import { BackButton } from "components/shared/ui/Buttons/BackButton/BackButton";
 
@@ -50,7 +50,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({ order }) => {
   );
   const paymentMethodDropDownProps = usePaymentMethod(
     addProductsDropDownProps.totalPrice,
-    order?.payment
+order?.payment || {id: 1, name: 'CashOnDelivery', label: 'Наложка'}
   );
 
   const { isActiveOverlay } = useActiveOverlay(
@@ -125,8 +125,7 @@ export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({ order }) => {
                   Component={
                     <Input
                       variant="grivnja"
-                      autoFocus={paymentMethodDropDownProps.paymentMethod.value === 0}
-                      value={paymentMethodDropDownProps.paymentMethod.value}
+                      value={0}
                     />
                   }
                 />
