@@ -9,9 +9,7 @@ export const OrderPage: React.FC = () => {
   const { orderId } = useParams();
   const location = useLocation();
   const isNewOrder = location.pathname.includes("new");
-  const { data: order, isSuccess } = useGetOrder(Number(orderId) || null);  
-  console.log(order);
-    
+  const { data: order, isSuccess } = useGetOrder(Number(orderId) || null);      
   return (
     <div className={s.container}>
       {(isSuccess || isNewOrder) && (

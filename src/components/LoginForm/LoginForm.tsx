@@ -25,7 +25,7 @@ export const LoginForm: React.FC = () => {
     mutate();
   };
   useEffect (() => {
-    if (isSuccess && isAuth) {
+    if ( isAuth) {
       navigate(ORDERS_ROUTE);
     } 
   }, [isAuth, isSuccess, navigate])

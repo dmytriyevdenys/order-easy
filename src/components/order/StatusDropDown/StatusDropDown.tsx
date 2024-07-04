@@ -9,7 +9,7 @@ type StatusDropDownProps = {
   currentStatus?: TStatus;
 }
 export const StatusDropDown: React.FC<StatusDropDownProps> = ({ currentStatus }) => {
-  const { data } = useGetStatuses({all: true});
+  const { data } = useGetStatuses();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<TStatus>(currentStatus || data[0]);
 

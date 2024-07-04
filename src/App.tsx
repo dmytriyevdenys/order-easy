@@ -9,22 +9,21 @@ import { AxiosError } from "axios";
 import { LOGIN_ROUTE } from "constans/routes";
 import { LocalStorageManager } from "local-storage";
 import { useRefreshToken } from "hooks/Auth/useRefreshToken";
-import { orderService } from "services/order.service";
+import { usePrefetchData } from "hooks/usePrefetchData";
 
 export const App: React.FC = () => {
   const localStorage = new LocalStorageManager<string>('token');
   const token = localStorage.getData();
  useRefreshToken(token && token[0])
-  
   const client = useQueryClient();
-  const { isSuccess } = useAuth();
+  const { isSuccess: isSuccessAuth} = useAuth();
   const auth = client.getQueryData<{ isAuth: boolean }>(['auth']);
   const isAuth = auth?.isAuth;
   const navigate = useNavigate();
 
   useEffect(() => {
-    !isAuth && isSuccess && navigate('/login');
-  }, [isAuth, isSuccess, navigate]);
+    !isAuth && isSuccessAuth && navigate('/login');
+  }, [isAuth, isSuccessAuth, navigate]);
 
   client.setDefaultOptions({
     queries: {
@@ -36,8 +35,7 @@ export const App: React.FC = () => {
       retry: 2
     }
   });
-  client.prefetchQuery(['statuses'], () => orderService.getStatuses(true));
-
+usePrefetchData()
   return (
     <div className={s.container}>
       {isAuth && (

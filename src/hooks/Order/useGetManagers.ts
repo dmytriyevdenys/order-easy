@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { CACHE_TIME, STALE_TIME } from "constans/queryConfig";
 import { orderService } from "services/order.service";
 
 export const useGetManagers = () => {
@@ -16,5 +17,7 @@ export const useGetManagers = () => {
         return null;
       }).filter(Boolean); 
     },
+    staleTime: STALE_TIME,
+    cacheTime: CACHE_TIME
   });
 };

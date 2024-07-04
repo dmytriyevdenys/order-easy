@@ -21,8 +21,9 @@ import { ORDER_ROUTE } from "constans/routes";
 
 export const OrderBoard: React.FC = () => {
   const navigate = useNavigate();
-  const client = useQueryClient();
-  const { data: statuses, } = useGetStatuses();
+  const client = useQueryClient(); 
+  const { data: statuses, } = useGetStatuses({ids: '1,2,3,5'});  
+  // const statuses = client.getQueryData<TStatus[]>(['statuses', 'all'])
   const statusIds =  statuses?.map((status) => status.id) || [];
   const { data: ordersByStatus, isSuccess: isSuccessOrders } =
     useGetOrderByStatus(statusIds);
@@ -79,8 +80,7 @@ export const OrderBoard: React.FC = () => {
   const handleNavigate = (orderId: number) => {
     const route = orderId ? `${ORDER_ROUTE}/${orderId}` : `${ORDER_ROUTE}/new`;
     navigate(route);
-  };
-  
+  };    
   return (
     <div className={s.container}>
       <DndContext 

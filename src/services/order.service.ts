@@ -9,7 +9,7 @@ import { TPaymentMethod } from "types/order/paymentMethod/payment-method.type";
 import { ApiResponse } from '../types/api-response.interface';
 
 class OrderService {
-    private path = 'order/';
+    private readonly path = 'order/';
 
 
     async updateOrder (order: Partial<TOrder>) {
@@ -34,17 +34,16 @@ class OrderService {
         return sources.data;
     }
 
-    async getStatuses(all?: boolean) {
-        const params: { id: string; all?: boolean } = { id: '1,2,3,4,5,6,7' };
-        if (all !== undefined) {
-            params.all = all;
+    async getStatuses(ids?: string) {
+        const params: { id?: string } = {};
+        if (ids) {
+            params.id = ids;
         }
-    
         const statuses = await api.get<TStatus[]>(`${this.path}status`, { params });
         return statuses.data;
     }
     
-
+    
     async getUsers () { 
         const users = await api.get<TUser[]>('user');
         return users.data

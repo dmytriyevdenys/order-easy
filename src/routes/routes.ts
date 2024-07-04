@@ -23,13 +23,15 @@ export const router = createBrowserRouter([
             {
                 path: `${ORDER_ROUTE}/:orderId` || `${ORDER_ROUTE}/new`,
                 Component: OrderPage
+            },
+            {
+                path: LOGIN_ROUTE,
+                Component: LoginPage
             }
            
         ]
+        
     },
-    {
-        path: LOGIN_ROUTE,
-        Component: LoginPage
-    }
+ 
     
 ])
