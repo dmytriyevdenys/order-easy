@@ -5,7 +5,7 @@ import {
 } from "../types/api-response.interface";
 import { IntDoc } from "../types/int-doc.type";
 import { TScanIntDoc } from "../types/packer/scan-int-doc.type";
-import { api } from "./api/axiosConfig";
+import { api } from "../config/api/axiosConfig";
 
 class PackerService {
   private packerPath = 'packer';

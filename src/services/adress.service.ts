@@ -1,6 +1,6 @@
 import { TCity } from "types/order/addresses/api/city.type";
 import { TWarehouse } from "types/order/addresses/api/warehouse.type";
-import { api } from "./api/axiosConfig";
+import { api } from "../config/api/axiosConfig";
 
 class AddressService {
  private path = 'address/';

@@ -11,9 +11,9 @@ export const useRefreshToken = (access_token: string) => {
     return useMutation({
         mutationFn: () => authService.refresh(access_token),
         onSuccess: (token) => {
-            token && client.setQueryData(['auth'], { isAuth: true });
+            // token && client.setQueryData(['auth'], { isAuth: true });
             localStorage.clearData();
-            localStorage.setData([token])
+           token && localStorage.setData([token])
         },
         onError: (error: ExtendedAxiosError) =>  {
             if (error instanceof AxiosError) {

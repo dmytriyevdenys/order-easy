@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_ENDPOINT_DEV } from "constans/baseEndPoint";
+import { BASE_ENDPOINT_DEV } from "config/baseEndPoint";
 import { LocalStorageManager } from "local-storage";
 
 

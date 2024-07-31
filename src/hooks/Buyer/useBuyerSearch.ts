@@ -4,6 +4,8 @@ import { buyerService } from "services/buyer.service"
 export const useBuyerSearch = (search: string) =>  {
     return useQuery({
         queryKey: ['buyer', search],
-        queryFn: () => buyerService.findBuyer(search)
+        queryFn: () => buyerService.findBuyer(search),
+        retry: 0,
+        enabled: !!search.length
     })
 }

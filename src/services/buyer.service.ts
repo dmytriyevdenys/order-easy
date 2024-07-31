@@ -1,5 +1,5 @@
 import { TBuyer } from "types/buyer/buyer.type";
-import { api } from "./api/axiosConfig";
+import { api } from "../config/api/axiosConfig";
 
 class BuyerService { 
    private path = 'buyer';

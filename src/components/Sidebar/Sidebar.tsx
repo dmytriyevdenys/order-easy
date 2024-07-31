@@ -3,7 +3,7 @@ import {ReactComponent as LogoIcon} from "../../assets/icons/logo.svg";
 import {ReactComponent as OrderIcon} from "../../assets/icons/orderIcons/order-page-icon.svg";
 import {ReactComponent as PackerIcon} from "../../assets/icons/packer-icon.svg"
 import { NavLink } from "react-router-dom";
-import { ORDERS_ROUTE, PACKER_ROUTE } from "constans/routes";
+import { ORDERS_ROUTE, PACKER_ROUTE } from "config/routes";
 export const SideBar: React.FC = () => {
     return (
         <nav className={s.container}>

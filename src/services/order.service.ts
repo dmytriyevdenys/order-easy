@@ -1,6 +1,6 @@
 import { TOrderAssociations } from "../types/order/order-associations";
 import { TUser } from "types/user/user.type";
-import { api } from "./api/axiosConfig";
+import { api } from "../config/api/axiosConfig";
 import { TTag } from "types/order/tag.type";
 import { TStatus } from "types/order/status.type";
 import { TOrderByStatus } from "types/order/order-small.type";

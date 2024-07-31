@@ -1,5 +1,5 @@
 import { App } from "App";
-import { LOGIN_ROUTE, ORDERS_ROUTE, ORDER_ROUTE, PACKER_ROUTE } from "constans/routes";
+import { LOGIN_ROUTE, ORDERS_ROUTE, ORDER_ROUTE, PACKER_ROUTE } from "config/routes";
 import { LoginPage } from "pages/LoginPage/LoginPage";
 import { OrderPage } from "pages/OrderPage/OrderPage";
 import { OrdersPage } from "pages/OrdersPage/OrdersPage";

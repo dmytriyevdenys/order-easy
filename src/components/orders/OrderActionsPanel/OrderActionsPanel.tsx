@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import s from "./OrderActionsPanel.module.scss";
-import { ORDER_ROUTE } from "constans/routes";
+import { ORDER_ROUTE } from "config/routes";
 import { Button } from "components/shared/ui/Buttons/Button/Button";
 import { Input } from "components/shared/ui/Input/Input";
 import { useKeyPress } from "utils/useKeyPress";

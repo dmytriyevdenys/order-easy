@@ -6,10 +6,10 @@ import { useAuth } from "hooks/Auth/useAuth";
 import { LoginPage } from "pages/LoginPage/LoginPage";
 import { useEffect } from "react";
 import { AxiosError } from "axios";
-import { LOGIN_ROUTE } from "constans/routes";
 import { LocalStorageManager } from "local-storage";
 import { useRefreshToken } from "hooks/Auth/useRefreshToken";
 import { usePrefetchData } from "hooks/usePrefetchData";
+import { LOGIN_ROUTE } from "config/routes";
 
 export const App: React.FC = () => {
   const localStorage = new LocalStorageManager<string>('token');
@@ -17,13 +17,16 @@ export const App: React.FC = () => {
  useRefreshToken(token && token[0])
   const client = useQueryClient();
   const { isSuccess: isSuccessAuth} = useAuth();
-  const auth = client.getQueryData<{ isAuth: boolean }>(['auth']);
-  const isAuth = auth?.isAuth;
+  // const auth = client.getQueryData<{ isAuth: boolean }>(['auth']);
+  // const isAuth = auth?.isAuth;
   const navigate = useNavigate();
+  const { prefetchData } = usePrefetchData(); 
 
   useEffect(() => {
-    !isAuth && isSuccessAuth && navigate('/login');
-  }, [isAuth, isSuccessAuth, navigate]);
+    // !isAuth && 
+    !isSuccessAuth && navigate('/login');
+    isSuccessAuth && prefetchData();
+  }, [isSuccessAuth, navigate, prefetchData]);
 
   client.setDefaultOptions({
     queries: {
@@ -35,10 +38,9 @@ export const App: React.FC = () => {
       retry: 2
     }
   });
-usePrefetchData()
   return (
     <div className={s.container}>
-      {isAuth && (
+      {isSuccessAuth && (
         <>
           <SideBar />
           <div className={s.content_container}>
@@ -46,7 +48,7 @@ usePrefetchData()
           </div>
         </>
       )}
-      {!isAuth && <LoginPage />}
+      {!isSuccessAuth && <LoginPage />}
     </div>
   );
 };

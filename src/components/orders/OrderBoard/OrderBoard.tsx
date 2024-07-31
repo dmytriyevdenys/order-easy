@@ -17,12 +17,13 @@ import { useUpdateOrder } from "hooks/Order/useUpdateOrder";
 import { TUpdateOrder } from "types/order/update-order.type";
 import { ErrorToast } from "components/shared/ErrorToast";
 import { useNavigate } from "react-router-dom";
-import { ORDER_ROUTE } from "constans/routes";
+import { ORDER_ROUTE } from "config/routes";
 
 export const OrderBoard: React.FC = () => {
   const navigate = useNavigate();
   const client = useQueryClient(); 
-  const { data: statuses, } = useGetStatuses({ids: '1,2,3,5'});  
+  const { data: statuses } = useGetStatuses({ids: '1,2,3,5'}); 
+  
   // const statuses = client.getQueryData<TStatus[]>(['statuses', 'all'])
   const statusIds =  statuses?.map((status) => status.id) || [];
   const { data: ordersByStatus, isSuccess: isSuccessOrders } =

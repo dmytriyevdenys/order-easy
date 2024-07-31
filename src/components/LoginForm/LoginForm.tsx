@@ -6,15 +6,17 @@ import { useLogin } from "hooks/Auth/useLogin";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { ORDERS_ROUTE } from "constans/routes";
+import { ORDERS_ROUTE } from "config/routes";
+import { TUser } from "types/user/user.type";
 type InputProps = {
   email: string;
   password: string;
 };
 export const LoginForm: React.FC = () => {
   const client = useQueryClient();
-  const auth = client.getQueryData<{isAuth: boolean}>(['auth']);
- const isAuth = auth?.isAuth ;
+//   const auth = client.getQueryData<{isAuth: boolean}>(['auth']);
+//  const isAuth = auth?.isAuth ;
+const me = client.getQueryData<TUser>(['user', 'me'])
  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<InputProps>();
   const [dataForm, setDataForm] = useState<InputProps>({email: '', password: ''});
@@ -25,10 +27,10 @@ export const LoginForm: React.FC = () => {
     mutate();
   };
   useEffect (() => {
-    if ( isAuth) {
+    if ( isSuccess || me) {
       navigate(ORDERS_ROUTE);
     } 
-  }, [isAuth, isSuccess, navigate])
+  }, [me, isSuccess, navigate])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.container}>
