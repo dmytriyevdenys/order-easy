@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "services/auth.service"
 import { LOGIN_ROUTE } from "config/routes";
 import { CACHE_TIME, STALE_TIME } from "config/cacheConfig";
-
+import { defineAbilityFor } from "utils/ability";
 export const useAuth = () => {
     const client = useQueryClient();
     const navigate = useNavigate();
@@ -13,6 +13,7 @@ export const useAuth = () => {
         queryFn: () => authService.authMe(),
         onSuccess: (data) => {
            data &&  client.setQueryData(['auth'], { isAuth: true });
+           defineAbilityFor(data);
         },
         retry: 1,
         onError: (error: ExtendedAxiosError) => {

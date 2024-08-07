@@ -1,3 +1,5 @@
+import { TRole } from "./role.type";
+
 type TProfile = { 
     id: number;
     phone: string;
@@ -10,8 +12,10 @@ type TProfile = {
  
 
 export type TUser = {
+    id: number;
     email:string;
     password: string;
     name: string;
     profile: TProfile;
+    role: TRole;
 }

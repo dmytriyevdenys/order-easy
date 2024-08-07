@@ -14,7 +14,7 @@ export const useCalculatePosition = (ref: React.RefObject<HTMLDivElement>, posit
             left: rect.left + window.scrollX - position.left,
           });
         }
-      }, [ref]);
+      }, [ref, position.top, position.left]);
     
       return { positionState, calculatePosition };
 }

@@ -8,6 +8,7 @@ export const useGetOrderByStatus = (statuses: number[]) => {
       select: (data) => {
           return data.filter(item => item.orders.filter(order => order !== null));
       },
-      enabled: !!statuses.length
+      enabled: !!statuses.length,
+      retry: 1
   });
 };
