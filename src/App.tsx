@@ -16,15 +16,12 @@ export const App: React.FC = () => {
   const token = localStorage.getData();
  useRefreshToken(token && token[0])
   const client = useQueryClient();
-  const { isSuccess: isSuccessAuth} = useAuth();
-  // const auth = client.getQueryData<{ isAuth: boolean }>(['auth']);
-  // const isAuth = auth?.isAuth;
+  const { isSuccess: isSuccessAuth, isLoading} = useAuth();
   const navigate = useNavigate();
   const { prefetchData } = usePrefetchData(); 
 
   useEffect(() => {
-    // !isAuth && 
-    !isSuccessAuth && navigate('/login');
+    (!isSuccessAuth && !isLoading) && navigate('/login');
     isSuccessAuth && prefetchData();
   }, [isSuccessAuth, navigate, prefetchData]);
 

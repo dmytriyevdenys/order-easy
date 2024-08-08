@@ -23,9 +23,8 @@ export const StatusDropDown: React.FC<StatusDropDownProps> = ({ currentStatus })
         <div
           className={s.status_color}
           style={{ backgroundColor: status?.color || "" }}
-        ></div>
-      </div>
-      <DropDown
+        >
+               <DropDown
         closeToClickElement
         show={isOpen}
         closeDropDown={() => setIsOpen(false)}
@@ -41,6 +40,9 @@ export const StatusDropDown: React.FC<StatusDropDownProps> = ({ currentStatus })
               />
           ))}
       </DropDown>
+        </div>
+      </div>
+
     </div>
   );
 };

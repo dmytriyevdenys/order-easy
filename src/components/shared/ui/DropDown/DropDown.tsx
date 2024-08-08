@@ -65,11 +65,6 @@ export const DropDown: React.FC<DropDownProps> = ({
     containerRef,
     { top: position?.top || 0, left: position?.left || 0 }
   );
-
-  useEffect(() => {
-    if (show === false) setShowDropDown(false);
-    if (show === true) setShowDropDown(true);
-  }, [show, setShowDropDown]);
   const listClassName = elementPosition === "above" ? s.above : s.below;
   const scrollClassName = scrollHeight && s.scroll;
   useKeyPress("Escape", () => {
@@ -78,9 +73,14 @@ export const DropDown: React.FC<DropDownProps> = ({
   });
 
   useEffect(() => {
-    position && calculatePosition();
-  }, [show, showDropDown, position, calculatePosition]);
+    if (!show) setShowDropDown(false);
+    if (show) setShowDropDown(true);
+  }, [show, setShowDropDown]);
 
+  useEffect(() => {
+    (position && (show || showDropDown)) && calculatePosition();
+  }, [show, showDropDown, position, calculatePosition]);  
+  
   return (
     <div className={s.container} ref={containerRef} {...props}>
       <div className={s.drop_down_button}>
@@ -122,7 +122,7 @@ export const DropDown: React.FC<DropDownProps> = ({
             ...(position && {
               top: `${positionState.top}px`,
               left: `${positionState.left}px`,
-              position: 'fixed'
+              position:'fixed'
             }),
           }}
         >

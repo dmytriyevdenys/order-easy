@@ -26,7 +26,6 @@ export const TagDropDown: React.FC<TagDropDownProps> = ({
           closeDropDown={() => {
             isOpen && closeDropDown(false);
           }}
-          position={{top:10,left:150}}
         >
           <div className={s.tags}>
             {
