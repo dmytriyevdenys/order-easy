@@ -1,4 +1,3 @@
-import { TOrderAssociations } from "../types/order/order-associations";
 import { TUser } from "types/user/user.type";
 import { api } from "../config/api/axiosConfig";
 import { TTag } from "types/order/tag.type";
@@ -7,6 +6,7 @@ import { TOrderByStatus } from "types/order/order-small.type";
 import { TOrder } from "types/order/order.type";
 import { TPaymentMethod } from "types/order/paymentMethod/payment-method.type";
 import { ApiResponse } from '../types/api-response.interface';
+import { TSource } from "types/order/source.type";
 
 class OrderService {
     private readonly path = 'order/';
@@ -30,8 +30,8 @@ class OrderService {
     }
     
     async getSources() {
-        const sources = await api.get<TOrderAssociations[]>(`${this.path}source`);
-        return sources.data;
+        const sources = await api.get<ApiResponse<TSource[]>>(`${this.path}source`);
+        return sources.data.data;
     }
 
     async getStatuses(ids?: string) {

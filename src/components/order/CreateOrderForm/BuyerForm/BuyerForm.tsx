@@ -18,7 +18,7 @@ export const BuyerForm: React.FC<BuyerFormProps> = ({
   return (
     <div className={s.container}>
       <BlockLabel label="Покупець" copyButton/>
-      <CustomerForm phones={phones} full_name={full_name}/>
+      <CustomerForm phones={phones} full_name={full_name} searchCustomer/>
       <AddressBuyerForm
         searchSettlementProps={searchSettlementProps}
         searchWarehouseProps={searchWarehouseProps}

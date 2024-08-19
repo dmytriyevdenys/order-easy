@@ -22,6 +22,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
   closeForm,
   setIsAddSingleProduct,
   setProducts,
+  setSelectedProduct,
   isAddSingleProduct,
   selectedProduct,
   search,
@@ -41,6 +42,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
           isActiveDropDown={buttonClicked}
           openDropDown={() => setButtonClicked((prev) => !prev)}
           onProductClick={handleProductClick}
+          setSelectedProduct={(p) => setSelectedProduct(p)}
         />
         {!buttonClicked && !products.length && (
           <div className={s.button_container}>
@@ -67,6 +69,7 @@ export const AddProductsDropDown: React.FC<AddProductsDropDownProps> = ({
               product={selectedProduct}
               updateProduct={updateProduct}
               addedProductsIds={[selectedProduct.id]}
+              selectedProduct={true}
             />
           )}
           {(buttonClicked && !selectedProduct && !isAddSingleProduct) && (

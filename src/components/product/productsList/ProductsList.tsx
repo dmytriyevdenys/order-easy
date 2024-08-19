@@ -14,6 +14,7 @@ type ProductsListProps = {
   updateProduct: (product: TProduct) => void;
   onProductClick: (product: TProduct) => void;
   setProducts: React.Dispatch<React.SetStateAction<TProduct[]>>;
+  setSelectedProduct: (p: TProduct | null) => void;
 };
 export const ProductsList: React.FC<ProductsListProps> = ({
   products,
@@ -21,6 +22,7 @@ export const ProductsList: React.FC<ProductsListProps> = ({
   openDropDown,
   onProductClick,
   setProducts,
+  setSelectedProduct,
   isActiveDropDown,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,38 +37,38 @@ export const ProductsList: React.FC<ProductsListProps> = ({
     }
   }, [products, isActiveDropDown]);
 
-  const {setNodeRef} = useDroppable({id: 'id'})
+  // const {setNodeRef} = useDroppable({id: 'id'})
 
-  const hanldeDragStart = (e: DragStartEvent) => {
-    if (e.active.data) {
-      const draggedOrder = e.active.data?.current as TProduct ;
-      setActiveDragProduct(draggedOrder);
+  // const hanldeDragStart = (e: DragStartEvent) => {
+  //   if (e.active.data) {
+  //     const draggedOrder = e.active.data?.current as TProduct ;
+  //     setActiveDragProduct(draggedOrder);
       
-    }
-  }
-  const handleDragEnd = (e: DragOverEvent) => {
-    const { active, over } = e;
-    const oldProduct = active.data.current as TProduct;
-    const newProduct = over?.data.current as TProduct;
-    setProducts((products) => {
-      const sortProducts = products.map((product) => {
-        if (product.indexId === oldProduct.indexId) {
-          product.indexId = newProduct.indexId;
-        } else if (product.indexId === newProduct.indexId) {
-          product.indexId = oldProduct.indexId;
-        }
-        return product;
-      }).sort((a,b) => a.indexId - b.indexId);      
-      return sortProducts;
-    });
-  };
+  //   }
+  // }
+  // const handleDragEnd = (e: DragOverEvent) => {
+  //   const { active, over } = e;
+  //   const oldProduct = active.data.current as TProduct;
+  //   const newProduct = over?.data.current as TProduct;
+  //   setProducts((products) => {
+  //     const sortProducts = products.map((product) => {
+  //       if (product.indexId === oldProduct.indexId) {
+  //         product.indexId = newProduct.indexId;
+  //       } else if (product.indexId === newProduct.indexId) {
+  //         product.indexId = oldProduct.indexId;
+  //       }
+  //       return product;
+  //     }).sort((a,b) => a.indexId - b.indexId);      
+  //     return sortProducts;
+  //   });
+  // };
   return (
-    <DndContext onDragStart={hanldeDragStart} onDragEnd={handleDragEnd}>
+    // <DndContext onDragStart={hanldeDragStart} onDragEnd={handleDragEnd}>
 
         <div className={containerClass} ref={containerRef}>
-                <SortableContext items={products.map(product => product.indexId)} >  
+            {/* {/*    <SortableContext items={products.map(product => product.indexId)} >   */}
           {products.map((product, index) => (
-             <div ref={setNodeRef} key={index}>
+             <div  key={index}>
               <ProductListItem
                 key={index}
                 index={product.indexId}
@@ -81,19 +83,22 @@ export const ProductsList: React.FC<ProductsListProps> = ({
             <Button
               variant="mini"
               style={{ width: "70px" }}
-              onClick={openDropDown}
+              onClick={() => {
+                setSelectedProduct(null);
+                openDropDown();
+              }}
             >
               Додати
             </Button>
           )}
-           </SortableContext>
+           {/* </SortableContext> */}
         </div>
      
-      <DragOverlay>
-              {activeDragProduct && 
-              <ProductListItem product={activeDragProduct} index={activeDragProduct.indexId} removeProduct={removeProduct} onProductClick={onProductClick}/>
-            }
-              </DragOverlay>
-    </DndContext>
+      // <DragOverlay>
+      //         {activeDragProduct && 
+      //         <ProductListItem product={activeDragProduct} index={activeDragProduct.indexId} removeProduct={removeProduct} onProductClick={onProductClick}/>
+      //       }
+      //         </DragOverlay>
+    // </DndContext>
   );
 };

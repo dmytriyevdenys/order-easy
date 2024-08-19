@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TProduct } from "../../../types/products/products.type";
 import { useDebounce } from "../../../utils/useDebounce";
 import { useGetProductsToOrder } from "../useGetProductToOrder";
@@ -106,7 +106,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     setIsAddSingleProduct(false);
   };
 
-  useKeyPress("Escape", () => setButtonClicked(false));
+  useKeyPress("Escape", () => !selectedProduct && setButtonClicked(false));
   useKeyPress("Enter", toConfirm);
   useKeyPress("Space", () => setButtonClicked(true));
 
@@ -127,6 +127,7 @@ export const useProductManagment = (product?: TProduct[]) => {
     setIsAddSingleProduct,
     closeForm,
     setProducts,
+    setSelectedProduct,
     dataProducts,
     products,
     buttonClicked,

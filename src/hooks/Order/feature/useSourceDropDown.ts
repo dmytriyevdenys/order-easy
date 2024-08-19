@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import { useGetSources } from "../useGetSource";
-import { TOrderAssociations } from "../../../types/order/order-associations";
+import { TSource } from "types/order/source.type";
 
-export const useSourceDropDown= () => {
+export const useSourceDropDown= (curentSource?: TSource) => {
     const { data } = useGetSources();
+  const [source, setSource] = useState<TSource | null>(curentSource || null);
   const [showDropDown, setShowDropDown] = useState(false);
-  const [sourceName, setSourceName] = useState('');
+  const [sourceName, setSourceName] = useState(source?.name || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [source_id, setSourceId] = useState<number | null>(null);
 
@@ -23,12 +24,14 @@ export const useSourceDropDown= () => {
     setSourceName(value);
   };
 
-  const handleSetSource = (source: TOrderAssociations) => {
+  const handleSetSource = (source: TSource) => {
+    setSource(source);
     setSourceName(source.name);
     setSourceId(source.id);
     setSearchTerm('');
   };  
   return {
+    source,
     showDropDown,
     handleShowDropDown,
     sourceName,

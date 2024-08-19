@@ -6,6 +6,6 @@ export const useBuyerSearch = (search: string) =>  {
         queryKey: ['buyer', search],
         queryFn: () => buyerService.findBuyer(search),
         retry: 0,
-        enabled: !!search.length
+        enabled: false
     })
 }

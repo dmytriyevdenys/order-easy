@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useEffect, useState, useRef } from "react";
 import s from "./Additionalnformation.module.scss";
-import { TProduct } from "types/products/products.type";
 import { Textarea } from "components/shared/ui/Textarea/Textarea";
 import { useTextAreaHeight } from "utils/useTextareaHeight";
+import { TProduct } from "types/products/products.type";
 
 type AdditionalInformationProps = {
   products?: TProduct[];
@@ -13,59 +13,68 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
   products,
   additionalInformation,
 }) => {
-  const [value, setValue] = useState<string>("");
+  const [productsString, setProductsString] = useState<string>("");
+  const [value, setValue] = useState<string>(additionalInformation || "");
+  const [inputText, setInputText] = useState<string>(
+    additionalInformation || ""
+  );
 
   const [isActive, setIsActive] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const initialProductsRef = useRef<Set<string>>(new Set());
 
   const { height } = useTextAreaHeight({
     textareaRef,
     containerRef,
     isActive,
-    text: value,
+    text: inputText,
   });
 
+  const updateValue = (products: string, inputText: string) => {
+    setValue(`${products} ${inputText}`);
+  };
+  const productsText = products && products
+  .map((product) => {
+    let text = product.name;
+    if (product.comment) {
+      text += ` ${product.comment}`;
+    }
+    if (product.quantity && product.quantity > 1) {
+      text += `-${product.quantity}шт`;
+    }
+    return text;
+  })
+  .join(", ");
+
   useEffect(() => {
+    setProductsString(productsText || '');
     if (additionalInformation) {
       setValue(additionalInformation);
+    } else {
+      updateValue(productsString, inputText);
     }
-  }, [additionalInformation]);
-
-  useEffect(() => {
-    if (products && products.length > 0) {
-      const newProductsText = products
-        .map((product) =>
-          product.quantity && product.quantity > 1
-            ? `${product.name}-${product.quantity}шт`
-            : product.name
-        )
-        .join(", ");
-      
-      setValue(prevValue => {
-        if (!prevValue.trim()) {
-          return newProductsText;
-        } else {
-          const prevProductsText = Array.from(initialProductsRef.current).join(", ");
-          return `${prevValue}, ${newProductsText.replace(prevProductsText, "")}`;
-        }
-      });
-      
-      products.forEach(product => initialProductsRef.current.add(product.name));
-    }
-  }, [products]);
+  }, [products, additionalInformation, productsString]);
 
   const handleContainerBlur = () => {
-    setIsActive(false);
+    setIsActive((prev) => !prev);
   };
 
   const handleContainerClick = () => {
     setIsActive(true);
   };
 
+  const getDifference = (prev: string, current: string) => {
+    const currentWords = current.split(" ");
+    const prevWords = prev.split(" ");
+    const newWords = currentWords.filter((word) => !prevWords.includes(word));
+    return newWords;
+  };
+
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    const newValue = e.target.value;
+    const newInputText = getDifference(productsString, newValue).join(" ");
+    setInputText(newInputText);
+    setValue(newValue);
   };
 
   return (
@@ -79,9 +88,9 @@ export const AdditionalInformation: React.FC<AdditionalInformationProps> = ({
         <Textarea
           value={value}
           ref={textareaRef}
-          onChange={handleOnChange}
+          onChange={(e) => handleOnChange(e)}
           autoFocus
-          style={{ height, padding: '2px' }}
+          style={{ height, padding: '2px', color: 'black' }}
         />
       ) : (
         <div className={s.value}>{value}</div>

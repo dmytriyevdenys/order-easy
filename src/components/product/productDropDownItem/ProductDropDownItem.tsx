@@ -1,9 +1,4 @@
-import {
-  ChangeEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { TProduct } from "../../../types/products/products.type";
 import s from "./ProductDropDownItem.module.scss";
 import { Input } from "../../shared/ui/Input/Input";
@@ -14,6 +9,7 @@ type ProductDropDownItemProps = {
   removeCheckProduct?: (productId: number) => void;
   updateProduct: (updatedProduct: TProduct) => void;
   addedProductsIds?: number[];
+  selectedProduct?: boolean;
 };
 
 export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
@@ -21,6 +17,7 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
   addProduct,
   removeCheckProduct,
   addedProductsIds,
+  selectedProduct,
   updateProduct,
 }) => {
   const amountRef = useRef<HTMLDivElement>(null);
@@ -29,7 +26,7 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
   const [clicked, setClicked] = useState({ amount: false, price: false });
   const [productItem, setProductItem] = useState<TProduct>({
     ...product,
-    quantity: product.indexId ? product.quantity: 1,
+    quantity: product.indexId ? product.quantity : 1,
     price: product.indexId ? product.price : product.price || 0,
   });
   const { id: productId, name: productName, quantity, price } = productItem;
@@ -49,48 +46,42 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
     const isChecked = !checkedProduct;
     setCheckedProduct(isChecked);
 
-    (isChecked && addProduct) && addProduct(productItem);
-    (!isChecked && removeCheckProduct) && removeCheckProduct(productId);
+    isChecked && addProduct && addProduct(productItem);
+    !isChecked && removeCheckProduct && removeCheckProduct(productId);
   };
 
-  const handleUpdateProduct = (
-    e: ChangeEvent<HTMLInputElement>,
-    input: "quantity" | "price"
-  ) => {
-    if (input === "quantity") {
-      setProductItem({
-        ...productItem,
-        quantity: Number(e.target.value),
-      });
-      updateProduct({
-        ...productItem,
-        quantity: Number(e.target.value),
-      });
-    }
-    if (input === "price") {
-      setProductItem({
-        ...productItem,
-        price: Number(e.target.value),
-      });
-      updateProduct({
-        ...productItem,
-        price: Number(e.target.value),
-      });
-    }
-  };
+  const handleUpdateProduct = (e: ChangeEvent<HTMLInputElement>, input: keyof TProduct) => {
+    const updatedValue = input === "quantity" || input === "price" ? Number(e.target.value) : e.target.value;
   
+    const updatedProduct = {
+      ...productItem,
+      [input]: updatedValue,
+    };
+  
+    setProductItem(updatedProduct);
+    updateProduct(updatedProduct);
+  };
+
   useEffect(() => {
     addedProductsIds && !addedProductsIds.length && setCheckedProduct(false);
   }, [addedProductsIds]);
-
-
-  
   return (
     <div className={s.container} onClick={handleCheckboxChange}>
       <div className={s.dicription}>
-        <input type="checkbox" checked={checkedProduct} onChange={() => {}} />
+        {!selectedProduct && (
+          <input type="checkbox" checked={checkedProduct} onChange={() => {}} />
+        )}
         <span className={s.name_product}>{productName}</span>
       </div>
+      {selectedProduct && (
+        <Input
+        backgroundNone
+          variant="default"
+          placeholder="коментар"
+          value={productItem.comment}
+          onChange={(e) => handleUpdateProduct(e, "comment")}
+        />
+      )}
       <div className={s.amount_price_container}>
         {!clicked.amount ? (
           <div
@@ -104,6 +95,8 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
         ) : (
           <div className={s.amount}>
             <Input
+            backgroundNone
+            placeholder="к-сть"
               variant="default"
               type="number"
               autoFocus
@@ -116,6 +109,8 @@ export const ProductDropDownItem: React.FC<ProductDropDownItemProps> = ({
         {clicked.price && (
           <div className={s.price}>
             <Input
+            backgroundNone
+            placeholder="ціна"
               variant="default"
               type="number"
               autoFocus

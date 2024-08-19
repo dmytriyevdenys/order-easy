@@ -42,7 +42,7 @@ type CreateOrderFormProps = {
 };
 export const CreateOrderForm: React.FC<CreateOrderFormProps> = ({ order }) => {
   const addProductsDropDownProps = useProductManagment(order?.products);
-  const sourceDropDownProps = useSourceDropDown();
+  const sourceDropDownProps = useSourceDropDown(order?.source);
   const searchSettlementsProps = useSearchSettlements();
   const { settlement } = searchSettlementsProps;
   const searchWarehouseProps = useSearchWarehouse(

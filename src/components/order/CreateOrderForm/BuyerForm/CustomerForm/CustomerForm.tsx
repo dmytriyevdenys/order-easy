@@ -2,40 +2,40 @@ import { TCustomer } from "types/buyer/buyer.type";
 import { AbstractFormComponent } from "components/order/AbstractFormComponent/AbstractFormComponent";
 import { Input } from "components/shared/ui/Input/Input";
 import { DropDown } from "components/shared/ui/DropDown/DropDown";
-import { useBuyerSearch } from "hooks/Buyer/useBuyerSearch";
 import { DropDownItem } from "components/shared/ui/DropDown/DropDownItem/DropDownItem";
-import { useState } from "react";
-import { useDebounce } from "utils/useDebounce";
+import { useCustomerForm } from "hooks/Buyer/feature/useCustomerForm";
 
 type CustomerFormProps = Partial<TCustomer> & {
   autoFocus?: boolean;
-}
+  searchCustomer?: boolean;
+};
 export const CustomerForm: React.FC<CustomerFormProps> = ({
   full_name,
   phones,
   email,
-  autoFocus
+  autoFocus,
+  searchCustomer,
 }) => {
-  const [value, setValue] = useState<string>(full_name || "");
-  const [showDropDown, setShowDropDown] = useState<boolean>(false);
-  const debounceValue = useDebounce(value, 1000);
-  const { data: buyersData, isSuccess } = useBuyerSearch(debounceValue);
-
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowDropDown(true);
-    setValue(e.target.value);
-  };
-  
+  const {
+    valueFullName,
+    phoneValues,
+    showDropDown,
+    isSuccess,
+    buyersData,
+    handleChangeFullName,
+    setShowDropDown,
+    handleOnChangePhone
+  } = useCustomerForm(full_name, phones, searchCustomer);
   return (
-    <div  style={{backgroundColor: '#ffff'}}>
+    <div style={{ backgroundColor: "#ffff" }}>
       <AbstractFormComponent
         label="ПІБ"
         Component={
-          <div>
+          <div style={{ position: "relative" }}>
             <Input
               variant="default"
-              value={value}
-              onChange={handleOnChange}
+              value={valueFullName}
+              onChange={handleChangeFullName}
               autoFocus={autoFocus}
             />
             <DropDown
@@ -48,18 +48,27 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({
             >
               {isSuccess &&
                 buyersData?.map((buyer) => (
-                  <DropDownItem key={buyer.id} data={`${buyer.full_name}, ${buyer.phones[0]}`} />
+                  <DropDownItem
+                    key={buyer.id}
+                    data={`${buyer.full_name}, ${buyer.phones[0]}`}
+                  />
                 ))}
             </DropDown>
           </div>
         }
       />
       {phones?.length &&
-        phones?.map((phone, index) => (
+        phoneValues?.map((phone, index) => (
           <AbstractFormComponent
             key={index}
             label="Телефон"
-            Component={<Input variant="default" value={phone || ""} />}
+            Component={
+              <Input
+                variant="default"
+                value={phone || ""}
+                onChange={handleOnChangePhone(index)}
+              />
+            }
           />
         ))}
       {!phones?.length && (

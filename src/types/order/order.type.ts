@@ -2,6 +2,7 @@ import { TProduct } from "types/products/products.type";
 import { TStatus } from "./status.type";
 import { TBuyer } from "types/buyer/buyer.type";
 import { TPaymentMethod } from "./paymentMethod/payment-method.type";
+import { TSource } from 'types/order/source.type';
 
 export type TOrder = {
     id: number; 
@@ -10,7 +11,7 @@ export type TOrder = {
     order_id?:string;
     sender: any;
     shipping: any;
-    source_id: number;
+    source: TSource;
     manager_id: number;
     products:TProduct[];
     totalPrice: number;

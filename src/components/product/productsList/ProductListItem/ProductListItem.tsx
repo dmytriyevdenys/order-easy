@@ -11,7 +11,6 @@ type ProductListItemProps = {
 };
 export const ProductListItem: React.FC<ProductListItemProps> = ({
   product,
-  index,
   removeProduct,
   onProductClick,
 }) => {

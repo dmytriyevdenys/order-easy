@@ -23,7 +23,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     (!isSuccessAuth && !isLoading) && navigate('/login');
     isSuccessAuth && prefetchData();
-  }, [isSuccessAuth, navigate, prefetchData]);
+  }, [isSuccessAuth, isLoading, navigate, prefetchData]);
 
   client.setDefaultOptions({
     queries: {
